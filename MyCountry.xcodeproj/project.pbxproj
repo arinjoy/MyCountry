@@ -19,6 +19,13 @@
 		0E3658A2244017AA00768256 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3658A0244017AA00768256 /* Nimble.framework */; };
 		0E3658A3244017AA00768256 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3658A1244017AA00768256 /* Quick.framework */; };
 		0E3658A62440236900768256 /* TestExampleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658A52440236900768256 /* TestExampleSpec.swift */; };
+		0E3658AC24402ECF00768256 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AB24402ECF00768256 /* APIError.swift */; };
+		0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AD2440306A00768256 /* HTTPClient.swift */; };
+		0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AF2440309100768256 /* ObservableDataSource.swift */; };
+		0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B2244030BB00768256 /* BaseRequest.swift */; };
+		0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B42440320500768256 /* EndPointConfiguration.swift */; };
+		0E3658B7244032E900768256 /* Decoding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B6244032E900768256 /* Decoding+Helpers.swift */; };
+		0E3658B92440351000768256 /* FactsFindingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B82440351000768256 /* FactsFindingRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +63,13 @@
 		0E3658A0244017AA00768256 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		0E3658A1244017AA00768256 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		0E3658A52440236900768256 /* TestExampleSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExampleSpec.swift; sourceTree = "<group>"; };
+		0E3658AB24402ECF00768256 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		0E3658AD2440306A00768256 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		0E3658AF2440309100768256 /* ObservableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDataSource.swift; sourceTree = "<group>"; };
+		0E3658B2244030BB00768256 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		0E3658B42440320500768256 /* EndPointConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointConfiguration.swift; sourceTree = "<group>"; };
+		0E3658B6244032E900768256 /* Decoding+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decoding+Helpers.swift"; sourceTree = "<group>"; };
+		0E3658B82440351000768256 /* FactsFindingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +126,9 @@
 		0E365867244010C000768256 /* MyCountry */ = {
 			isa = PBXGroup;
 			children = (
-				0E365868244010C000768256 /* AppDelegate.swift */,
-				0E36586C244010C000768256 /* MyCountryViewController.swift */,
-				0E36586E244010C000768256 /* Main.storyboard */,
-				0E365871244010C000768256 /* Assets.xcassets */,
-				0E365873244010C000768256 /* LaunchScreen.storyboard */,
+				0E3658A724402E3900768256 /* PresentationLayer */,
+				0E3658A824402E5600768256 /* DomainLayer */,
+				0E3658A924402E6400768256 /* NetworkLayer */,
 				0E365876244010C000768256 /* Info.plist */,
 			);
 			path = MyCountry;
@@ -149,6 +161,55 @@
 				0E36589A2440173D00768256 /* RxSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E3658A724402E3900768256 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				0E365868244010C000768256 /* AppDelegate.swift */,
+				0E36586C244010C000768256 /* MyCountryViewController.swift */,
+				0E36586E244010C000768256 /* Main.storyboard */,
+				0E365871244010C000768256 /* Assets.xcassets */,
+				0E365873244010C000768256 /* LaunchScreen.storyboard */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		0E3658A824402E5600768256 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		0E3658A924402E6400768256 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658B1244030AC00768256 /* Requests */,
+				0E3658AA24402EB500768256 /* APIClient */,
+				0E3658AF2440309100768256 /* ObservableDataSource.swift */,
+				0E3658B42440320500768256 /* EndPointConfiguration.swift */,
+				0E3658B6244032E900768256 /* Decoding+Helpers.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		0E3658AA24402EB500768256 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658AB24402ECF00768256 /* APIError.swift */,
+				0E3658AD2440306A00768256 /* HTTPClient.swift */,
+			);
+			path = APIClient;
+			sourceTree = "<group>";
+		};
+		0E3658B1244030AC00768256 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658B2244030BB00768256 /* BaseRequest.swift */,
+				0E3658B82440351000768256 /* FactsFindingRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +410,13 @@
 			files = (
 				0E36586D244010C000768256 /* MyCountryViewController.swift in Sources */,
 				0E365869244010C000768256 /* AppDelegate.swift in Sources */,
+				0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */,
+				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
+				0E3658B7244032E900768256 /* Decoding+Helpers.swift in Sources */,
+				0E3658B92440351000768256 /* FactsFindingRequest.swift in Sources */,
+				0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */,
+				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
+				0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

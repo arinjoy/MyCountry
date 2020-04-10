@@ -37,6 +37,9 @@
 		0E3658DC2440694100768256 /* MockRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658DB2440694100768256 /* MockRequest.swift */; };
 		0E3658DE244069B400768256 /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658DD244069B400768256 /* MockSession.swift */; };
 		0E3658E02440721300768256 /* testSample.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E3658DF2440721300768256 /* testSample.json */; };
+		0E3658E22440983100768256 /* FactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E12440983100768256 /* FactsInteractor.swift */; };
+		0E3658E724409E5700768256 /* FactsFindingService+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */; };
+		0E3658E92440A15E00768256 /* FactsInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E82440A15E00768256 /* FactsInteractorSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +95,9 @@
 		0E3658DB2440694100768256 /* MockRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequest.swift; sourceTree = "<group>"; };
 		0E3658DD244069B400768256 /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		0E3658DF2440721300768256 /* testSample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testSample.json; sourceTree = "<group>"; };
+		0E3658E12440983100768256 /* FactsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsInteractor.swift; sourceTree = "<group>"; };
+		0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsFindingService+TestDoubles.swift"; sourceTree = "<group>"; };
+		0E3658E82440A15E00768256 /* FactsInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsInteractorSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +165,7 @@
 		0E36587E244010C000768256 /* MyCountryTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658E424409E2300768256 /* DomainLayerTests */,
 				0E3658C624403F3600768256 /* NetworkLayerTests */,
 				0E365881244010C000768256 /* Info.plist */,
 			);
@@ -200,6 +207,7 @@
 		0E3658A824402E5600768256 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658E12440983100768256 /* FactsInteractor.swift */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -315,6 +323,23 @@
 				0E3658D9244065C100768256 /* HTTPClientSpec.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		0E3658E424409E2300768256 /* DomainLayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658E82440A15E00768256 /* FactsInteractorSpec.swift */,
+				0E3658E524409E3100768256 /* Mocks */,
+			);
+			path = DomainLayerTests;
+			sourceTree = "<group>";
+		};
+		0E3658E524409E3100768256 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +547,7 @@
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
 				0E3658C02440380900768256 /* FactsFindingService.swift in Sources */,
 				0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */,
+				0E3658E22440983100768256 /* FactsInteractor.swift in Sources */,
 				0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */,
 				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
 				0E3658C32440383D00768256 /* FactsList.swift in Sources */,
@@ -534,7 +560,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E3658C924403F6C00768256 /* ObservableDataSource+TestDoubles.swift in Sources */,
+				0E3658E92440A15E00768256 /* FactsInteractorSpec.swift in Sources */,
 				0E3658DC2440694100768256 /* MockRequest.swift in Sources */,
+				0E3658E724409E5700768256 /* FactsFindingService+TestDoubles.swift in Sources */,
 				0E3658DE244069B400768256 /* MockSession.swift in Sources */,
 				0E3658CB24403FB500768256 /* FactsFindingRequestSpec.swift in Sources */,
 				0E3658CE2440417800768256 /* FactsFindingServiceSpec.swift in Sources */,

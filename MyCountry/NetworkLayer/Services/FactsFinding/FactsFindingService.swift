@@ -16,7 +16,6 @@ protocol FactsFindingClientType {
     func findFacts() -> Single<FactsList>
 }
 
-
 /// A service client to retrieve facts about something
 final class FactsFindingServiceClient: FactsFindingClientType {
     
@@ -35,4 +34,3 @@ final class FactsFindingServiceClient: FactsFindingClientType {
         return dataSource.fetchSingleObject(with: myCountryFactsRequest)
     }
 }
-

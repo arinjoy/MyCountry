@@ -17,7 +17,7 @@ final class ObservableDataSourceSpy: ObservableDataSource {
     var fetchSingleObjectCalled = false
     var request: BaseRequest?
     
-    func fetchSingleObject<T>(with request: BaseRequest) -> PrimitiveSequence<SingleTrait, T> where T : Decodable {
+    func fetchSingleObject<T>(with request: BaseRequest) -> PrimitiveSequence<SingleTrait, T> where T: Decodable {
         fetchSingleObjectCalled = true
         self.request = request
         return Observable.empty().asSingle()
@@ -47,7 +47,7 @@ final class ObservableDataSourceMock<ResponseType>: ObservableDataSource {
         self.error = error
     }
     
-    func fetchSingleObject<T>(with request: BaseRequest) -> PrimitiveSequence<SingleTrait, T> where T : Decodable {
+    func fetchSingleObject<T>(with request: BaseRequest) -> PrimitiveSequence<SingleTrait, T> where T: Decodable {
         if returningError {
             return Single.error(error)
         }

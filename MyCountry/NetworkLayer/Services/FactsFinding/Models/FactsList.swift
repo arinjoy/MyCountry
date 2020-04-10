@@ -17,7 +17,6 @@ struct FactsList: Decodable {
     /// An array of facts abou the subject
     let facts: [Fact]
     
-    
     // MARK: - Coding key mapping
     
     enum CodingKeys: String, CodingKey {
@@ -37,8 +36,7 @@ struct Fact: Decodable {
     
     /// The (optional) image web URL string of the fact
     let imageUrl: String?
-    
-    
+        
     // MARK: - Coding key mapping
     
     enum CodingKeys: String, CodingKey {

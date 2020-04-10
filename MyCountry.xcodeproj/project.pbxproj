@@ -18,7 +18,6 @@
 		0E36589F244017AA00768256 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E36589A2440173D00768256 /* RxSwift.framework */; };
 		0E3658A2244017AA00768256 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3658A0244017AA00768256 /* Nimble.framework */; };
 		0E3658A3244017AA00768256 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3658A1244017AA00768256 /* Quick.framework */; };
-		0E3658A62440236900768256 /* TestExampleSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658A52440236900768256 /* TestExampleSpec.swift */; };
 		0E3658AC24402ECF00768256 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AB24402ECF00768256 /* APIError.swift */; };
 		0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AD2440306A00768256 /* HTTPClient.swift */; };
 		0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658AF2440309100768256 /* ObservableDataSource.swift */; };
@@ -28,6 +27,9 @@
 		0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B82440351000768256 /* FactsFinding+Request.swift */; };
 		0E3658C02440380900768256 /* FactsFindingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658BF2440380900768256 /* FactsFindingService.swift */; };
 		0E3658C32440383D00768256 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658C22440383D00768256 /* Facts.swift */; };
+		0E3658C924403F6C00768256 /* ObservableDataSource+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658C824403F6C00768256 /* ObservableDataSource+TestDoubles.swift */; };
+		0E3658CB24403FB500768256 /* FactsFindingRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658CA24403FB500768256 /* FactsFindingRequestSpec.swift */; };
+		0E3658CE2440417800768256 /* FactsFindingServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658CD2440417800768256 /* FactsFindingServiceSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +66,6 @@
 		0E36589C2440175000768256 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		0E3658A0244017AA00768256 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		0E3658A1244017AA00768256 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		0E3658A52440236900768256 /* TestExampleSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExampleSpec.swift; sourceTree = "<group>"; };
 		0E3658AB24402ECF00768256 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		0E3658AD2440306A00768256 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		0E3658AF2440309100768256 /* ObservableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDataSource.swift; sourceTree = "<group>"; };
@@ -74,6 +75,9 @@
 		0E3658B82440351000768256 /* FactsFinding+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsFinding+Request.swift"; sourceTree = "<group>"; };
 		0E3658BF2440380900768256 /* FactsFindingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingService.swift; sourceTree = "<group>"; };
 		0E3658C22440383D00768256 /* Facts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
+		0E3658C824403F6C00768256 /* ObservableDataSource+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableDataSource+TestDoubles.swift"; sourceTree = "<group>"; };
+		0E3658CA24403FB500768256 /* FactsFindingRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingRequestSpec.swift; sourceTree = "<group>"; };
+		0E3658CD2440417800768256 /* FactsFindingServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingServiceSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,8 +145,8 @@
 		0E36587E244010C000768256 /* MyCountryTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658C624403F3600768256 /* NetworkLayerTests */,
 				0E365881244010C000768256 /* Info.plist */,
-				0E3658A52440236900768256 /* TestExampleSpec.swift */,
 			);
 			path = MyCountryTests;
 			sourceTree = "<group>";
@@ -248,6 +252,32 @@
 				0E3658BD2440376600768256 /* FactsFinding */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		0E3658C624403F3600768256 /* NetworkLayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658CC2440416000768256 /* FactsFinding */,
+				0E3658C724403F4900768256 /* Mocks */,
+				0E3658CA24403FB500768256 /* FactsFindingRequestSpec.swift */,
+			);
+			path = NetworkLayerTests;
+			sourceTree = "<group>";
+		};
+		0E3658C724403F4900768256 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658C824403F6C00768256 /* ObservableDataSource+TestDoubles.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		0E3658CC2440416000768256 /* FactsFinding */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658CD2440417800768256 /* FactsFindingServiceSpec.swift */,
+			);
+			path = FactsFinding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,7 +494,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E3658A62440236900768256 /* TestExampleSpec.swift in Sources */,
+				0E3658C924403F6C00768256 /* ObservableDataSource+TestDoubles.swift in Sources */,
+				0E3658CB24403FB500768256 /* FactsFindingRequestSpec.swift in Sources */,
+				0E3658CE2440417800768256 /* FactsFindingServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

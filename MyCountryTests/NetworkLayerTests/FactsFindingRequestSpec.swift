@@ -14,7 +14,7 @@ final class FactsFindingRequestSpec: QuickSpec {
 
     override func spec() {
         
-        describe("FactsFindingRequestSpec") {
+        describe("Facts Finding Request Spec") {
             
             var request: FactsFindingRequest!
             

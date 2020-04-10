@@ -18,12 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         
-        
-        window?.rootViewController = UINavigationController(rootViewController: MyCountryViewController())
+        window?.rootViewController = UINavigationController(rootViewController: FactsListViewController())
         window?.makeKeyAndVisible()
         return true
     }
-
-
 }
-

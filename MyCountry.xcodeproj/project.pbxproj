@@ -40,6 +40,8 @@
 		0E3658E22440983100768256 /* FactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E12440983100768256 /* FactsInteractor.swift */; };
 		0E3658E724409E5700768256 /* FactsFindingService+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */; };
 		0E3658E92440A15E00768256 /* FactsInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658E82440A15E00768256 /* FactsInteractorSpec.swift */; };
+		0E3658ED24411AB500768256 /* DataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658EC24411AB500768256 /* DataSection.swift */; };
+		0E3658EF24411B8300768256 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658EE24411B8300768256 /* DataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,8 @@
 		0E3658E12440983100768256 /* FactsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsInteractor.swift; sourceTree = "<group>"; };
 		0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsFindingService+TestDoubles.swift"; sourceTree = "<group>"; };
 		0E3658E82440A15E00768256 /* FactsInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsInteractorSpec.swift; sourceTree = "<group>"; };
+		0E3658EC24411AB500768256 /* DataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSection.swift; sourceTree = "<group>"; };
+		0E3658EE24411B8300768256 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,8 +199,8 @@
 		0E3658A724402E3900768256 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0E365868244010C000768256 /* AppDelegate.swift */,
-				0E36586C244010C000768256 /* MyCountryViewController.swift */,
+				0E3658F024411CB700768256 /* Scenes */,
+				0E3658EA24411A8900768256 /* SupportingHelpers */,
 				0E36586E244010C000768256 /* Main.storyboard */,
 				0E365871244010C000768256 /* Assets.xcassets */,
 				0E365873244010C000768256 /* LaunchScreen.storyboard */,
@@ -340,6 +344,48 @@
 				0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		0E3658EA24411A8900768256 /* SupportingHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658EB24411A9C00768256 /* ListDataSource */,
+			);
+			path = SupportingHelpers;
+			sourceTree = "<group>";
+		};
+		0E3658EB24411A9C00768256 /* ListDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658EC24411AB500768256 /* DataSection.swift */,
+				0E3658EE24411B8300768256 /* DataSource.swift */,
+			);
+			path = ListDataSource;
+			sourceTree = "<group>";
+		};
+		0E3658F024411CB700768256 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658F224411CD200768256 /* CountryFacts */,
+				0E3658F124411CC300768256 /* Root */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		0E3658F124411CC300768256 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				0E365868244010C000768256 /* AppDelegate.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		0E3658F224411CD200768256 /* CountryFacts */ = {
+			isa = PBXGroup;
+			children = (
+				0E36586C244010C000768256 /* MyCountryViewController.swift */,
+			);
+			path = CountryFacts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,6 +590,7 @@
 				0E36586D244010C000768256 /* MyCountryViewController.swift in Sources */,
 				0E365869244010C000768256 /* AppDelegate.swift in Sources */,
 				0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */,
+				0E3658EF24411B8300768256 /* DataSource.swift in Sources */,
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
 				0E3658C02440380900768256 /* FactsFindingService.swift in Sources */,
 				0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */,
@@ -552,6 +599,7 @@
 				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
 				0E3658C32440383D00768256 /* FactsList.swift in Sources */,
 				0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */,
+				0E3658ED24411AB500768256 /* DataSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

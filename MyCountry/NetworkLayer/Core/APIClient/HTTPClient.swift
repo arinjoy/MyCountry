@@ -93,6 +93,8 @@ private extension JSONDecoder {
             return .failure(APIError.unAuthorized)
         case 403:
             return .failure(APIError.forbidden)
+        case 404:
+            return .failure(APIError.notFound)
         case 503:
             return .failure(APIError.seviceUnavailable)
         case 500 ... 599:
@@ -105,7 +107,7 @@ private extension JSONDecoder {
         // we expect response may have some data (including error body sent from server)
         // If not, treat as missing data error
         guard let responseData = dataResponse.data else {
-            return .failure(APIError.noData)
+            return .failure(APIError.noDataFound)
         }
         
         // If response data body exists, try to decode from JSON as expected Data type
@@ -115,7 +117,7 @@ private extension JSONDecoder {
         } catch {
             // Most likely JSON data/contract conversion error here
             // Or if a custom Error json body was sent from server
-            return .failure(APIError.dataConversion)
+            return .failure(APIError.dataConversionFailed)
         }
     }
 }

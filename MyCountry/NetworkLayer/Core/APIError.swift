@@ -39,12 +39,11 @@ public enum APIError: Error {
     // MARK: - Misc
     
     /// When api does not return data
-    case noData
+    case noDataFound
     
     /// Data mapping/conversion error
-    case dataConversion
+    case dataConversionFailed
     
     /// Any unknown error happens
     case unknown
 }
-

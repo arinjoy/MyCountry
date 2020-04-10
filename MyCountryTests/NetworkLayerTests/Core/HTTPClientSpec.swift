@@ -27,7 +27,7 @@ final class HTTPClientSpec: QuickSpec {
             
             describe("fetching single object") {
                 
-                context("when error occurs") {
+                context("when failure occurs") {
                  
                     it("handles network connectivity error") {
                         mockSession.responseError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
@@ -48,6 +48,11 @@ final class HTTPClientSpec: QuickSpec {
                         mockSession.responseStatus = 403
                         testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .forbidden)
                     }
+                    
+                    it("handles 404 error") {
+                        mockSession.responseStatus = 404
+                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .notFound)
+                    }
 
                     it("handles 500 server error") {
                         mockSession.responseStatus = 500
@@ -61,22 +66,56 @@ final class HTTPClientSpec: QuickSpec {
                     
                     it("handles when there is no data") {
                         mockSession.responseData = nil
-                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .noData)
+                        mockSession.responseStatus = 200
+                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .noDataFound)
                     }
                     
                     it("handles when there is data conversion issue") {
                         mockSession.responseData = Bundle(for: type(of: self)).jsonData(forResource: "testSample")
-                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .dataConversion)
+                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .dataConversionFailed)
                     }
                     
-                    func testSingleFailureScenario(_ request: BaseRequest, forAPIError apiError: APIError) {
+                    it("handles wwhen invalid JSON data is received") {
+                        let json = "@hello@world{}[]"
+                        mockSession.responseStatus = 200
+                        mockSession.responseData = json.data(using: .utf8)
+                        testSingleFailureScenario(MockRequest(withURL: "www.abc.com"), forAPIError: .dataConversionFailed)
+                    }
+                    
+                    func testSingleFailureScenario(_ request: BaseRequest, forAPIError apiError: APIError, line: UInt = #line) {
                         _ = (dataSource.fetchSingleObject(with: request) as Single<X>)
                             .subscribe(onSuccess: { _ in
-                                fail("Should not have called success")
+                                fail("Should not have called success", line: line)
                             },
                             onError: { error in
-                                expect(error as? APIError).toNot(beNil())
-                                expect(error as? APIError).to(equal(apiError))
+                                expect(error as? APIError, line: line).toNot(beNil())
+                                expect(error as? APIError, line: line).to(equal(apiError))
+                            })
+                    }
+                }
+                
+                context("when succeeds") {
+                    
+                    it("handles a 200..299 response with data") {
+                        let json = """
+                        {
+                            "attribA": "Hello",
+                            "attribB": 12345
+                        }
+                        """
+                        mockSession.responseData = json.data(using: .utf8)
+                        mockSession.responseStatus = 200
+                        testSingleSuccessScenario(MockRequest(withURL: "www.abc.com"))
+                    }
+                    
+                    func testSingleSuccessScenario(_ request: BaseRequest, line: UInt = #line) {
+                        _ = (dataSource.fetchSingleObject(with: request) as Single<X>)
+                            .subscribe(onSuccess: { x in
+                                expect(x.attribA, line: line) == "Hello"
+                                expect(x.attribB, line: line) == 12345
+                            },
+                            onError: { _ in
+                                fail("Should not have called error", line: line)
                             })
                     }
                 }

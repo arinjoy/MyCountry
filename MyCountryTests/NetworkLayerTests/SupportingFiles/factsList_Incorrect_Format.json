@@ -1,4 +1,9 @@
 {
- "titleName": "some title",
- "factlist": [{},{}]
+ "name": "some title",
+ "factlist": [{
+    "a": "b"
+ },
+ {
+     "c": "d"
+ }]
 }

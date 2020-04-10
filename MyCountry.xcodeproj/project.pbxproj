@@ -25,7 +25,9 @@
 		0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B2244030BB00768256 /* BaseRequest.swift */; };
 		0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B42440320500768256 /* EndPointConfiguration.swift */; };
 		0E3658B7244032E900768256 /* Decoding+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B6244032E900768256 /* Decoding+Helpers.swift */; };
-		0E3658B92440351000768256 /* FactsFindingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B82440351000768256 /* FactsFindingRequest.swift */; };
+		0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658B82440351000768256 /* FactsFinding+Request.swift */; };
+		0E3658C02440380900768256 /* FactsFindingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658BF2440380900768256 /* FactsFindingService.swift */; };
+		0E3658C32440383D00768256 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658C22440383D00768256 /* Facts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +71,9 @@
 		0E3658B2244030BB00768256 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		0E3658B42440320500768256 /* EndPointConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointConfiguration.swift; sourceTree = "<group>"; };
 		0E3658B6244032E900768256 /* Decoding+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decoding+Helpers.swift"; sourceTree = "<group>"; };
-		0E3658B82440351000768256 /* FactsFindingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingRequest.swift; sourceTree = "<group>"; };
+		0E3658B82440351000768256 /* FactsFinding+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsFinding+Request.swift"; sourceTree = "<group>"; };
+		0E3658BF2440380900768256 /* FactsFindingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsFindingService.swift; sourceTree = "<group>"; };
+		0E3658C22440383D00768256 /* Facts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,11 +189,9 @@
 		0E3658A924402E6400768256 /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0E3658B1244030AC00768256 /* Requests */,
-				0E3658AA24402EB500768256 /* APIClient */,
-				0E3658AF2440309100768256 /* ObservableDataSource.swift */,
 				0E3658B42440320500768256 /* EndPointConfiguration.swift */,
-				0E3658B6244032E900768256 /* Decoding+Helpers.swift */,
+				0E3658C524403D2A00768256 /* Services */,
+				0E3658BE2440379900768256 /* Core */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -197,19 +199,55 @@
 		0E3658AA24402EB500768256 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
-				0E3658AB24402ECF00768256 /* APIError.swift */,
+				0E3658B6244032E900768256 /* Decoding+Helpers.swift */,
 				0E3658AD2440306A00768256 /* HTTPClient.swift */,
+				0E3658AF2440309100768256 /* ObservableDataSource.swift */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
 		};
-		0E3658B1244030AC00768256 /* Requests */ = {
+		0E3658BD2440376600768256 /* FactsFinding */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658C424403D0400768256 /* Requests */,
+				0E3658C12440382800768256 /* Models */,
+				0E3658BF2440380900768256 /* FactsFindingService.swift */,
+			);
+			path = FactsFinding;
+			sourceTree = "<group>";
+		};
+		0E3658BE2440379900768256 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658AB24402ECF00768256 /* APIError.swift */,
 				0E3658B2244030BB00768256 /* BaseRequest.swift */,
-				0E3658B82440351000768256 /* FactsFindingRequest.swift */,
+				0E3658AA24402EB500768256 /* APIClient */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0E3658C12440382800768256 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658C22440383D00768256 /* Facts.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0E3658C424403D0400768256 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658B82440351000768256 /* FactsFinding+Request.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		0E3658C524403D2A00768256 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658BD2440376600768256 /* FactsFinding */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,9 +451,11 @@
 				0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */,
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
 				0E3658B7244032E900768256 /* Decoding+Helpers.swift in Sources */,
-				0E3658B92440351000768256 /* FactsFindingRequest.swift in Sources */,
+				0E3658C02440380900768256 /* FactsFindingService.swift in Sources */,
+				0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */,
 				0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */,
 				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
+				0E3658C32440383D00768256 /* Facts.swift in Sources */,
 				0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

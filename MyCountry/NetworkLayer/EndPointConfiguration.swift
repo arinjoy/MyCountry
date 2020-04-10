@@ -25,4 +25,3 @@ struct EndpointConfiguration {
         return url
     }
 }
-

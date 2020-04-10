@@ -38,10 +38,13 @@ public enum APIError: Error {
     
     // MARK: - Misc
     
-    /// When api does not return data in expected JSON struct
+    /// When api does not return data
     case noData
     
-    /// Any unknown error happens.
+    /// Data mapping/conversion error
+    case dataConversion
+    
+    /// Any unknown error happens
     case unknown
 }
 

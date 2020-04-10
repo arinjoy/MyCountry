@@ -1,0 +1,4 @@
+github "ReactiveX/RxSwift" ~> 5.0
+github "SnapKit/SnapKit" ~> 5.0.0
+github "Quick/Quick"
+github "Quick/Nimble"

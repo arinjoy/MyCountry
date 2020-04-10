@@ -1,0 +1,36 @@
+disabled_rules:
+- closing_brace
+- opening_brace
+- identifier_name
+- type_name
+- trailing_whitespace
+
+excluded:
+  - Carthage
+  - scripts
+
+trailing_whitespace:
+  severity: warning
+
+line_length:
+  warning: 160
+  error: 200
+
+type_body_length:
+  warning: 300
+  error: 400
+
+file_length:
+  warning: 500
+  error: 1200
+
+trailing_comma:
+  mandatory_comma: true
+
+large_tuple:
+  warning: 4
+  error: 5
+
+function_body_length:
+  warning: 50
+  error: 100

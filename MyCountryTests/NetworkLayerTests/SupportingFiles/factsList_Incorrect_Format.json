@@ -1,4 +1,4 @@
 {
-"title": "some title",
-"facts": [{},{}]
+ "titleName": "some title",
+ "factlist": [{},{}]
 }

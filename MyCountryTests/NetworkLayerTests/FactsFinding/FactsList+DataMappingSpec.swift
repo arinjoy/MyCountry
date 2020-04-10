@@ -32,8 +32,9 @@ final class FactsListDataMappingSpec: QuickSpec {
                     expect(mappedItem).toNot(beNil())
                     
                     expect(mappedItem?.title).to(equal("About Australia"))
-                    // 6 facts found
-                    expect(mappedItem?.facts.count).to(equal(6))
+                    
+                    // 5 facts got mapped (the last one got discarded from JSON due to all-missing attributes)
+                    expect(mappedItem?.facts.count).to(equal(5))
                     
                     // Only a few of the facts are tested below
                     let firstFact = mappedItem?.facts.first
@@ -45,13 +46,6 @@ final class FactsListDataMappingSpec: QuickSpec {
                     expect(fourthFact?.title).to(beNil())
                     expect(fourthFact?.description).to(equal("Warmer than you might think."))
                     expect(fourthFact?.imageUrl).to(equal("http://icons.iconarchive.com/icons/uluru.png"))
-
-                    // This fact has every information to be missing.
-                    // TODO: Discard such fact while mapping if each attribute is `nil`
-                    let lastFact = mappedItem?.facts.last
-                    expect(lastFact?.title).to(beNil())
-                    expect(lastFact?.description).to(beNil())
-                    expect(lastFact?.imageUrl).to(beNil())
                 }
             }
             

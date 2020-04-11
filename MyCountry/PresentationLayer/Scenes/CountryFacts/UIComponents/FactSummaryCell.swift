@@ -15,12 +15,12 @@ final class FactSummaryCell: UITableViewCell {
     
     // MARK: - UI Element Properties
     
-    private let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let view = UIView()
         return view
     }()
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textAlignment = .left
@@ -28,9 +28,16 @@ final class FactSummaryCell: UITableViewCell {
         return label
     }()
     
+    private lazy var thumbImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .clear
+        return imageView
+    }()
+    
     private let bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -57,18 +64,33 @@ final class FactSummaryCell: UITableViewCell {
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
+        
+        thumbImageView.snp.makeConstraints { make in
+            make.width.equalTo(100)
+            make.height.equalTo(80)
+        }
                 
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .center
-        stackView.spacing = 4
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(bodyLabel)
+        let titleAndImageStackView = UIStackView()
+        titleAndImageStackView.axis = .vertical
+        titleAndImageStackView.spacing = 20
+        titleAndImageStackView.distribution = .fill
+        titleAndImageStackView.alignment = .leading
         
-        containerView.addSubview(stackView)
+        titleAndImageStackView.addArrangedSubview(titleLabel)
+        titleAndImageStackView.addArrangedSubview(thumbImageView)
         
-        stackView.snp.makeConstraints { make in
+        let fullStackView = UIStackView()
+        fullStackView.axis = .horizontal
+        fullStackView.distribution = .fill
+        fullStackView.alignment = .top
+        fullStackView.spacing = 8
+        
+        fullStackView.addArrangedSubview(titleAndImageStackView)
+        fullStackView.addArrangedSubview(bodyLabel)
+        
+        containerView.addSubview(fullStackView)
+        
+        fullStackView.snp.makeConstraints { make in
             make.leading.equalTo(containerView.snp.leading).offset(16)
             make.trailing.equalTo(containerView.snp.trailing).offset(-16)
             make.top.equalTo(containerView.snp.top).offset(16)
@@ -78,8 +100,8 @@ final class FactSummaryCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.leading.equalTo(contentView.snp.leading).offset(8)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-8)
             make.top.equalTo(contentView.snp.top).offset(8)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
@@ -105,5 +127,10 @@ extension FactSummaryCell {
         } else {
             bodyLabel.isHidden = true
         }
+        
+        // TODO: This will be loaded from image URL.
+        // Apply async loading on this via UIDataPrefetching API
+        // For now show a placeholder. Maybe apply shimmer on this.
+        thumbImageView.image = UIImage(named: "placeholder")
     }
 }

@@ -23,6 +23,14 @@ final class FactsFindingServiceSpy: FactsFindingClientType {
     }
 }
 
+// MARK: - Dummy
+
+final class FactsFindingServiceDummy: FactsFindingClientType {
+    func findFacts() -> Single<FactsList> {
+        return Observable.empty().asSingle()
+    }
+}
+
 // MARK: - Mock
 
 final class FactsFindingServiceMock: FactsFindingClientType {

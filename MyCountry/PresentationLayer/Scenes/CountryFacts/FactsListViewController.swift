@@ -54,8 +54,9 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     // MARK: - Private Helpers
     
     private func configureTableView() {
+        tableView.register(FactSummaryCell.self, forCellReuseIdentifier: FactSummaryCell.cellReuseIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 90
+        tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .singleLine
         
         tableView.dataSource = self
@@ -95,19 +96,13 @@ extension FactsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item = listDataSource.item(atIndexPath: indexPath) else {
+        guard
+            let item = listDataSource.item(atIndexPath: indexPath),
+            let cell = tableView.dequeueReusableCell(withIdentifier: FactSummaryCell.cellReuseIdentifier) as? FactSummaryCell
+        else {
             return UITableViewCell()
         }
-        
-        // TODO: Make custom cell, properly deque and configure with dynamic data received
-        // Pass in presentation item to cell to configure
-        
-        let cellIdentifier = "Cell"
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-            ?? UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
-        
-        cell.textLabel?.text = item.title
-        cell.detailTextLabel?.text = item.body
+        cell.configure(withPresentationItem: item)
         return cell
     }
 }

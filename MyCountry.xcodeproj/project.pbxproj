@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0E365869244010C000768256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365868244010C000768256 /* AppDelegate.swift */; };
 		0E36586D244010C000768256 /* FactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36586C244010C000768256 /* FactsListViewController.swift */; };
-		0E365870244010C000768256 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E36586E244010C000768256 /* Main.storyboard */; };
 		0E365872244010C000768256 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E365871244010C000768256 /* Assets.xcassets */; };
 		0E365875244010C000768256 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E365873244010C000768256 /* LaunchScreen.storyboard */; };
 		0E36588B244010C000768256 /* MyCountryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36588A244010C000768256 /* MyCountryUITests.swift */; };
@@ -49,6 +48,7 @@
 		0E3658FF2441496700768256 /* DataTransforming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658FE2441496700768256 /* DataTransforming.swift */; };
 		0E36590424414DF800768256 /* FactsList+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590324414DF800768256 /* FactsList+TestDoubles.swift */; };
 		0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365905244150C800768256 /* FactsListPresenterSpec.swift */; };
+		0E36590924415CCD00768256 /* FactSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590824415CCD00768256 /* FactSummaryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,6 @@
 		0E365865244010C000768256 /* MyCountry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCountry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E365868244010C000768256 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E36586C244010C000768256 /* FactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListViewController.swift; sourceTree = "<group>"; };
-		0E36586F244010C000768256 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E365871244010C000768256 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E365874244010C000768256 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E365876244010C000768256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		0E3658FE2441496700768256 /* DataTransforming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransforming.swift; sourceTree = "<group>"; };
 		0E36590324414DF800768256 /* FactsList+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsList+TestDoubles.swift"; sourceTree = "<group>"; };
 		0E365905244150C800768256 /* FactsListPresenterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenterSpec.swift; sourceTree = "<group>"; };
+		0E36590824415CCD00768256 /* FactSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSummaryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +216,6 @@
 			children = (
 				0E3658F024411CB700768256 /* Scenes */,
 				0E3658EA24411A8900768256 /* Shared */,
-				0E36586E244010C000768256 /* Main.storyboard */,
 				0E365871244010C000768256 /* Assets.xcassets */,
 				0E365873244010C000768256 /* LaunchScreen.storyboard */,
 			);
@@ -399,6 +398,7 @@
 		0E3658F224411CD200768256 /* CountryFacts */ = {
 			isa = PBXGroup;
 			children = (
+				0E36590724415CB600768256 /* UIComponents */,
 				0E3658FA244148D000768256 /* Transformer */,
 				0E36586C244010C000768256 /* FactsListViewController.swift */,
 				0E3658F324411E9600768256 /* FactsListDisplay.swift */,
@@ -447,6 +447,14 @@
 				0E365905244150C800768256 /* FactsListPresenterSpec.swift */,
 			);
 			path = CountryFacts;
+			sourceTree = "<group>";
+		};
+		0E36590724415CB600768256 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0E36590824415CCD00768256 /* FactSummaryCell.swift */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,7 +566,6 @@
 			files = (
 				0E365875244010C000768256 /* LaunchScreen.storyboard in Resources */,
 				0E365872244010C000768256 /* Assets.xcassets in Resources */,
-				0E365870244010C000768256 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +661,7 @@
 				0E3658F424411E9600768256 /* FactsListDisplay.swift in Sources */,
 				0E3658EF24411B8300768256 /* DataSource.swift in Sources */,
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
+				0E36590924415CCD00768256 /* FactSummaryCell.swift in Sources */,
 				0E3658FC244148F700768256 /* FactsTransformer.swift in Sources */,
 				0E3658FF2441496700768256 /* DataTransforming.swift in Sources */,
 				0E3658F62441203300768256 /* FactsListPresenting.swift in Sources */,
@@ -712,14 +720,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0E36586E244010C000768256 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0E36586F244010C000768256 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0E365873244010C000768256 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

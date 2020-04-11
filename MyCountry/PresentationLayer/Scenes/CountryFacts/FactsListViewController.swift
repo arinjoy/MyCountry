@@ -141,6 +141,14 @@ extension FactsListViewController {
     }
     
     func showError(title: String, message: String, dismissTitle: String) {
-        // TODO: handle with alert or better UIs
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(
+            UIAlertAction(title: dismissTitle, style: .cancel))
+        
+        present(alertController, animated: true, completion: nil)
     }
 }

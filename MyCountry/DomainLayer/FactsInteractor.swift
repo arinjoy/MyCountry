@@ -35,6 +35,10 @@ final class FactsInteractor: FactsInteracting {
         
         factsFindingService.findFacts()
             .observeOn(MainScheduler.instance)
+            
+            // Add a slight delay to show asynchronous acitivity [Used for testing only, But never in production app]
+            .delay(1.5, scheduler: MainScheduler.instance)
+            
             .subscribe(onSuccess: { factsList in
                 
                 // Apply some simple business use case validation here:

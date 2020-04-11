@@ -135,7 +135,7 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
                     }
                     
-                    it("should not set any data source evetually") {
+                    it("should not set any data source eventually") {
                         
                         // when
                         presenter.loadFacts(isRereshingNeeded: true)
@@ -144,16 +144,36 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.setFactsListDataSourceCalled).toNotEventually(beTrue())
                     }
                     
-                    it("should show an error via display") {
+                    it("should show a generic error via display") {
                         
                         // when
                         presenter.loadFacts(isRereshingNeeded: true)
                         
                         // then
                         expect(displaySpy.showErrorCalled).toEventually(beTrue())
-                        expect(displaySpy.errorTitle).toEventually(equal("error title"))
-                        expect(displaySpy.errorMessage).toEventually(equal("error message"))
+                        expect(displaySpy.errorTitle).toEventually(equal("Oops! Something wrong."))
+                        expect(displaySpy.errorMessage).toEventually(equal("There is a generic error. Please try again later."))
                         expect(displaySpy.errorDismissTitle).toEventually(equal("OK"))
+                    }
+                    
+                    context("when network error occurs") {
+                        
+                        beforeEach {
+                            interactorMock = FactsInteractorMock(resultingError: true, error: APIError.networkFailure)
+                            presenter = FactsListPresenter(interactor: interactorMock)
+                            presenter.display = displaySpy
+                        }
+                        
+                        it("should show a network failure error with correct message") {
+                            // when
+                            presenter.loadFacts(isRereshingNeeded: true)
+                            
+                            // then
+                            expect(displaySpy.showErrorCalled).toEventually(beTrue())
+                            expect(displaySpy.errorTitle).toEventually(equal("Oops! Something wrong."))
+                            expect(displaySpy.errorMessage).toEventually(equal("Please check your network connection and try again."))
+                            expect(displaySpy.errorDismissTitle).toEventually(equal("OK"))
+                        }
                     }
                 }
             }

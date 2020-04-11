@@ -1,0 +1,16 @@
+/* 
+  MyCountryApp.strings
+  MyCountry
+
+  Created by Arinjoy Biswas on 11/4/20.
+  Copyright © 2020 Arinjoy Biswas. All rights reserved.
+*/
+
+
+// MARK: - General
+
+"error.dismiss.action.title" = "OK";
+"error.generic.title" = "Oops! Something wrong.";
+
+"error.generic.message" = "There is a generic error. Please try again later.";
+"error.networkConnection.message" = "Please check your network connection and try again.";

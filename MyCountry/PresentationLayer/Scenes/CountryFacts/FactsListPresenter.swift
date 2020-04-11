@@ -61,9 +61,21 @@ final class FactsListPresenter: FactsListPresenting {
                self.handleUpdatingDataSource(factsList)
                 
             case .failure(let error):
+            
+                let errorTitle: String = StringKeys.MyCountryApp.genericErrorTitle.localized()
+                let errorDismissTitle: String = StringKeys.MyCountryApp.errorDismissActionTitle.localized()
+                var errorMessage: String
+                switch error {
+                    // Show network connectivity error
+                case .networkFailure, .timeout:
+                    errorMessage = StringKeys.MyCountryApp.networkConnectionErrorMessage.localized()
+                default:
+                    // For all other errors, show this generic error
+                    // This can be elaborated case by case basis of custom error handling
+                    errorMessage = StringKeys.MyCountryApp.genericErrorMessage.localized()
+                }
                 
-                // TODO: detect thsi errors and set relevant text to be shown via StringKeys
-                self.display?.showError(title: "error title", message: "error message", dismissTitle: "OK")
+                self.display?.showError(title: errorTitle, message: errorMessage, dismissTitle: errorDismissTitle)
             }
         }
     }

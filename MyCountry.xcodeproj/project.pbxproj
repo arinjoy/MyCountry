@@ -50,6 +50,9 @@
 		0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365905244150C800768256 /* FactsListPresenterSpec.swift */; };
 		0E36590924415CCD00768256 /* FactSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590824415CCD00768256 /* FactSummaryCell.swift */; };
 		0E36590C244169F200768256 /* Theme+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590B244169F200768256 /* Theme+Color.swift */; };
+		0E36590F2441779100768256 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590E2441779100768256 /* LocalizationKeys.swift */; };
+		0E365911244177D600768256 /* MyCountryApp+StringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */; };
+		0E3659132441781700768256 /* MyCountryApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E3659122441781700768256 /* MyCountryApp.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +121,9 @@
 		0E365905244150C800768256 /* FactsListPresenterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenterSpec.swift; sourceTree = "<group>"; };
 		0E36590824415CCD00768256 /* FactSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSummaryCell.swift; sourceTree = "<group>"; };
 		0E36590B244169F200768256 /* Theme+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Color.swift"; sourceTree = "<group>"; };
+		0E36590E2441779100768256 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
+		0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyCountryApp+StringKeys.swift"; sourceTree = "<group>"; };
+		0E3659122441781700768256 /* MyCountryApp.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = MyCountryApp.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +371,7 @@
 		0E3658EA24411A8900768256 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0E36590D2441777700768256 /* Localization */,
 				0E36590A244169DD00768256 /* Theme */,
 				0E3658FD2441495100768256 /* DataTransform */,
 				0E3658EB24411A9C00768256 /* ListDataSource */,
@@ -466,6 +473,16 @@
 				0E36590B244169F200768256 /* Theme+Color.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		0E36590D2441777700768256 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				0E36590E2441779100768256 /* LocalizationKeys.swift */,
+				0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */,
+				0E3659122441781700768256 /* MyCountryApp.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -576,6 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E365875244010C000768256 /* LaunchScreen.storyboard in Resources */,
+				0E3659132441781700768256 /* MyCountryApp.strings in Resources */,
 				0E365872244010C000768256 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -678,10 +696,12 @@
 				0E3658FF2441496700768256 /* DataTransforming.swift in Sources */,
 				0E3658F62441203300768256 /* FactsListPresenting.swift in Sources */,
 				0E3658C02440380900768256 /* FactsFindingService.swift in Sources */,
+				0E36590F2441779100768256 /* LocalizationKeys.swift in Sources */,
 				0E3658F8244120E300768256 /* FactsListPresenter.swift in Sources */,
 				0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */,
 				0E3658E22440983100768256 /* FactsInteractor.swift in Sources */,
 				0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */,
+				0E365911244177D600768256 /* MyCountryApp+StringKeys.swift in Sources */,
 				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
 				0E3658C32440383D00768256 /* FactsList.swift in Sources */,
 				0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */,

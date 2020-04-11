@@ -54,6 +54,39 @@ final class HTTPClient: ObservableDataSource {
             return Disposables.create()
         }
     }
+    
+    /// Downloads image data from an web URL and results in terms of Rx `Single`
+    /// - Parameter request: The web url to load the image from
+    @discardableResult
+    func downloadSingleImageData(with url: URL) -> Single<Data> {
+        
+        return Single<Data>.create { single in
+            
+            self.dataTask?.cancel()
+                                    
+            self.dataTask = self.defaultSession.dataTask(with: url) { [weak self] data, response, error in
+                
+                defer {
+                  self?.dataTask = nil
+                }
+                
+                if let httpURLResponse = response as? HTTPURLResponse,
+                    httpURLResponse.statusCode == 200,
+                    let mimeType = response?.mimeType,
+                    mimeType.hasPrefix("image"),
+                    error == nil,
+                    let responseData = data {
+                    single(.success(responseData))
+                } else {
+                    single(.error(APIError.unknown))
+                }
+            }
+            
+            self.dataTask?.resume()
+            
+            return Disposables.create()
+        }
+    }
 }
 
 /// A data structure to capture potential outcome of API call / URL session data task

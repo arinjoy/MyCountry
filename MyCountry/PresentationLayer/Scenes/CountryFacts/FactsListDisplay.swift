@@ -8,14 +8,6 @@
 
 import Foundation
 
-/// A struct to hold presented/formatted version of a fact to bind to an UI element / cell
-struct FactPresentationItem {
-    let title: String?
-    let body: String?
-}
-
-typealias FactsListDataSource = DataSource<DataSection<FactPresentationItem>>
-
 protocol FactsListDisplay: class {
     
     /// Will set the view title in navigation bar

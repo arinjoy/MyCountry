@@ -45,6 +45,8 @@
 		0E3658F424411E9600768256 /* FactsListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658F324411E9600768256 /* FactsListDisplay.swift */; };
 		0E3658F62441203300768256 /* FactsListPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658F52441203300768256 /* FactsListPresenting.swift */; };
 		0E3658F8244120E300768256 /* FactsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658F7244120E300768256 /* FactsListPresenter.swift */; };
+		0E3658FC244148F700768256 /* FactsTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658FB244148F700768256 /* FactsTransformer.swift */; };
+		0E3658FF2441496700768256 /* DataTransforming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658FE2441496700768256 /* DataTransforming.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		0E3658F324411E9600768256 /* FactsListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListDisplay.swift; sourceTree = "<group>"; };
 		0E3658F52441203300768256 /* FactsListPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenting.swift; sourceTree = "<group>"; };
 		0E3658F7244120E300768256 /* FactsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenter.swift; sourceTree = "<group>"; };
+		0E3658FB244148F700768256 /* FactsTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsTransformer.swift; sourceTree = "<group>"; };
+		0E3658FE2441496700768256 /* DataTransforming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransforming.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3658F024411CB700768256 /* Scenes */,
-				0E3658EA24411A8900768256 /* SupportingHelpers */,
+				0E3658EA24411A8900768256 /* Shared */,
 				0E36586E244010C000768256 /* Main.storyboard */,
 				0E365871244010C000768256 /* Assets.xcassets */,
 				0E365873244010C000768256 /* LaunchScreen.storyboard */,
@@ -352,12 +356,13 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		0E3658EA24411A8900768256 /* SupportingHelpers */ = {
+		0E3658EA24411A8900768256 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658FD2441495100768256 /* DataTransform */,
 				0E3658EB24411A9C00768256 /* ListDataSource */,
 			);
-			path = SupportingHelpers;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		0E3658EB24411A9C00768256 /* ListDataSource */ = {
@@ -389,12 +394,29 @@
 		0E3658F224411CD200768256 /* CountryFacts */ = {
 			isa = PBXGroup;
 			children = (
+				0E3658FA244148D000768256 /* Transformer */,
 				0E36586C244010C000768256 /* FactsListViewController.swift */,
 				0E3658F324411E9600768256 /* FactsListDisplay.swift */,
 				0E3658F52441203300768256 /* FactsListPresenting.swift */,
 				0E3658F7244120E300768256 /* FactsListPresenter.swift */,
 			);
 			path = CountryFacts;
+			sourceTree = "<group>";
+		};
+		0E3658FA244148D000768256 /* Transformer */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658FB244148F700768256 /* FactsTransformer.swift */,
+			);
+			path = Transformer;
+			sourceTree = "<group>";
+		};
+		0E3658FD2441495100768256 /* DataTransform */ = {
+			isa = PBXGroup;
+			children = (
+				0E3658FE2441496700768256 /* DataTransforming.swift */,
+			);
+			path = DataTransform;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,6 +624,8 @@
 				0E3658F424411E9600768256 /* FactsListDisplay.swift in Sources */,
 				0E3658EF24411B8300768256 /* DataSource.swift in Sources */,
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
+				0E3658FC244148F700768256 /* FactsTransformer.swift in Sources */,
+				0E3658FF2441496700768256 /* DataTransforming.swift in Sources */,
 				0E3658F62441203300768256 /* FactsListPresenting.swift in Sources */,
 				0E3658C02440380900768256 /* FactsFindingService.swift in Sources */,
 				0E3658F8244120E300768256 /* FactsListPresenter.swift in Sources */,

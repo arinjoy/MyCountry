@@ -21,6 +21,9 @@ final class FactsListPresenter: FactsListPresenting {
     /// The interactor for finding facts
     private let interactor: FactsInteracting!
     
+    /// The data tranforming helper
+    private let tranformer = FactsTransformer()
+    
     init(interactor: FactsInteracting) {
         self.interactor = interactor
     }
@@ -75,7 +78,7 @@ final class FactsListPresenter: FactsListPresenting {
         // Keep reference to the latest fetched facts data
         factsListData = input
         
-        // TODO: tranform and then display
-        //display?.setFactsListDataSource(dataSource)
+        let dataSource = tranformer.transform(input: input.facts)
+        display?.setFactsListDataSource(dataSource)
     }
 }

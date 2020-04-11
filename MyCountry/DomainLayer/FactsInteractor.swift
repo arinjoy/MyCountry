@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import UIKit
 
 protocol FactsInteracting {
     
@@ -16,6 +17,8 @@ protocol FactsInteracting {
     /// - Parameters:
     ///   - completion: The completion callback with success/failure
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void))
+    
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void))
 }
 
 final class FactsInteractor: FactsInteracting {
@@ -26,9 +29,12 @@ final class FactsInteractor: FactsInteracting {
     // MARK: - Private Propertires
     
     private let factsFindingService: FactsFindingClientType
+    private let imageLoadingService: ImageLoadingClientType
     
-    init(factsFindingService: FactsFindingClientType) {
+    init(factsFindingService: FactsFindingClientType,
+         imageLoadingService: ImageLoadingClientType) {
         self.factsFindingService = factsFindingService
+        self.imageLoadingService = imageLoadingService
     }
     
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {
@@ -37,7 +43,7 @@ final class FactsInteractor: FactsInteracting {
             .observeOn(MainScheduler.instance)
             
             // Add a slight delay to show asynchronous acitivity [Used for testing only, But never in production app]
-            .delay(1.5, scheduler: MainScheduler.instance)
+            .delay(0.5, scheduler: MainScheduler.instance)
             
             .subscribe(onSuccess: { factsList in
                 
@@ -69,6 +75,18 @@ final class FactsInteractor: FactsInteracting {
                   
                 // For all errors, just pass around the error to be handled by the receiver accordingly
                 completion(.failure(apiError))
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {
+        
+        imageLoadingService.loadImageData(fromUrl: webUrl)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { data in
+                completion(UIImage(data: data))
+            }, onError: { _ in
+                completion(nil)
             })
             .disposed(by: disposeBag)
     }

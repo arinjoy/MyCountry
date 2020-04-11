@@ -37,18 +37,15 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         
         let presenter = FactsListPresenter(interactor:
             FactsInteractor(
-                factsFindingService: FactsFindingServiceClient(
-                    dataSource: HTTPClient()
-                )
+                factsFindingService: FactsFindingServiceClient(dataSource: HTTPClient()),
+                imageLoadingService: ImageLoadingServiceClient(dataSource: HTTPClient())
             )
         )
         presenter.display = self
         return presenter
     }()
     
-    private lazy var listDataSource: FactsListDataSource = {
-        return FactsListDataSource()
-    }()
+    private lazy var listDataSource: FactsListDataSource = FactsListDataSource()
     
     // MARK: - Lifecyle
     

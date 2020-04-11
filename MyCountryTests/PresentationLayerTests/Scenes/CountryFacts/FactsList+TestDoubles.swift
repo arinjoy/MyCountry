@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 @testable import MyCountry
 
 // MARK: - Dislay Dummy
@@ -36,7 +37,6 @@ final class FactsListDisplaySpy: FactsListDisplay {
     var errorTitle: String?
     var errorMessage: String?
     var errorDismissTitle: String?
-    
     
     func setTitle(_ title: String) {
         setTitleCalled = true
@@ -87,6 +87,7 @@ final class FactsListPresenterSpy: FactsListPresenting {
 
 final class FactsInteractorDummy: FactsInteracting {
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {}
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {}
 }
 
 // MARK: - Interactor Spy
@@ -95,9 +96,14 @@ final class FactsInteractorSpy: FactsInteracting {
     
     // Spied calls
     var getFactsCalled: Bool = false
+    var downloadImageCalled: Bool = false
     
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {
         getFactsCalled = true
+    }
+    
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {
+        downloadImageCalled = true
     }
 }
 
@@ -107,24 +113,34 @@ final class FactsInteractorMock: FactsInteracting {
     
         var resultingError: Bool
         var error: APIError
-        var result: FactsList
+        var resultingFacts: FactsList
+        var resultingImage: UIImage
     
         init(
             resultingError: Bool = false,
             error: APIError = APIError.unknown,
-            result: FactsList = FactsInteractorMock.sampleFactsList()
+            resultingFacts: FactsList = FactsInteractorMock.sampleFactsList(),
+            resultingImage: UIImage = UIImage()
         ) {
             self.resultingError = resultingError
             self.error = error
-            self.result = result
+            self.resultingFacts = resultingFacts
+            self.resultingImage = resultingImage
         }
     
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {
         if resultingError {
             completion(Result.failure(self.error))
         } else {
-             completion(Result.success(self.result))
+            completion(Result.success(self.resultingFacts))
         }
+    }
+    
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {
+        if resultingError {
+            completion(nil)
+        }
+        completion(resultingImage)
     }
     
     // MARK: - Private Test Helpers

@@ -25,4 +25,3 @@ extension StringKeys {
         var table: String? { return "MyCountryApp" }
     }
 }
-

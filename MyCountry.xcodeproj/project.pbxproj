@@ -53,6 +53,9 @@
 		0E36590F2441779100768256 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590E2441779100768256 /* LocalizationKeys.swift */; };
 		0E365911244177D600768256 /* MyCountryApp+StringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */; };
 		0E3659132441781700768256 /* MyCountryApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E3659122441781700768256 /* MyCountryApp.strings */; };
+		0E3659192441CA6C00768256 /* ImageLoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3659182441CA6C00768256 /* ImageLoadingService.swift */; };
+		0E36591B2441D00200768256 /* ImageLoadingServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */; };
+		0E36591E2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +127,9 @@
 		0E36590E2441779100768256 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
 		0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyCountryApp+StringKeys.swift"; sourceTree = "<group>"; };
 		0E3659122441781700768256 /* MyCountryApp.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = MyCountryApp.strings; sourceTree = "<group>"; };
+		0E3659182441CA6C00768256 /* ImageLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingService.swift; sourceTree = "<group>"; };
+		0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingServiceSpec.swift; sourceTree = "<group>"; };
+		0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoadingService+TestDoubles.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +302,7 @@
 		0E3658C524403D2A00768256 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0E3659172441CA3E00768256 /* ImageLoading */,
 				0E3658BD2440376600768256 /* FactsFinding */,
 			);
 			path = Services;
@@ -306,6 +313,7 @@
 			children = (
 				0E3658D8244065A800768256 /* Core */,
 				0E3658CC2440416000768256 /* FactsFinding */,
+				0E36591C2441D00C00768256 /* ImageLoading */,
 				0E3658C724403F4900768256 /* Mocks */,
 				0E3658D12440527500768256 /* Bundle+JSONForResource.swift */,
 				0E3658D5244052EC00768256 /* SupportingFiles */,
@@ -364,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3658E624409E5700768256 /* FactsFindingService+TestDoubles.swift */,
+				0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -483,6 +492,22 @@
 				0E3659122441781700768256 /* MyCountryApp.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		0E3659172441CA3E00768256 /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				0E3659182441CA6C00768256 /* ImageLoadingService.swift */,
+			);
+			path = ImageLoading;
+			sourceTree = "<group>";
+		};
+		0E36591C2441D00C00768256 /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */,
+			);
+			path = ImageLoading;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -705,6 +730,7 @@
 				0E3658AC24402ECF00768256 /* APIError.swift in Sources */,
 				0E3658C32440383D00768256 /* FactsList.swift in Sources */,
 				0E3658B52440320500768256 /* EndPointConfiguration.swift in Sources */,
+				0E3659192441CA6C00768256 /* ImageLoadingService.swift in Sources */,
 				0E3658ED24411AB500768256 /* DataSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -715,6 +741,7 @@
 			files = (
 				0E3658C924403F6C00768256 /* ObservableDataSource+TestDoubles.swift in Sources */,
 				0E3658E92440A15E00768256 /* FactsInteractorSpec.swift in Sources */,
+				0E36591B2441D00200768256 /* ImageLoadingServiceSpec.swift in Sources */,
 				0E3658DC2440694100768256 /* MockRequest.swift in Sources */,
 				0E3658E724409E5700768256 /* FactsFindingService+TestDoubles.swift in Sources */,
 				0E3658DE244069B400768256 /* MockSession.swift in Sources */,
@@ -723,6 +750,7 @@
 				0E36590424414DF800768256 /* FactsList+TestDoubles.swift in Sources */,
 				0E3658D22440527500768256 /* Bundle+JSONForResource.swift in Sources */,
 				0E3658D0244051B400768256 /* FactsList+DataMappingSpec.swift in Sources */,
+				0E36591E2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift in Sources */,
 				0E3658DA244065C100768256 /* HTTPClientSpec.swift in Sources */,
 				0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */,
 			);

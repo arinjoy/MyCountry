@@ -130,7 +130,6 @@ extension FactSummaryCell {
             bodyLabel.isHidden = true
         }
         
-        
         if let webImageUrl = item.webImageUrl {
             
             // TODO: load the image async and attach
@@ -138,6 +137,12 @@ extension FactSummaryCell {
             thumbImageView.isHidden = false
         } else {
             thumbImageView.isHidden = true
+        }
+    }
+    
+    func updateAppearance(forImage image: UIImage?) {
+        if let image = image {
+            thumbImageView.image = image
         }
     }
 }

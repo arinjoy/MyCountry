@@ -45,8 +45,6 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         return presenter
     }()
     
-    private lazy var listDataSource: FactsListDataSource = FactsListDataSource()
-    
     // MARK: - Lifecyle
     
     override func viewDidLoad() {
@@ -69,6 +67,8 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         tableView.separatorColor = Theme.tintColor
         
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
+        tableView.delegate = self
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshCountryData), for: .valueChanged)
@@ -88,42 +88,14 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     private func refreshCountryData() {
         presenter.loadFacts(isRereshingNeeded: true)
     }
-}
-
-// MARK: - UITableViewDataSource
-
-extension FactsListViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return listDataSource.numberOfSections()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listDataSource.numberOfItems(inSection: section)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let item = listDataSource.item(atIndexPath: indexPath),
-            let cell = tableView.dequeueReusableCell(withIdentifier: FactSummaryCell.cellReuseIdentifier) as? FactSummaryCell
-        else {
-            return UITableViewCell()
-        }
-        cell.configure(withPresentationItem: item)
-        return cell
-    }
-}
+    // MARK: - FactsListDisplay
 
-// MARK: - FactsListDisplay
-
-extension FactsListViewController {
-    
     func setTitle(_ title: String) {
        navigationItem.title = title
     }
     
-    func setFactsListDataSource(_ dataSource: FactsListDataSource) {
-        listDataSource = dataSource
+    func updateList() {
         tableView.reloadData()
     }
     
@@ -147,5 +119,68 @@ extension FactsListViewController {
             UIAlertAction(title: dismissTitle, style: .cancel))
         
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension FactsListViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.factsListDataSource.numberOfSections()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.factsListDataSource.numberOfItems(inSection: section)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let item = presenter.factsListDataSource.item(atIndexPath: indexPath),
+            let cell = tableView.dequeueReusableCell(withIdentifier: FactSummaryCell.cellReuseIdentifier) as? FactSummaryCell
+        else {
+            return UITableViewCell()
+        }
+        cell.configure(withPresentationItem: item)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension FactsListViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            presenter.addImageLoadOperation(atIndexPath: indexPath, updateCellClosure: nil)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            presenter.removeImageLoadOperation(atIndexPath: indexPath)
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FactsListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? FactSummaryCell else { return }
+        
+        let updateCellClosure: (UIImage?) -> Void = { [weak self] (image) in
+            cell.updateAppearance(forImage: image)
+            self?.presenter.removeImageLoadOperation(atIndexPath: indexPath)
+        }
+        
+        if let loadedImage = presenter.handleImageLoadOperation(forIndexPath: indexPath, updateCellClosure: updateCellClosure) {
+            cell.updateAppearance(forImage: loadedImage)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        presenter.removeImageLoadOperation(atIndexPath: indexPath)
     }
 }

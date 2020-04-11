@@ -56,6 +56,7 @@
 		0E3659192441CA6C00768256 /* ImageLoadingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3659182441CA6C00768256 /* ImageLoadingService.swift */; };
 		0E36591B2441D00200768256 /* ImageLoadingServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */; };
 		0E36591E2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */; };
+		0E3659212441FBA300768256 /* ImageLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3659202441FBA300768256 /* ImageLoadOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		0E3659182441CA6C00768256 /* ImageLoadingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingService.swift; sourceTree = "<group>"; };
 		0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingServiceSpec.swift; sourceTree = "<group>"; };
 		0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoadingService+TestDoubles.swift"; sourceTree = "<group>"; };
+		0E3659202441FBA300768256 /* ImageLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +382,7 @@
 		0E3658EA24411A8900768256 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0E36591F2441FB6E00768256 /* ImageLoading */,
 				0E36590D2441777700768256 /* Localization */,
 				0E36590A244169DD00768256 /* Theme */,
 				0E3658FD2441495100768256 /* DataTransform */,
@@ -506,6 +509,14 @@
 			isa = PBXGroup;
 			children = (
 				0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */,
+			);
+			path = ImageLoading;
+			sourceTree = "<group>";
+		};
+		0E36591F2441FB6E00768256 /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				0E3659202441FBA300768256 /* ImageLoadOperation.swift */,
 			);
 			path = ImageLoading;
 			sourceTree = "<group>";
@@ -724,6 +735,7 @@
 				0E36590F2441779100768256 /* LocalizationKeys.swift in Sources */,
 				0E3658F8244120E300768256 /* FactsListPresenter.swift in Sources */,
 				0E3658B92440351000768256 /* FactsFinding+Request.swift in Sources */,
+				0E3659212441FBA300768256 /* ImageLoadOperation.swift in Sources */,
 				0E3658E22440983100768256 /* FactsInteractor.swift in Sources */,
 				0E3658AE2440306A00768256 /* HTTPClient.swift in Sources */,
 				0E365911244177D600768256 /* MyCountryApp+StringKeys.swift in Sources */,

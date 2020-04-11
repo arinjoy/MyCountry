@@ -43,7 +43,11 @@ final class FactSummaryCell: UITableViewCell {
         
         self.selectionStyle = UITableViewCell.SelectionStyle.none
         buildUIAndApplyConstraints()
+        
         contentView.isAccessibilityElement = true
+        
+        containerView.backgroundColor = .clear
+        contentView.backgroundColor = Theme.backgroundColor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,15 +92,15 @@ extension FactSummaryCell {
     
     func configure(withPresentationItem item: FactPresentationItem) {
         
-        if let title = item.title, !title.isEmpty {
-            titleLabel.text = title
+        if let title = item.title {
+            titleLabel.attributedText = title
             titleLabel.isHidden = false
         } else {
             titleLabel.isHidden = true
         }
         
-        if let body = item.body, !body.isEmpty {
-            bodyLabel.text = body
+        if let body = item.body {
+            bodyLabel.attributedText = body
             bodyLabel.isHidden = false
         } else {
             bodyLabel.isHidden = true

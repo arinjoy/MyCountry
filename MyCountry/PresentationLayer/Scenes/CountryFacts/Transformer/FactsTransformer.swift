@@ -10,8 +10,8 @@ import Foundation
 
 /// A struct to hold presented/formatted version of a fact to bind to an UI element / cell
 struct FactPresentationItem {
-    let title: String?
-    let body: String?
+    let title: NSAttributedString?
+    let body: NSAttributedString?
 }
 
 typealias FactsListDataSource = DataSource<DataSection<FactPresentationItem>>
@@ -22,14 +22,19 @@ struct FactsTransformer: DataTransforming {
         
         let presentationItems: [FactPresentationItem] = input.map { item  in
             
-            // TODO: do any additional view related formatting or atrributed text conversion etc. here
-            let item = FactPresentationItem(title: item.title, body: item.description)
-            return item
+            var titleText: NSAttributedString?
+            if let title = item.title, !title.isEmpty {
+                titleText = NSAttributedString(string: title, attributes: [.foregroundColor: Theme.primaryTextColor])
+            }
+            var bodyText: NSAttributedString?
+            if let body = item.description, !body.isEmpty {
+                bodyText = NSAttributedString(string: body, attributes: [.foregroundColor: Theme.primaryTextColor])
+            }
+            return FactPresentationItem(title: titleText, body: bodyText)
         }
         
-        // A single section comibining all elements
+        // A single section combining all elements
         let dataSections = [DataSection<FactPresentationItem>(items: presentationItems)]
         return DataSource<DataSection<FactPresentationItem>>(sections: dataSections)
     }
 }
-

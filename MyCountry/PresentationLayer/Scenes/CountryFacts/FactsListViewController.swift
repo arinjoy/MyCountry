@@ -13,8 +13,16 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
 
     // MARK: - View Properties
     
-    private var tableView: UITableView!
-    private let refreshControl = UIRefreshControl()
+    private lazy var tableView: UITableView = {
+       let tableView = UITableView(frame: self.view.bounds, style: .grouped)
+        return tableView
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = Theme.tintColor
+        return refreshControl
+    }()
     
     // MARK: - Presenter
     
@@ -38,8 +46,10 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         return presenter
     }()
     
-    private var listDataSource: FactsListDataSource = FactsListDataSource()
-
+    private lazy var listDataSource: FactsListDataSource = {
+        return FactsListDataSource()
+    }()
+    
     // MARK: - Lifecyle
     
     override func viewDidLoad() {
@@ -54,10 +64,12 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     // MARK: - Private Helpers
     
     private func configureTableView() {
+        tableView.backgroundColor = Theme.backgroundColor
         tableView.register(FactSummaryCell.self, forCellReuseIdentifier: FactSummaryCell.cellReuseIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = Theme.tintColor
         
         tableView.dataSource = self
         
@@ -66,11 +78,9 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     }
     
     private func buildUIAndApplyConstraints() {
-        tableView = UITableView(frame: self.view.bounds, style: .plain)
         view.addSubview(tableView)
-        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(40)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(10)
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.snp.bottom).offset(-16)

@@ -12,6 +12,7 @@ import SnapKit
 final class FactSummaryCell: UITableViewCell {
     
     static let cellReuseIdentifier = "FactSummaryCell"
+    static let approximateRowHeight: CGFloat = 100
     
     // MARK: - UI Element Properties
     
@@ -32,6 +33,7 @@ final class FactSummaryCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
+        imageView.image = UIImage(named: "placeholder")
         return imageView
     }()
     
@@ -128,9 +130,14 @@ extension FactSummaryCell {
             bodyLabel.isHidden = true
         }
         
-        // TODO: This will be loaded from image URL.
-        // Apply async loading on this via UIDataPrefetching API
-        // For now show a placeholder. Maybe apply shimmer on this.
-        thumbImageView.image = UIImage(named: "placeholder")
+        
+        if let webImageUrl = item.webImageUrl {
+            
+            // TODO: load the image async and attach
+            
+            thumbImageView.isHidden = false
+        } else {
+            thumbImageView.isHidden = true
+        }
     }
 }

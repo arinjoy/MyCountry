@@ -67,7 +67,7 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         tableView.backgroundColor = Theme.backgroundColor
         tableView.register(FactSummaryCell.self, forCellReuseIdentifier: FactSummaryCell.cellReuseIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = FactSummaryCell.approximateRowHeight
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Theme.tintColor
         

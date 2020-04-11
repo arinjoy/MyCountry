@@ -12,6 +12,7 @@ import Foundation
 struct FactPresentationItem {
     let title: NSAttributedString?
     let body: NSAttributedString?
+    let webImageUrl: URL?
 }
 
 typealias FactsListDataSource = DataSource<DataSection<FactPresentationItem>>
@@ -26,11 +27,18 @@ struct FactsTransformer: DataTransforming {
             if let title = item.title, !title.isEmpty {
                 titleText = NSAttributedString(string: title, attributes: [.foregroundColor: Theme.primaryTextColor])
             }
+            
             var bodyText: NSAttributedString?
             if let body = item.description, !body.isEmpty {
                 bodyText = NSAttributedString(string: body, attributes: [.foregroundColor: Theme.primaryTextColor])
             }
-            return FactPresentationItem(title: titleText, body: bodyText)
+            
+            var webImageUrl: URL?
+            if let urlString = item.imageUrl,
+                let url = URL(string: urlString) {
+                webImageUrl = url
+            }
+            return FactPresentationItem(title: titleText, body: bodyText, webImageUrl: webImageUrl)
         }
         
         // A single section combining all elements

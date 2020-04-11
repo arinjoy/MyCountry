@@ -22,7 +22,7 @@ protocol ObservableDataSource {
     ///  Calls the server, downloads and returns a `Single<Data>` instance.
     ///
     /// - Parameter url: An web image url to download the image data from
-    /// - Returns: a `Single<T>` instance containing the data of the image downloaded
+    /// - Returns: a `Single<Data>` instance containing the data of the image downloaded
     @discardableResult
     func downloadSingleImageData(with url: URL) -> Single<Data>
 }

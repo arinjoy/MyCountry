@@ -34,8 +34,7 @@ final class FactsListPresenter: FactsListPresenting {
     // MARK: - FactsListPresenting
     
     func viewDidBecomeReady() {
-        // TODO: Do any preparation task such as loading indicator etc.
-        
+        // TODO: do any data preparation presetting of static text tasks etc.
     }
     
     func loadFacts(isRereshingNeeded: Bool) {
@@ -63,8 +62,8 @@ final class FactsListPresenter: FactsListPresenting {
                 
             case .failure(let error):
                 
-                // TODO: handle error alerts via display. Detect type and do custom handling
-                break
+                // TODO: detect thsi errors and set relevant text to be shown via StringKeys
+                self.display?.showError(title: "error title", message: "error message", dismissTitle: "OK")
             }
         }
     }

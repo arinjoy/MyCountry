@@ -47,6 +47,8 @@
 		0E3658F8244120E300768256 /* FactsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658F7244120E300768256 /* FactsListPresenter.swift */; };
 		0E3658FC244148F700768256 /* FactsTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658FB244148F700768256 /* FactsTransformer.swift */; };
 		0E3658FF2441496700768256 /* DataTransforming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3658FE2441496700768256 /* DataTransforming.swift */; };
+		0E36590424414DF800768256 /* FactsList+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590324414DF800768256 /* FactsList+TestDoubles.swift */; };
+		0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365905244150C800768256 /* FactsListPresenterSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,8 @@
 		0E3658F7244120E300768256 /* FactsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenter.swift; sourceTree = "<group>"; };
 		0E3658FB244148F700768256 /* FactsTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsTransformer.swift; sourceTree = "<group>"; };
 		0E3658FE2441496700768256 /* DataTransforming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransforming.swift; sourceTree = "<group>"; };
+		0E36590324414DF800768256 /* FactsList+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsList+TestDoubles.swift"; sourceTree = "<group>"; };
+		0E365905244150C800768256 /* FactsListPresenterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenterSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +183,7 @@
 		0E36587E244010C000768256 /* MyCountryTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E36590024414DB900768256 /* PresentationLayerTests */,
 				0E3658E424409E2300768256 /* DomainLayerTests */,
 				0E3658C624403F3600768256 /* NetworkLayerTests */,
 				0E365881244010C000768256 /* Info.plist */,
@@ -419,6 +424,31 @@
 			path = DataTransform;
 			sourceTree = "<group>";
 		};
+		0E36590024414DB900768256 /* PresentationLayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E36590124414DC900768256 /* Scenes */,
+			);
+			path = PresentationLayerTests;
+			sourceTree = "<group>";
+		};
+		0E36590124414DC900768256 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				0E36590224414DD500768256 /* CountryFacts */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		0E36590224414DD500768256 /* CountryFacts */ = {
+			isa = PBXGroup;
+			children = (
+				0E36590324414DF800768256 /* FactsList+TestDoubles.swift */,
+				0E365905244150C800768256 /* FactsListPresenterSpec.swift */,
+			);
+			path = CountryFacts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -650,9 +680,11 @@
 				0E3658DE244069B400768256 /* MockSession.swift in Sources */,
 				0E3658CB24403FB500768256 /* FactsFindingRequestSpec.swift in Sources */,
 				0E3658CE2440417800768256 /* FactsFindingServiceSpec.swift in Sources */,
+				0E36590424414DF800768256 /* FactsList+TestDoubles.swift in Sources */,
 				0E3658D22440527500768256 /* Bundle+JSONForResource.swift in Sources */,
 				0E3658D0244051B400768256 /* FactsList+DataMappingSpec.swift in Sources */,
 				0E3658DA244065C100768256 /* HTTPClientSpec.swift in Sources */,
+				0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

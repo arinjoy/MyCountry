@@ -109,11 +109,33 @@ private extension JSONDecoder {
         guard let responseData = dataResponse.data else {
             return .failure(APIError.noDataFound)
         }
-        
+                
         // If response data body exists, try to decode from JSON as expected Data type
         do {
-            let item = try decode(T.self, from: responseData)
-            return .success(item)
+            /**
+             Tech Note: By default  Swift's `JSONDecoder` accepts returned data with `Content-Type: application/json`
+             If by any chance server returns data with `Content-Type: text/plain` with potential ISO charset, then manage
+             additional handling of that data by the below code. It supports both content types of data to be mapped eventually as long as the
+             real internal data is a JSON.
+             */
+            
+            // As first attempt map the data as if the content-type was `application/json`
+            if let item = try? decode(T.self, from: responseData) {
+                return .success(item)
+            } else {
+                // As second attempt, try the decoding after (Data -> String -> Data) transforms
+                // to potentially create compatible JSON data for the decoder
+                guard
+                    let plainTextString = String(data: responseData, encoding: String.Encoding.isoLatin1),
+                    let potentialJsonData = plainTextString.data(using: .utf8)
+                else {
+                    throw APIError.dataConversionFailed
+                }
+                
+                let item = try decode(T.self, from: potentialJsonData)
+                return .success(item)
+            }
+
         } catch {
             // Most likely JSON data/contract conversion error here
             // Or if a custom Error json body was sent from server

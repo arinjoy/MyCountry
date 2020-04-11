@@ -96,7 +96,7 @@ final class HTTPClientSpec: QuickSpec {
                 
                 context("when succeeds") {
                     
-                    it("handles a 200..299 response with data") {
+                    it("handles a 200..299 response with JSON data") {
                         let json = """
                         {
                             "attribA": "Hello",

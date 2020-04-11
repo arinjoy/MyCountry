@@ -15,7 +15,7 @@ final class FactSummaryCell: UITableViewCell {
     
     // MARK: - UI Element Properties
     
-    private let containerCardView: UIView = {
+    private let containerView: UIView = {
         let view = UIView()
         return view
     }()
@@ -53,28 +53,31 @@ final class FactSummaryCell: UITableViewCell {
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
+                
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 4
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(bodyLabel)
         
-        contentView.addSubview(containerCardView)
-        containerCardView.addSubview(titleLabel)
-        containerCardView.addSubview(bodyLabel)
+        containerView.addSubview(stackView)
         
-        containerCardView.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
+            make.leading.equalTo(containerView.snp.leading).offset(16)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-16)
+            make.top.equalTo(containerView.snp.top).offset(16)
+            make.bottom.equalTo(containerView.snp.bottom).offset(-16)
+        }
+        
+        contentView.addSubview(containerView)
+        
+        containerView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
             make.top.equalTo(contentView.snp.top).offset(8)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(containerCardView.snp.leading).offset(16)
-            make.top.equalTo(containerCardView.snp.top).offset(16)
-            make.bottom.equalTo(containerCardView.snp.bottom).offset(-16)
-        }
-        
-        bodyLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(containerCardView.snp.trailing).offset(-16)
-            make.top.equalTo(containerCardView.snp.top).offset(16)
-            make.bottom.equalTo(containerCardView.snp.bottom).offset(-16)
         }
     }
 }
@@ -87,12 +90,14 @@ extension FactSummaryCell {
         
         if let title = item.title, !title.isEmpty {
             titleLabel.text = title
+            titleLabel.isHidden = false
         } else {
             titleLabel.isHidden = true
         }
         
         if let body = item.body, !body.isEmpty {
             bodyLabel.text = body
+            bodyLabel.isHidden = false
         } else {
             bodyLabel.isHidden = true
         }

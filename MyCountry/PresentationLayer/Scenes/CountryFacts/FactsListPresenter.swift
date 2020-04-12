@@ -69,7 +69,7 @@ final class FactsListPresenter: FactsListPresenting {
                self.handleUpdatingDataSource(factsList)
                 
             case .failure(let error):
-            
+                
                 let errorTitle: String = StringKeys.MyCountryApp.genericErrorTitle.localized()
                 let errorDismissTitle: String = StringKeys.MyCountryApp.errorDismissActionTitle.localized()
                 var errorMessage: String
@@ -91,6 +91,7 @@ final class FactsListPresenter: FactsListPresenting {
     }
     
     func addImageLoadOperation(atIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) {
+        
         // If an image loader exists for this indexPath, do not add it again
         guard imageLoadingOperations[indexPath] == nil else { return }
         

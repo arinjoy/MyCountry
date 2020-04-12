@@ -33,8 +33,25 @@ final class FactSummaryCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
-        imageView.image = UIImage(named: "placeholder")
         return imageView
+    }()
+    
+    private lazy var titleAndImageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    private lazy var fullStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .top
+        stackView.spacing = 8
+        return stackView
     }()
     
     private let bodyLabel: UILabel = {
@@ -68,25 +85,14 @@ final class FactSummaryCell: UITableViewCell {
     private func buildUIAndApplyConstraints() {
         
         thumbImageView.snp.makeConstraints { make in
+            // Maybe increase for iPad sizes / orietation changes via size class
             make.width.equalTo(100)
-            make.height.equalTo(80)
+            make.height.equalTo(thumbImageView.snp.width).multipliedBy(0.75)
         }
                 
-        let titleAndImageStackView = UIStackView()
-        titleAndImageStackView.axis = .vertical
-        titleAndImageStackView.spacing = 20
-        titleAndImageStackView.distribution = .fill
-        titleAndImageStackView.alignment = .leading
-        
         titleAndImageStackView.addArrangedSubview(titleLabel)
         titleAndImageStackView.addArrangedSubview(thumbImageView)
-        
-        let fullStackView = UIStackView()
-        fullStackView.axis = .horizontal
-        fullStackView.distribution = .fill
-        fullStackView.alignment = .top
-        fullStackView.spacing = 8
-        
+                
         fullStackView.addArrangedSubview(titleAndImageStackView)
         fullStackView.addArrangedSubview(bodyLabel)
         
@@ -130,20 +136,30 @@ extension FactSummaryCell {
             bodyLabel.isHidden = true
         }
         
-        // If image URL exists, then only show the image
+        // If image URL exists, then only show the image, else hide it.
+        thumbImageView.isHidden = item.webImageUrl == nil
+        
         // Image would be loaded later on, but may be `nil` image due to
-        // some loading error. In that case placeholder image will be shown.
-        if item.webImageUrl != nil {
-            thumbImageView.isHidden = false
+        // some loading error due to incorrect URLs, 404 not found etc.
+        // In those cases placeholder image will be shown.
+        thumbImageView.image = UIImage(named: "placeholder")
+        
+        titleAndImageStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
+        
+        if bodyLabel.isHidden {
+            titleAndImageStackView.axis = .horizontal
+            titleAndImageStackView.alignment = .center
         } else {
-            // Do not show image if the fact does not have an image url
-            thumbImageView.isHidden = true
+            titleAndImageStackView.axis = .vertical
+            titleAndImageStackView.alignment = .leading
         }
     }
     
     func update(withImage image: UIImage?) {
         if let image = image {
-            thumbImageView.image = image
+            DispatchQueue.main.async {
+                self.thumbImageView.image = image
+            }
         }
     }
 }

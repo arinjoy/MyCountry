@@ -142,6 +142,7 @@ extension FactsListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.configure(withPresentationItem: item)
+        cell.update(withImage: .none)
         return cell
     }
 }

@@ -85,8 +85,8 @@ final class FactSummaryCell: UITableViewCell {
     private func buildUIAndApplyConstraints() {
         
         thumbImageView.snp.makeConstraints { make in
-            // Maybe increase for iPad sizes / orietation changes via size class
-            make.width.equalTo(100)
+            // Maybe increase for iPad sizes / orientation changes via size class
+            make.width.equalTo(140)
             make.height.equalTo(thumbImageView.snp.width).multipliedBy(0.75)
         }
                 

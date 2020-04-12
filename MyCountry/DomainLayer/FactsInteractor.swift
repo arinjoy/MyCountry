@@ -90,7 +90,7 @@ final class FactsInteractor: FactsInteracting {
             
             // Add some delay to show asynchronous acitivity
             // [Used for testing only, But never in production app]
-            //.delay(0.5, scheduler: MainScheduler.instance)
+            .delay(1.0, scheduler: MainScheduler.instance)
             
             .subscribe(onSuccess: { data in
                 completion(data)

@@ -44,4 +44,3 @@ private class MockSessionDataTask: URLSessionDataTask {
         // Do nothing.
     }
 }
-

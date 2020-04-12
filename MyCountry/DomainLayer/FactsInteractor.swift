@@ -45,8 +45,9 @@ final class FactsInteractor: FactsInteracting {
         factsFindingService.findFacts()
             .observeOn(MainScheduler.instance)
             
-            // Add a slight delay to show asynchronous acitivity [Used for testing only, But never in production app]
-            .delay(0.5, scheduler: MainScheduler.instance)
+            // Add a slight delay to show asynchronous acitivity
+            // [Used for testing only, But never in production app]
+            .delay(1.0, scheduler: MainScheduler.instance)
             
             .subscribe(onSuccess: { factsList in
                 
@@ -86,6 +87,11 @@ final class FactsInteractor: FactsInteracting {
         
         imageLoadingService.loadImageData(fromUrl: webUrl)
             .observeOn(MainScheduler.instance)
+            
+            // Add some delay to show asynchronous acitivity
+            // [Used for testing only, But never in production app]
+            .delay(2.0, scheduler: MainScheduler.instance)
+            
             .subscribe(onSuccess: { data in
                 completion(data)
             }, onError: { _ in

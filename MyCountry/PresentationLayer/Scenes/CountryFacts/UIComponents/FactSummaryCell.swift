@@ -110,7 +110,7 @@ final class FactSummaryCell: UITableViewCell {
     }
 }
 
-// MARK: - Configuration via Presentation item
+// MARK: - Configurations
 
 extension FactSummaryCell {
     
@@ -130,17 +130,18 @@ extension FactSummaryCell {
             bodyLabel.isHidden = true
         }
         
-        if let webImageUrl = item.webImageUrl {
-            
-            // TODO: load the image async and attach
-            
+        // If image URL exists, then only show the image
+        // Image would be loaded later on, but may be `nil` image due to
+        // some loading error. In that case placeholder image will be shown.
+        if item.webImageUrl != nil {
             thumbImageView.isHidden = false
         } else {
+            // Do not show image if the fact does not have an image url
             thumbImageView.isHidden = true
         }
     }
     
-    func updateAppearance(forImage image: UIImage?) {
+    func update(withImage image: UIImage?) {
         if let image = image {
             thumbImageView.image = image
         }

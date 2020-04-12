@@ -171,12 +171,12 @@ extension FactsListViewController: UITableViewDelegate {
         guard let cell = cell as? FactSummaryCell else { return }
         
         let updateCellClosure: (UIImage?) -> Void = { [weak self] (image) in
-            cell.updateAppearance(forImage: image)
+            cell.update(withImage: image)
             self?.presenter.removeImageLoadOperation(atIndexPath: indexPath)
         }
         
         if let loadedImage = presenter.handleImageLoadOperation(forIndexPath: indexPath, updateCellClosure: updateCellClosure) {
-            cell.updateAppearance(forImage: loadedImage)
+            cell.update(withImage: loadedImage)
         }
     }
     

@@ -47,6 +47,22 @@ final class FactSkeletonCell: UITableViewCell {
         return label
     }()
     
+    private lazy var label4: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.isSkeletonable = true
+        label.linesCornerRadius = 10
+        return label
+    }()
+    
+    private lazy var label5: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.isSkeletonable = true
+        label.linesCornerRadius = 10
+        return label
+    }()
+    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -67,9 +83,11 @@ final class FactSkeletonCell: UITableViewCell {
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
-        label1.text = "some title or name of a fact"
+        label1.text = "some title or name"
         label2.text = "The body of the facts to show"
         label3.text = "The body of the facts to show"
+        label4.text = "The body of the facts to show"
+        label5.text = "The some"
         
         thumbImageView.snp.makeConstraints { make in
             // Maybe increase for iPad sizes / orientation changes via size class
@@ -77,35 +95,48 @@ final class FactSkeletonCell: UITableViewCell {
             make.height.equalTo(UIScreen.main.bounds.width / 3 * 0.75)
         }
         
-        let innerStackView = UIStackView()
-        innerStackView.axis = .vertical
-        innerStackView.spacing = 12
-        innerStackView.isSkeletonable = true
-        innerStackView.addArrangedSubview(label1)
-        innerStackView.addArrangedSubview(label2)
-        innerStackView.addArrangedSubview(label3)
+        let leftStackView = UIStackView()
+        leftStackView.axis = .vertical
+        leftStackView.alignment = .leading
+        leftStackView.spacing = 14
+        leftStackView.isSkeletonable = true
+        leftStackView.addArrangedSubview(label1)
+        leftStackView.addArrangedSubview(thumbImageView)
+        
+        label1.snp.makeConstraints { make in
+            make.width.equalTo(thumbImageView.snp.width)
+        }
+        
+        let rightStackView = UIStackView()
+        rightStackView.axis = .vertical
+        rightStackView.alignment = .leading
+        rightStackView.spacing = 10
+        rightStackView.isSkeletonable = true
+        rightStackView.addArrangedSubview(label2)
+        rightStackView.addArrangedSubview(label3)
+        rightStackView.addArrangedSubview(label4)
+        rightStackView.addArrangedSubview(label5)
         
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fill
+        stackView.alignment = .top
+        stackView.distribution = .fillProportionally
         stackView.spacing = 20
         stackView.isSkeletonable = true
         
-        stackView.addArrangedSubview(thumbImageView)
-        stackView.addArrangedSubview(innerStackView)
+        stackView.addArrangedSubview(leftStackView)
+        stackView.addArrangedSubview(rightStackView)
         
         contentView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.top.equalTo(contentView.snp.top).offset(8)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-            make.bottom.equalTo(contentView.snp.bottom).offset(8)
+            make.centerY.equalTo(contentView.snp.centerY)
         }
         
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(UIScreen.main.bounds.width / 3 * 0.75 + 8 + 8)
+            make.height.equalTo(24 + 12 + (UIScreen.main.bounds.width / 3 * 0.75) + 8 + 8)
         }
     }
 }

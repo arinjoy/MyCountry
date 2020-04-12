@@ -14,7 +14,7 @@ import UIKit
 
 final class FactsListDisplayDummy: FactsListDisplay {
     func setTitle(_ title: String) {}
-    func setFactsListDataSource(_ dataSource: FactsListDataSource) {}
+    func updateList() {}
     func showLoadingIndicator() {}
     func hideLoadingIndicator() {}
     func showError(title: String, message: String, dismissTitle: String) {}
@@ -26,7 +26,7 @@ final class FactsListDisplaySpy: FactsListDisplay {
     
     // Spied calls
     var setTitleCalled: Bool = false
-    var setFactsListDataSourceCalled: Bool = false
+    var updateListCalled: Bool = false
     var showLoadingIndicatorCalled: Bool = false
     var hideLoadingIndicatorCalled: Bool = false
     var showErrorCalled: Bool = false
@@ -42,16 +42,19 @@ final class FactsListDisplaySpy: FactsListDisplay {
         setTitleCalled = true
         self.title = title
     }
-    func setFactsListDataSource(_ dataSource: FactsListDataSource) {
-        setFactsListDataSourceCalled = true
-        factsListDataSource = dataSource
+    
+    func updateList() {
+        updateListCalled = true
     }
+    
     func showLoadingIndicator() {
         showLoadingIndicatorCalled = true
     }
+    
     func hideLoadingIndicator() {
         hideLoadingIndicatorCalled = true
     }
+    
     func showError(title: String, message: String, dismissTitle: String) {
         showErrorCalled = true
         errorTitle = title
@@ -63,8 +66,13 @@ final class FactsListDisplaySpy: FactsListDisplay {
 // MARK: - Presenter Dummy
 
 final class FactsListPresenterDummy: FactsListPresenting {
+    var factsListDataSource: FactsListDataSource = FactsListDataSource()
     func viewDidBecomeReady() {}
     func loadFacts(isRereshingNeeded: Bool) {}
+    func addImageLoadOperation(atIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) {}
+    func removeImageLoadOperation(atIndexPath indexPath: IndexPath) {}
+    @discardableResult
+    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage? { return nil }
 }
 
 // MARK: - Presenter Spy
@@ -74,12 +82,32 @@ final class FactsListPresenterSpy: FactsListPresenting {
     // Spied calls
     var viewDidBecomeReadyCalled: Bool = false
     var loadFactsCalled: Bool = false
+    var addImageLoadOperationCalled: Bool = false
+    var removeImageLoadOperationCalled: Bool = false
+    var handleImageLoadOperationCalled: Bool = false
+    
+    var factsListDataSource: FactsListDataSource = FactsListDataSource()
     
     func viewDidBecomeReady() {
         viewDidBecomeReadyCalled = true
     }
+    
     func loadFacts(isRereshingNeeded: Bool) {
         loadFactsCalled = true
+    }
+    
+    func addImageLoadOperation(atIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) {
+        addImageLoadOperationCalled = true
+    }
+    
+    func removeImageLoadOperation(atIndexPath indexPath: IndexPath) {
+        removeImageLoadOperationCalled = true
+    }
+    
+    @discardableResult
+    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage? {
+        handleImageLoadOperationCalled = true
+        return nil
     }
 }
 
@@ -87,7 +115,7 @@ final class FactsListPresenterSpy: FactsListPresenting {
 
 final class FactsInteractorDummy: FactsInteracting {
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {}
-    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {}
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((Data?) -> Void)) {}
 }
 
 // MARK: - Interactor Spy
@@ -102,7 +130,7 @@ final class FactsInteractorSpy: FactsInteracting {
         getFactsCalled = true
     }
     
-    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((Data?) -> Void)) {
         downloadImageCalled = true
     }
 }
@@ -114,18 +142,18 @@ final class FactsInteractorMock: FactsInteracting {
         var resultingError: Bool
         var error: APIError
         var resultingFacts: FactsList
-        var resultingImage: UIImage
+        var resultingImageData: Data
     
         init(
             resultingError: Bool = false,
             error: APIError = APIError.unknown,
             resultingFacts: FactsList = FactsInteractorMock.sampleFactsList(),
-            resultingImage: UIImage = UIImage()
+            resultingImageData: Data = Data()
         ) {
             self.resultingError = resultingError
             self.error = error
             self.resultingFacts = resultingFacts
-            self.resultingImage = resultingImage
+            self.resultingImageData = resultingImageData
         }
     
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {
@@ -136,11 +164,11 @@ final class FactsInteractorMock: FactsInteracting {
         }
     }
     
-    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((UIImage?) -> Void)) {
+    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((Data?) -> Void)) {
         if resultingError {
             completion(nil)
         }
-        completion(resultingImage)
+        completion(resultingImageData)
     }
     
     // MARK: - Private Test Helpers

@@ -104,17 +104,14 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
                     }
                     
-                    it("should set data source eventually") {
+                    it("should update the list eventually") {
                         
                         // when
                         presenter.loadFacts(isRereshingNeeded: true)
                         
                         // then
-                        expect(displaySpy.setFactsListDataSourceCalled).toEventually(beTrue())
-                        
-                        expect(displaySpy.factsListDataSource).toNotEventually(beNil())
-                        expect(displaySpy.factsListDataSource?.sections.isEmpty).toEventually(beFalse())
-                        
+                        expect(presenter.factsListDataSource.sections.isEmpty).toEventually(beFalse())
+                        expect(displaySpy.updateListCalled).toEventually(beTrue())
                     }
                 }
                 
@@ -135,13 +132,13 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
                     }
                     
-                    it("should not set any data source eventually") {
+                    it("should not update the list eventually") {
                         
                         // when
                         presenter.loadFacts(isRereshingNeeded: true)
                         
                         // then
-                        expect(displaySpy.setFactsListDataSourceCalled).toNotEventually(beTrue())
+                        expect(displaySpy.updateListCalled).toNotEventually(beTrue())
                     }
                     
                     it("should show a generic error via display") {

@@ -14,7 +14,7 @@ import RxSwift
 final class FactsInteractorSpec: QuickSpec {
     
     var factsResult: FactsList!
-    var imageResult: UIImage!
+    var imageResult: Data!
     var error: APIError!
     var disposeBag: DisposeBag!
 

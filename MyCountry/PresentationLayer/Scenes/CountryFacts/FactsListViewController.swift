@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 final class FactsListViewController: UIViewController, FactsListDisplay {
 
@@ -61,10 +62,8 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     private func configureTableView() {
         tableView.backgroundColor = Theme.backgroundColor
         tableView.register(FactSummaryCell.self, forCellReuseIdentifier: FactSummaryCell.cellReuseIdentifier)
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = FactSummaryCell.approximateRowHeight
-        tableView.separatorStyle = .singleLine
-        tableView.separatorColor = Theme.tintColor
+        tableView.separatorStyle = .none
         
         tableView.dataSource = self
         tableView.prefetchDataSource = self
@@ -72,14 +71,17 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshCountryData), for: .valueChanged)
+        
+        tableView.register(FactSkeletonCell.self, forCellReuseIdentifier: FactSkeletonCell.cellReuseIdentifier)
+        tableView.isSkeletonable = true
     }
     
     private func buildUIAndApplyConstraints() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(10)
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.bottom.equalTo(view.snp.bottom).offset(-16)
         }
     }
@@ -101,12 +103,12 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     
     func showLoadingIndicator() {
         refreshControl.beginRefreshing()
-        // TODO: show full screen loader
+        tableView.showAnimatedSkeleton()
     }
     
     func hideLoadingIndicator() {
         refreshControl.endRefreshing()
-        // TODO: hide full screen loader
+        tableView.hideSkeleton()
     }
     
     func showError(title: String, message: String, dismissTitle: String) {
@@ -164,9 +166,28 @@ extension FactsListViewController: UITableViewDataSourcePrefetching {
     }
 }
 
+extension FactsListViewController: SkeletonTableViewDataSource {
+
+    func numSections(in collectionSkeletonView: UITableView) -> Int {
+        return 1
+    }
+
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 8
+    }
+
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return FactSkeletonCell.cellReuseIdentifier
+    }
+}
+
 // MARK: - UITableViewDelegate
 
 extension FactsListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? FactSummaryCell else { return }

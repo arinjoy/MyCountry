@@ -57,6 +57,8 @@
 		0E36591B2441D00200768256 /* ImageLoadingServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */; };
 		0E36591E2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */; };
 		0E3659212441FBA300768256 /* ImageLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3659202441FBA300768256 /* ImageLoadOperation.swift */; };
+		0E843CB32442E1DB00FB4F21 /* SkeletonView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */; };
+		0E843CB52442E7FF00FB4F21 /* FactSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,8 @@
 		0E36591A2441D00200768256 /* ImageLoadingServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingServiceSpec.swift; sourceTree = "<group>"; };
 		0E36591D2441F0BA00768256 /* ImageLoadingService+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoadingService+TestDoubles.swift"; sourceTree = "<group>"; };
 		0E3659202441FBA300768256 /* ImageLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadOperation.swift; sourceTree = "<group>"; };
+		0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
+		0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSkeletonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E843CB32442E1DB00FB4F21 /* SkeletonView.framework in Frameworks */,
 				0E36589D2440175000768256 /* SnapKit.framework in Frameworks */,
 				0E36589B2440173D00768256 /* RxSwift.framework in Frameworks */,
 			);
@@ -219,6 +224,7 @@
 		0E3658992440173D00768256 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */,
 				0E3658A0244017AA00768256 /* Nimble.framework */,
 				0E3658A1244017AA00768256 /* Quick.framework */,
 				0E36589C2440175000768256 /* SnapKit.framework */,
@@ -475,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				0E36590824415CCD00768256 /* FactSummaryCell.swift */,
+				0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -664,6 +671,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SkeletonView.framework",
 			);
 			name = "Crathage Copy Frameworks";
 			outputFileListPaths = (
@@ -721,6 +729,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E36586D244010C000768256 /* FactsListViewController.swift in Sources */,
+				0E843CB52442E7FF00FB4F21 /* FactSkeletonCell.swift in Sources */,
 				0E365869244010C000768256 /* AppDelegate.swift in Sources */,
 				0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */,
 				0E3658F424411E9600768256 /* FactsListDisplay.swift in Sources */,

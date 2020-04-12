@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.backgroundColor = Theme.backgroundColor
         window?.tintColor = Theme.tintColor
+        
+//        SkeletonAppearance.default.multilineHeight = 5
+//        SkeletonAppearance.default.tintColor = .green
+//        SkeletonAppearance.default.multilineCornerRadius = 10
+//        //SkeletonAppearance.default.multilineSpacing = 10
+//        SkeletonAppearance.default.multilineLastLineFillPercent = 80
+//        //SkeletonAppearance.default.li
         
         window?.rootViewController = UINavigationController(rootViewController: FactsListViewController())
         window?.makeKeyAndVisible()

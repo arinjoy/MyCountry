@@ -12,7 +12,7 @@ import SnapKit
 final class FactSummaryCell: UITableViewCell {
     
     static let cellReuseIdentifier = "FactSummaryCell"
-    static let approximateRowHeight: CGFloat = 100
+    static let approximateRowHeight: CGFloat = 120
     
     // MARK: - UI Element Properties
     
@@ -29,10 +29,17 @@ final class FactSummaryCell: UITableViewCell {
         return label
     }()
     
+    private lazy var bodyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private lazy var thumbImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .clear
         return imageView
     }()
     
@@ -52,14 +59,6 @@ final class FactSummaryCell: UITableViewCell {
         stackView.alignment = .top
         stackView.spacing = 8
         return stackView
-    }()
-    
-    private let bodyLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        return label
     }()
     
     // MARK: - Lifecycle
@@ -86,8 +85,8 @@ final class FactSummaryCell: UITableViewCell {
         
         thumbImageView.snp.makeConstraints { make in
             // Maybe increase for iPad sizes / orientation changes via size class
-            make.width.equalTo(140)
-            make.height.equalTo(thumbImageView.snp.width).multipliedBy(0.75)
+            make.width.equalTo(UIScreen.main.bounds.width / 3)
+            make.height.equalTo(UIScreen.main.bounds.width / 3 * 0.75)
         }
                 
         titleAndImageStackView.addArrangedSubview(titleLabel)

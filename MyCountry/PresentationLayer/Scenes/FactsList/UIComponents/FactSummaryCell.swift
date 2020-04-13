@@ -113,6 +113,22 @@ final class FactSummaryCell: UITableViewCell {
         showImageLoadingShimmer()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if traitCollection.horizontalSizeClass == .compact {
+           fullStackView.alignment = .top
+        } else {
+            fullStackView.alignment = .center
+        }
+        
+        if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
+            titleAndImageStackView.axis = .horizontal
+            titleAndImageStackView.alignment = .center
+        } else {
+            titleAndImageStackView.axis = .vertical
+            titleAndImageStackView.alignment = .leading
+        }
+    }
+    
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {

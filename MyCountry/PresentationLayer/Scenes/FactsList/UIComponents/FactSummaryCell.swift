@@ -124,6 +124,10 @@ final class FactSummaryCell: UITableViewCell {
         } else {
             titleAndImageStackView.axis = .vertical
         }
+        
+        if UIDevice.current.isIPhone {
+            fullStackView.axis = traitCollection.verticalSizeClass == .compact ? .horizontal : .vertical
+        }
     }
     
     // MARK: - Private Helpers

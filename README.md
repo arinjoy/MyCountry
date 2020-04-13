@@ -57,7 +57,7 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  Project has 3 targets:
   - **MyCountry** - The main code
   - **MyCountryTests** - **Unit testing** of all the code layers using Quick/Nimble
-  - **MyCountryUITests** - Some **automated XCUITest**
+  - **MyCountryUITests** - No tests implemented yet. Can be done via Mocking API response via library like `Embassy`
   
  ![](/Screenshots/project-layers.png "")
  
@@ -111,6 +111,7 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  
 ### Giphy
 
+![](/Screenshots/iphone-8-narrow-screen.gif "")
 ![](/Screenshots/light-to-dark-mode.gif "")
 ![](/Screenshots/ipad-potrait-to-landscape.gif "")
 

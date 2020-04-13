@@ -101,25 +101,26 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  - `HTTPClient` uses Apple's `URLSession`
  - `ObservableDataSource` is used to provide a layer of abstraction and to be able to unit test
  -  `Decodable` Data model used for `Fact` and `FactsList`
- - Avove logics are unit tested
+ - Above logics are unit tested
  
+ #### Testing Layers
  ![](/Screenshots/test-layers.png "")
  
 
 ## App Demo
-
-**Error Handling**
- - `Network connection unavailable` error is shown separately
- - Any other error leads in to a `generic` error message
- 
- ![](/Screenshots/network-errorpng "")
- ![](/Screenshots/generic-error.png "")
  
 ### Giphy
 
 ![](/Screenshots/light-to-dark-mode.gif "")
-
 ![](/Screenshots/ipad-potrait-to-landscape.gif "")
+
+
+**Error Handling**
+- `Network connection unavailable` error is shown separately
+- Any other error leads into a `generic` error message
+
+![](/Screenshots/network-error.png "")
+![](/Screenshots/generic-error.png "")
  
 
 ##### iPhone  screens:
@@ -130,8 +131,8 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 ##### iPad  screens:
   
-  ![](/Screenshots/iPad-pro-potrait.png "")
-  ![](/Screenshots/iPad-pro-landscape.png "")
+![](/Screenshots/iPad-pro-potrait.png "")
+![](/Screenshots/iPad-pro-landscape.png "")
  
 
  

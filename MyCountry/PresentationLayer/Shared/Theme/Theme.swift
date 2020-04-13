@@ -14,19 +14,16 @@ enum Theme {
     
     private static let tealColor = UIColor.colorFrom(red: 58, green: 141, blue: 123)
     static let lightTealGrayColor = UIColor.colorFrom(red: 226, green: 232, blue: 230)
-    
-    static let orangeColor = UIColor.systemOrange
-    static let darkOrangeGrayColor = UIColor.colorFrom(red: 70, green: 58, blue: 56)
-    static let lightOrangeGrayColor = UIColor.colorFrom(red: 97, green: 84, blue: 82)
-    
+    static let lightOrangeGrayColor = UIColor.colorFrom(red: 51, green: 46, blue: 45)
+
     static let tintColor = UIColor(light: Theme.tealColor,
-                                   dark: Theme.orangeColor)
+                                   dark: UIColor.orange)
     
     static let backgroundColor =  UIColor(light: UIColor.white,
                                           dark: Theme.lightOrangeGrayColor)
     
     static let darkerBackgroundColor = UIColor(light: Theme.lightTealGrayColor,
-                                               dark: Theme.darkOrangeGrayColor)
+                                               dark: UIColor.black)
     
     static let primaryTextColor = UIColor(light: UIColor.darkText,
                                           dark: UIColor.colorFrom(red: 246, green: 242, blue: 241))

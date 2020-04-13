@@ -224,7 +224,6 @@ extension UIDevice {
 extension UIDevice {
     
     var isIPhone: Bool {
-        
         switch UIDevice().type {
         case    .iPhone4,
                 .iPhone4S,
@@ -246,11 +245,30 @@ extension UIDevice {
                 .iPhoneXR,
                 .iPhone11,
                 .iPhone11Pro,
-                .iPhone11ProMax :
+                .iPhone11ProMax:
             return true
         default:
             return false
-            
+        }
+    }
+    
+    var isNarrowIPhone: Bool {
+        switch UIDevice().type {
+        case    .iPhone4,
+                .iPhone4S,
+                .iPhone5,
+                .iPhone5S,
+                . iPhone5C,
+                .iPhone6,
+                .iPhone6S,
+                .iPhoneSE,
+                . iPhone7,
+                .iPhone8,
+                .iPhoneX,
+                .iPhoneXS:
+            return true
+        default:
+            return false
         }
     }
 }

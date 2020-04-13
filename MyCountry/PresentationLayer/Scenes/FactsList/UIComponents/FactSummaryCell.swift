@@ -158,6 +158,8 @@ final class FactSummaryCell: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(Constants.cellMargin / 2)
             make.bottom.equalTo(contentView.snp.bottom).offset(-Constants.cellMargin / 2)
         }
+        
+        fullStackView.axis = UIDevice.current.isNarrowIPhone ? .vertical : .horizontal
     }
     
     private func showImageLoadingShimmer() {

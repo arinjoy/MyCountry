@@ -192,16 +192,13 @@ extension FactSummaryCell {
     }
     
     func update(withImage image: UIImage?) {
-        if image == nil {
-            print("\n\n\n\n\n\n\n\n BANG one")
-            print(titleLabel.text ?? "lelele")
-            hideImageLoadingShimmer()
-        }
         if let image = image {
             DispatchQueue.main.async {
                 self.thumbImageView.image = image
                 self.hideImageLoadingShimmer()
             }
+        } else {
+            hideImageLoadingShimmer()
         }
     }
 }

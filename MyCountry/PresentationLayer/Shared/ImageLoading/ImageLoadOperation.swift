@@ -46,8 +46,6 @@ final class ImageLoadOperation: Operation {
 
         guard !isCancelled else { return }
         
-        //guard let interactor = interactor else { return }
-        
         imageLoadingService.loadImageData(fromUrl: imageWebUrl)
             .observeOn(MainScheduler.instance)
             
@@ -55,39 +53,26 @@ final class ImageLoadOperation: Operation {
             // [Used for testing only, But never in production app]
             .delay(2.0, scheduler: MainScheduler.instance)
             
-            .subscribe(onSuccess: { imageData in
+            .subscribe(onSuccess: { [weak self] imageData in
+                
+                guard let self = self else { return }
+                guard !self.isCancelled else { return }
                 
                 // If image data is passed as `nil`, means image would be `nil`
-        
                 self.image = UIImage(data: imageData)
                 self.completionHandler?(self.image)
                 
-            }, onError: { _ in
+            }, onError: { [weak self] _ in
+                
+                guard let self = self else { return }
+                guard !self.isCancelled else { return }
+
                 // Any error is indicated as `nil` outcome as there is no
                 // custom error handling to manage here.
-
                 self.image = nil
                 self.completionHandler?(self.image)
                 
             })
             .disposed(by: disposeBag)
-        
-//        imageLoadingService.d
-//            .downloadImage(fromUrl: imageWebUrl, completion: { [weak self] imageData in
-//
-//            guard let self = self else { return }
-//
-//            guard !self.isCancelled else { return }
-//
-//            // If image data is passed as `nil`, means image would be `nil`
-//
-//            var resutingImage: UIImage?
-//            if let data = imageData {
-//                resutingImage = UIImage(data: data)
-//            }
-//
-//            self.image = resutingImage
-//            self.completionHandler?(self.image)
-//        })
     }
 }

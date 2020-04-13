@@ -14,9 +14,6 @@ protocol FactsListPresenting: class {
     /// The tranformed list data source with presentation items to bind to a list UI
     var factsListDataSource: FactsListDataSource { get set }
     
-    /// Called when view did become ready
-    func viewDidBecomeReady()
-    
     /// Will load facts of something to be diplayed
     ///
     /// - Parameter isRereshingNeeded: Whether data refreshing is needed

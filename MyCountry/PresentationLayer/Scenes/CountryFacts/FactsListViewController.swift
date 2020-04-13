@@ -187,13 +187,13 @@ extension FactsListViewController: UITableViewDataSource {
 // MARK: - UITableViewDataSourcePrefetching
 
 extension FactsListViewController: UITableViewDataSourcePrefetching {
-    
+
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             presenter.addImageLoadOperation(atIndexPath: indexPath, updateCellClosure: nil)
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             presenter.removeImageLoadOperation(atIndexPath: indexPath)

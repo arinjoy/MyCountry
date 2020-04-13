@@ -17,20 +17,6 @@ final class FactsListPresenterSpec: QuickSpec {
         describe("Facts List Presenter Spec") {
             
             var presenter: FactsListPresenter!
-            var displaySpy: FactsListDisplaySpy!
-            
-            it("should call correct display methods when view did become ready") {
-                                
-                presenter = FactsListPresenter(interactor: FactsInteractorDummy())
-                displaySpy = FactsListDisplaySpy()
-                presenter.display = displaySpy
-                
-                // when
-                presenter.viewDidBecomeReady()
-                
-                // then
-                // TODO: test any task taken inside viewDidBecomeReady
-            }
             
             context("while communicating with interactor") {
                 
@@ -72,6 +58,8 @@ final class FactsListPresenterSpec: QuickSpec {
                     
                     // then
                     expect(displaySpy.showLoadingIndicatorCalled).to(beTrue())
+                    
+                    expect(displaySpy.setTitleCalled).to(beTrue())
                 }
                 
                 it("should not show loading indicator when facts are being loaded without refreshing needed") {
@@ -85,6 +73,8 @@ final class FactsListPresenterSpec: QuickSpec {
                     
                     // then
                     expect(displaySpy.showLoadingIndicatorCalled).to(beFalse())
+                    
+                    expect(displaySpy.setTitleCalled).to(beFalse())
                 }
                 
                 context("facts are loaded successfully") {
@@ -102,6 +92,8 @@ final class FactsListPresenterSpec: QuickSpec {
                         
                         // then
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
+                        
+                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
                     }
                     
                     it("should update the list eventually") {
@@ -111,7 +103,28 @@ final class FactsListPresenterSpec: QuickSpec {
                         
                         // then
                         expect(presenter.factsListDataSource.sections.isEmpty).toEventually(beFalse())
+                        expect(presenter.factsListDataSource.sections.count).toEventually(equal(1))
+                        expect(presenter.factsListDataSource.sections.first?.items.count).toEventually(equal(2))
+                        
+                        // Note: The transformer itself can be individually tested for all
+                        // nitty gritty trasnform logic
+                        
+                        let item = presenter.factsListDataSource.sections.first?.items.first
+                        expect(item?.title?.string).toEventually(equal("It's a magical land"))
+                        expect(item?.body?.string).toEventually(equal("We all live with wonders of natures everywhere.."))
+                        expect(item?.webImageUrl?.absoluteString).toEventually(equal("http://www.nz.com/free.png"))
+                        
                         expect(displaySpy.updateListCalled).toEventually(beTrue())
+                    }
+                    
+                    it("should update the facts title correctly") {
+                        
+                        // when
+                        presenter.loadFacts(isRereshingNeeded: true)
+                        
+                        // then
+                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
+                        expect(displaySpy.title).toEventually(equal("About New Zealand"))
                     }
                 }
                 

@@ -9,6 +9,8 @@
 
 // MARK: - General
 
+"view.loading.title" = "Finding facts...";
+
 "error.dismiss.action.title" = "OK";
 "error.generic.title" = "Oops! Something wrong.";
 

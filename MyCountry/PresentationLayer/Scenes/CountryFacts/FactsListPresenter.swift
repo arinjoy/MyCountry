@@ -41,10 +41,6 @@ final class FactsListPresenter: FactsListPresenting {
     
     lazy var factsListDataSource: FactsListDataSource = FactsListDataSource()
     
-    func viewDidBecomeReady() {
-        // TODO: do any data preparation presetting of static text tasks etc.
-    }
-    
     func loadFacts(isRereshingNeeded: Bool) {
         
         self.display?.hideLoadingIndicator()
@@ -56,6 +52,8 @@ final class FactsListPresenter: FactsListPresenting {
             }
             return
         }
+        
+        self.display?.setTitle(StringKeys.MyCountryApp.viewLoadingTitle.localized())
         
         self.display?.showLoadingIndicator()
         

@@ -14,6 +14,8 @@ extension StringKeys {
         
         // MARK: - General
         
+        case viewLoadingTitle = "view.loading.title"
+        
         case genericErrorTitle = "error.generic.title"
         case genericErrorMessage = "error.generic.message"
         case errorDismissActionTitle = "error.dismiss.action.title"

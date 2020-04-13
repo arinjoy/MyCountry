@@ -1,5 +1,5 @@
 //
-//  CountryFactsDisplay.swift
+//  FactsListDisplay.swift
 //  MyCountry
 //
 //  Created by Arinjoy Biswas on 11/4/20.

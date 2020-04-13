@@ -29,6 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = Theme.backgroundColor
         window?.tintColor = Theme.tintColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: Theme.titleFont,
-                                                            NSAttributedString.Key.foregroundColor: Theme.primaryTextColor]
+                                                            NSAttributedString.Key.foregroundColor: Theme.primaryTextColor, ]
     }
 }

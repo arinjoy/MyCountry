@@ -48,9 +48,9 @@ final class FactSummaryCell: UITableViewCell {
     private lazy var titleAndImageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 16
+        stackView.spacing = 20
         stackView.distribution = .fill
-        stackView.alignment = .leading
+        stackView.alignment = .center
         return stackView
     }()
     
@@ -58,16 +58,20 @@ final class FactSummaryCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.alignment = .top
-        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.spacing = 20
         return stackView
     }()
     
     // MARK: - Constants
     
     private enum Constants {
-        static let imageWidth: CGFloat = UIScreen.main.bounds.width / 3
+        static let screenWidth: CGFloat = UIScreen.main.bounds.width
+        
+        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 3 : Constants.screenWidth / 2
         static let imageHeight: CGFloat = Constants.imageWidth * 3/4
+        
+        static let cellMargin: CGFloat = UIDevice.current.isIPhone ? 16 : 32
     }
     
     // MARK: - Helper private properties
@@ -114,18 +118,11 @@ final class FactSummaryCell: UITableViewCell {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if traitCollection.horizontalSizeClass == .compact {
-           fullStackView.alignment = .top
-        } else {
-            fullStackView.alignment = .center
-        }
         
         if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
             titleAndImageStackView.axis = .horizontal
-            titleAndImageStackView.alignment = .center
         } else {
             titleAndImageStackView.axis = .vertical
-            titleAndImageStackView.alignment = .leading
         }
     }
     
@@ -134,7 +131,6 @@ final class FactSummaryCell: UITableViewCell {
     private func buildUIAndApplyConstraints() {
         
         thumbImageView.snp.makeConstraints { make in
-            // Maybe increase for iPad sizes / orientation changes via size class
             make.width.equalTo(Constants.imageWidth)
             make.height.equalTo(Constants.imageHeight)
         }
@@ -148,19 +144,19 @@ final class FactSummaryCell: UITableViewCell {
         containerView.addSubview(fullStackView)
         
         fullStackView.snp.makeConstraints { make in
-            make.leading.equalTo(containerView.snp.leading).offset(16)
-            make.trailing.equalTo(containerView.snp.trailing).offset(-16)
-            make.top.equalTo(containerView.snp.top).offset(16)
-            make.bottom.equalTo(containerView.snp.bottom).offset(-16)
+            make.leading.equalTo(containerView.snp.leading).offset(Constants.cellMargin)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-Constants.cellMargin)
+            make.top.equalTo(containerView.snp.top).offset(Constants.cellMargin)
+            make.bottom.equalTo(containerView.snp.bottom).offset(-Constants.cellMargin)
         }
         
         contentView.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-            make.top.equalTo(contentView.snp.top).offset(8)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.cellMargin)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-Constants.cellMargin)
+            make.top.equalTo(contentView.snp.top).offset(Constants.cellMargin / 2)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-Constants.cellMargin / 2)
         }
     }
     
@@ -208,10 +204,8 @@ extension FactSummaryCell {
         
         if bodyLabel.isHidden {
             titleAndImageStackView.axis = .horizontal
-            titleAndImageStackView.alignment = .center
         } else {
             titleAndImageStackView.axis = .vertical
-            titleAndImageStackView.alignment = .leading
         }
 
         /**

@@ -66,8 +66,12 @@ final class FactSkeletonCell: UITableViewCell {
     // MARK: - Constants
     
     private enum Constants {
-        static let imageWidth: CGFloat = UIScreen.main.bounds.width / 3
+        static let screenWidth: CGFloat = UIScreen.main.bounds.width
+        
+        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 3 : Constants.screenWidth / 2
         static let imageHeight: CGFloat = Constants.imageWidth * 3/4
+        
+        static let cellMargin: CGFloat = UIDevice.current.isIPhone ? 16 : 32
     }
     
     // MARK: - Lifecycle
@@ -137,13 +141,13 @@ final class FactSkeletonCell: UITableViewCell {
         contentView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.leading.equalTo(contentView.snp.leading).offset(Constants.cellMargin)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-Constants.cellMargin)
             make.centerY.equalTo(contentView.snp.centerY)
         }
         
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(24 + 12 + Constants.imageHeight + 8 + 8)
+            make.height.equalTo(24 + 12 + Constants.imageHeight + Constants.cellMargin)
         }
     }
 }

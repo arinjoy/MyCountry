@@ -9,7 +9,8 @@ App Goal:
 - Apply some custom styling and theming
 - Add support for iOS 13 **Dark mode** (if iOS 13 only, uses default light mode for iOS 11 and 12)
 
-![](/Screenshots/normal-flow.gif "")
+![](/Screenshots/light-mode-potrait.gif "")
+
 
 A simple list of facts are saved in a dropbox location that serves as a GET api call for JSON api response. 
 `https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json`
@@ -17,7 +18,7 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 ## Installation
 
-- Xcode **11.4**(required)
+- Xcode **11.4**(required) with Swift 5.0
 - Clean `/DerivedData` folder if any
 - Run the Carthage (version 0.33 or later) update command to install the dependent libraries in the `Cartfile`
  > **`carthage update --platform iOS`** 
@@ -40,14 +41,14 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  - `Presenter` can communicate with underlying `Interactor` layer for more complex task
  - `Interactor` decides all Domain level business logic to take care of
  - `Interactor` communicates with underlying `Service` layer
- - `Service` communicates to its underlying `HttpClient` which handles all networking
+ - `Service` communicates to its underlying **`HttpClient`** which handles all networking
  - `Interactor` gets back information via `Rx` binding from `Service`
  - `Interactor` parses the data and apply any necessary data transformation (eg. empty list of facts or subject name missing etc.)
  - `Interactor` gives outcome back to `Presenter` via callbacks
  - `Presenter` handles all the presentation reated logic nesessary for the view
- - `Presenter` uses a helper  `Transformer` that only cares about domain data to presentation item transformation needed for table cell UI binding
+ - `Presenter` uses a helper  **`Transformer`** that only cares about domain data to presentation item transformation needed for table cell UI binding
  - `Presenter` talks back to `Display` and commands UI update tasks
-  - `Presenter` talks back to `Router` (if available and needed) for navigation tasks
+ - `Presenter` talks back to `Router` (if available and needed) for navigation tasks
  
  ## Code Organisation / Layers / Grouping
  
@@ -55,10 +56,10 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  
  Project has 3 targets:
   - **MyCountry** - The main code
-  - **MyCountryTests** - **Unit testing** of all layers using Quick/Nimble
+  - **MyCountryTests** - **Unit testing** of all the code layers using Quick/Nimble
   - **MyCountryUITests** - Some **automated XCUITest**
   
- ![](/Screenshots/app-layers.png "")
+ ![](/Screenshots/project-layers.png "")
  
  > The codebase is grouped into 3 layers - `PresentationLayer`, `DomainLayer`, & `NetworkLayer`
  
@@ -69,8 +70,8 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
   
  ![](/Screenshots/presentation-layer.png "")
  
- - Has helpers such as Theme, Localization, Utils etc.
- - Has 1 main scene:
+ - Has helpers such as Theme, Localization, Accessbility etc.
+ - Has one main scene:
  - `FactsList`: The list of facts in table view
  
  > Breakdown of each `Scene` stack:
@@ -78,18 +79,16 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
   - `Presenter`
   - `Display`
   - `Router` (optional if needed)
-  Presenter & Display communication logic are unit tested.
-  If there exists a `Router` module, that cane be unit tested too.  In this app, it;s single view app, hence no `Router`
+  Presenter & Display communication logics are unit tested.
+  If there exists a `Router`, that can be unit tested too.  In this app, it's single view app, hence no `Router` is used.
   
  #### Domain Layer
  
   > It has all domain level logic via the Interactor
- 
- ![](/Screenshots/domain-layer.png "")
   
  - `FactsInteractor` which loads the facts
  - Data model used - `FactsList -> (subjectName, [Fact])`
- - Logic is Unit tested
+ - The logic is unit tested
  
   #### Network Layer
   
@@ -97,34 +96,44 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  
   > It has all data/network layer logic
 
- - `BaseRequest`, `FactsFindingRequest`, `ImageLoadingRequest`,
- -  `FactsFindingService`
- -  `ImageLoadingService`
- - `HTTPClient` uses Apple's `URLSession` and uses `ObservableDataSource` (to achieve unit testablility)
- - `ObservableDataSource` is used to provide a layer abstraction and to be able to unit test
- -  `Decodable` Data model used `Fact` and `FactsList`
- - All of these logic are unit tested
+ - `BaseRequest` ->  `FactsFindingRequest` & `ImageLoadingRequest`
+ -  `FactsFindingService` & `ImageLoadingService`
+ - `HTTPClient` uses Apple's `URLSession`
+ - `ObservableDataSource` is used to provide a layer of abstraction and to be able to unit test
+ -  `Decodable` Data model used for `Fact` and `FactsList`
+ - Avove logics are unit tested
  
- ![](/Screenshots/testing-groups.png "")
+ ![](/Screenshots/test-layers.png "")
  
 
- #### App Demo
+## App Demo
 
 **Error Handling**
  - `Network connection unavailable` error is shown separately
- - Any other error leads in to a generic error message
- - 401 unauthorized state means `LoginFailed` which is treated differently as Login success/failure outcome with inline error message in red
+ - Any other error leads in to a `generic` error message
+ 
+ ![](/Screenshots/network-errorpng "")
+ ![](/Screenshots/generic-error.png "")
+ 
+### Giphy
+
+![](/Screenshots/light-to-dark-mode.gif "")
+
+![](/Screenshots/ipad-potrait-to-landscape.gif "")
  
 
-  
-  iPhone-5 screens:
-  
+##### iPhone  screens:
 
-  
-  iPad Pro screens:
-  
+![](/Screenshots/iPhone-8-potrait.png "")
+![](/Screenshots/iPhone-11-pro-max-landscape.png "")
+![](/Screenshots/light-mode-loading.png "")
 
+##### iPad  screens:
+  
+  ![](/Screenshots/iPad-pro-potrait.png "")
+  ![](/Screenshots/iPad-pro-landscape.png "")
  
+
  
 
 

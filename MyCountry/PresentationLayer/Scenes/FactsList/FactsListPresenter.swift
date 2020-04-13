@@ -148,8 +148,8 @@ final class FactsListPresenter: FactsListPresenting {
         // future if refreshinng is not needed
         factsListData = input
 
-        // Update the display title
-        display?.setTitle(input.title)
+        // Update the display title with fact's subject name
+        display?.setTitle(input.subjectName)
         
         let dataSource = tranformer.transform(input: input.facts)
         factsListDataSource = dataSource

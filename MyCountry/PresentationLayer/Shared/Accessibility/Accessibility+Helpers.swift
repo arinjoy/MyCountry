@@ -77,4 +77,3 @@ extension UIAccessibility {
         return stringComponents.compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: ", ")
     }
 }
-

@@ -416,7 +416,7 @@
 		0E3658F024411CB700768256 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				0E3658F224411CD200768256 /* CountryFacts */,
+				0E3658F224411CD200768256 /* FactsList */,
 				0E3658F124411CC300768256 /* Root */,
 			);
 			path = Scenes;
@@ -430,7 +430,7 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
-		0E3658F224411CD200768256 /* CountryFacts */ = {
+		0E3658F224411CD200768256 /* FactsList */ = {
 			isa = PBXGroup;
 			children = (
 				0E36590724415CB600768256 /* UIComponents */,
@@ -440,7 +440,7 @@
 				0E3658F52441203300768256 /* FactsListPresenting.swift */,
 				0E3658F7244120E300768256 /* FactsListPresenter.swift */,
 			);
-			path = CountryFacts;
+			path = FactsList;
 			sourceTree = "<group>";
 		};
 		0E3658FA244148D000768256 /* Transformer */ = {
@@ -470,18 +470,18 @@
 		0E36590124414DC900768256 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				0E36590224414DD500768256 /* CountryFacts */,
+				0E36590224414DD500768256 /* FactsList */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		0E36590224414DD500768256 /* CountryFacts */ = {
+		0E36590224414DD500768256 /* FactsList */ = {
 			isa = PBXGroup;
 			children = (
 				0E36590324414DF800768256 /* FactsList+TestDoubles.swift */,
 				0E365905244150C800768256 /* FactsListPresenterSpec.swift */,
 			);
-			path = CountryFacts;
+			path = FactsList;
 			sourceTree = "<group>";
 		};
 		0E36590724415CB600768256 /* UIComponents */ = {

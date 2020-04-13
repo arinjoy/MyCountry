@@ -72,16 +72,16 @@ final class FactsFindingServiceSpec: QuickSpec {
                 expect(expectedError).to(beNil())
                 
                 expect(receivedResponse).toNot(beNil())
-                expect(receivedResponse?.title).to(equal("About Australia"))
+                expect(receivedResponse?.subjectName).to(equal("About Australia"))
                 expect(receivedResponse?.facts.count).to(equal(2))
                 
                 expect(receivedResponse?.facts.first?.title).to(equal("It's free"))
                 expect(receivedResponse?.facts.first?.description).to(equal("We all live peacefully"))
-                expect(receivedResponse?.facts.first?.imageUrl).to(equal("http://www.australia.com/free.png"))
+                expect(receivedResponse?.facts.first?.webImageUrl).to(equal("http://www.australia.com/free.png"))
                 
                 expect(receivedResponse?.facts.last?.title).to(equal("Kangaroo"))
                 expect(receivedResponse?.facts.last?.description).to(equal("They are the best jumpers but also deadly kickboxers"))
-                expect(receivedResponse?.facts.last?.imageUrl).to(equal("https://www.australia.com/kangaroo.png"))
+                expect(receivedResponse?.facts.last?.webImageUrl).to(equal("https://www.australia.com/kangaroo.png"))
             }
 
             it("should pass error from the api client when fails") {
@@ -116,12 +116,12 @@ final class FactsFindingServiceSpec: QuickSpec {
     
     private func sampleFactsList() -> FactsList {
         return FactsList(
-            title: "About Australia",
+            subjectName: "About Australia",
             facts: [Fact(title: "It's free",
                          description: "We all live peacefully",
-                         imageUrl: "http://www.australia.com/free.png"),
+                         webImageUrl: "http://www.australia.com/free.png"),
                     Fact(title: "Kangaroo",
                          description: "They are the best jumpers but also deadly kickboxers",
-                         imageUrl: "https://www.australia.com/kangaroo.png"), ])
+                         webImageUrl: "https://www.australia.com/kangaroo.png"), ])
     }
 }

@@ -88,16 +88,16 @@ final class FactsInteractorSpec: QuickSpec {
                         
                         expect(self.factsResult).toNotEventually(beNil(), timeout: 1.5)
                         let factsList = self.factsResult
-                        expect(factsList?.title).toEventually(equal("About New Zealand"))
+                        expect(factsList?.subjectName).toEventually(equal("About New Zealand"))
                         expect(factsList?.facts.isEmpty).toEventually(beFalse())
                         
                         expect(factsList?.facts.first?.title).toEventually(equal("It's a magical land"))
                         expect(factsList?.facts.first?.description).toEventually(equal("We all live with wonders of natures everywhere.."))
-                        expect(factsList?.facts.first?.imageUrl).toEventually(equal("http://www.nz.com/free.png"))
+                        expect(factsList?.facts.first?.webImageUrl).toEventually(equal("http://www.nz.com/free.png"))
                         
                         expect(factsList?.facts.last?.title).toEventually(equal("Kiwi"))
                         expect(factsList?.facts.last?.description).toEventually(equal("They are the most cute little birdies with great persona."))
-                        expect(factsList?.facts.last?.imageUrl).toEventually(equal("https://www.nz.com/kiwi.png"))
+                        expect(factsList?.facts.last?.webImageUrl).toEventually(equal("https://www.nz.com/kiwi.png"))
                     }
                 }
                 
@@ -157,10 +157,10 @@ final class FactsInteractorSpec: QuickSpec {
     // MARK: - Private Test Helpers
     
     private func factsListWithEmptySubjectName() -> FactsList {
-        return FactsList(title: "", facts: [Fact(title: "Hello", description: "world", imageUrl: nil)])
+        return FactsList(subjectName: "", facts: [Fact(title: "Hello", description: "world", webImageUrl: nil)])
     }
     
     private func factsListWithEmptyFacts() -> FactsList {
-        return FactsList(title: "Subject", facts: [])
+        return FactsList(subjectName: "Subject", facts: [])
     }
 }

@@ -50,7 +50,7 @@ struct FactsTransformer: DataTransforming {
             }
             
             var webImageUrl: URL?
-            if let urlString = item.imageUrl,
+            if let urlString = item.webImageUrl,
                 let url = URL(string: urlString) {
                 webImageUrl = url
             }
@@ -86,7 +86,7 @@ struct FactsTransformer: DataTransforming {
                                                            traits: .staticText)
         }
         
-        if input.imageUrl != nil {
+        if input.webImageUrl != nil {
             imageAccessbility = AccessibilityConfiguration(identifier: "accessibilityId.factsList.image",
                                                            label: "Fact image",
                                                            traits: .image)

@@ -12,31 +12,31 @@ import Foundation
 struct FactsList: Decodable {
     
     /// The title/name of the main subject or the entity about the facts this struct represents
-    let title: String
+    let subjectName: String
     
-    /// An array of facts abou the subject
+    /// An array of facts about the subject
     let facts: [Fact]
     
     // MARK: - Coding key mapping
     
     enum CodingKeys: String, CodingKey {
-        case title
+        case subjectName = "title"
         case facts = "rows"
     }
     
     init(from decoder: Decoder) throws {
         let map = try decoder.container(keyedBy: CodingKeys.self)
-        self.title = try map.decode(String.self, forKey: .title)
+        self.subjectName = try map.decode(String.self, forKey: .subjectName)
         let facts = try map.decode([Fact].self, forKey: .facts)
         
         // Make sure all facts in the array are valid.
         // A fact is only valid if at least one of the (title, description, imageUrl) is non-nil
         // If all three attributes are nil, then just discard such void/redundant fact
-        self.facts = facts.filter { !($0.title == nil && $0.description == nil && $0.imageUrl == nil) }
+        self.facts = facts.filter { !($0.title == nil && $0.description == nil && $0.webImageUrl == nil) }
     }
     
-    init(title: String, facts: [Fact]) {
-        self.title = title
+    init(subjectName: String, facts: [Fact]) {
+        self.subjectName = subjectName
         self.facts = facts
     }
 }
@@ -51,13 +51,13 @@ struct Fact: Decodable {
     let description: String?
     
     /// The (optional) image web URL string of the fact
-    let imageUrl: String?
+    let webImageUrl: String?
         
     // MARK: - Coding key mapping
     
     enum CodingKeys: String, CodingKey {
         case title
         case description
-        case imageUrl = "imageHref"
+        case webImageUrl = "imageHref"
     }
 }

@@ -31,7 +31,7 @@ final class FactsListDataMappingSpec: QuickSpec {
                     // The entire structure is mapped
                     expect(mappedItem).toNot(beNil())
                     
-                    expect(mappedItem?.title).to(equal("About Australia"))
+                    expect(mappedItem?.subjectName).to(equal("About Australia"))
                     
                     // 5 facts got mapped (the last one got discarded from JSON due to all-missing attributes)
                     expect(mappedItem?.facts.count).to(equal(5))
@@ -40,12 +40,12 @@ final class FactsListDataMappingSpec: QuickSpec {
                     let firstFact = mappedItem?.facts.first
                     expect(firstFact?.title).to(equal("Kangaroo"))
                     expect(firstFact?.description).to(equal("Kangaroos are second only to humans in their ability."))
-                    expect(firstFact?.imageUrl).to(equal("http://upload.wikimedia.org/kangaroo.jpg"))
+                    expect(firstFact?.webImageUrl).to(equal("http://upload.wikimedia.org/kangaroo.jpg"))
                     
                     let fourthFact = mappedItem?.facts[3]
                     expect(fourthFact?.title).to(beNil())
                     expect(fourthFact?.description).to(equal("Warmer than you might think."))
-                    expect(fourthFact?.imageUrl).to(equal("http://icons.iconarchive.com/icons/uluru.png"))
+                    expect(fourthFact?.webImageUrl).to(equal("http://icons.iconarchive.com/icons/uluru.png"))
                 }
             }
             

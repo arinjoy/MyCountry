@@ -55,7 +55,7 @@ final class FactsInteractor: FactsInteracting {
                  and cusotmised error handling and unit testing.
                  */
                 
-                if factsList.title.isEmpty || factsList.facts.isEmpty {
+                if factsList.subjectName.isEmpty || factsList.facts.isEmpty {
                     completion(.failure(APIError.unknown))
                 } else {
                     completion(.success(factsList))

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// swiftlint:disable all
+
 /// Courtesy to the developer help on Stack Overflow:
 /// https://stackoverflow.com/questions/26028918/how-to-determine-the-current-iphone-device-model
 public enum Model: String {
@@ -251,5 +253,5 @@ extension UIDevice {
             
         }
     }
-
 }
+// swiftlint:enable all

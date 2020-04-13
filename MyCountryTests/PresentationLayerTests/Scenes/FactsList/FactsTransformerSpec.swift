@@ -90,7 +90,7 @@ final class FactsTransformerSpec: QuickSpec {
                      webImageUrl: ""),
                 Fact(title: "some title 3",
                      description: nil,
-                     webImageUrl: nil)
+                     webImageUrl: nil),
                 ]
     }
 }

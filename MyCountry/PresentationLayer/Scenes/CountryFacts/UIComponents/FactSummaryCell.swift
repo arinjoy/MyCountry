@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 final class FactSummaryCell: UITableViewCell {
     
@@ -40,6 +41,7 @@ final class FactSummaryCell: UITableViewCell {
     private lazy var thumbImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.isSkeletonable = true
         return imageView
     }()
     
@@ -61,6 +63,24 @@ final class FactSummaryCell: UITableViewCell {
         return stackView
     }()
     
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let imageWidth: CGFloat = UIScreen.main.bounds.width / 3
+        static let imageHeight: CGFloat = Constants.imageWidth * 3/4
+    }
+    
+    // MARK: - Helper private properties
+    
+    private lazy var skeletonGradient: SkeletonGradient = {
+        return SkeletonGradient(baseColor: Theme.shimmerBaseColor,
+                                secondaryColor: Theme.shimmerGradientColor)
+    }()
+    
+    private lazy var skeletonAnimation: SkeletonLayerAnimation = {
+        return SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+    }()
+    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -79,14 +99,20 @@ final class FactSummaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        showImageLoadingShimmer()
+    }
+    
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
         
         thumbImageView.snp.makeConstraints { make in
             // Maybe increase for iPad sizes / orientation changes via size class
-            make.width.equalTo(UIScreen.main.bounds.width / 3)
-            make.height.equalTo(UIScreen.main.bounds.width / 3 * 0.75)
+            make.width.equalTo(Constants.imageWidth)
+            make.height.equalTo(Constants.imageHeight)
         }
                 
         titleAndImageStackView.addArrangedSubview(titleLabel)
@@ -113,6 +139,21 @@ final class FactSummaryCell: UITableViewCell {
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
     }
+    
+    private func showImageLoadingShimmer() {
+        // Image would be loaded later on, but may be `nil` image due to
+        // some loading error due to incorrect URLs, 404 not found etc.
+        // In those cases placeholder image will be shown.
+        
+        thumbImageView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient,
+                                                    animation: skeletonAnimation,
+                                                    transition: .crossDissolve(0.25))
+        thumbImageView.image = UIImage(named: "placeholder")
+    }
+    
+    private func hideImageLoadingShimmer() {
+        thumbImageView.hideSkeleton()
+    }
 }
 
 // MARK: - Configurations
@@ -137,11 +178,7 @@ extension FactSummaryCell {
         
         // If image URL exists, then only show the image, else hide it.
         thumbImageView.isHidden = item.webImageUrl == nil
-        
-        // Image would be loaded later on, but may be `nil` image due to
-        // some loading error due to incorrect URLs, 404 not found etc.
-        // In those cases placeholder image will be shown.
-        thumbImageView.image = UIImage(named: "placeholder")
+        showImageLoadingShimmer()
         
         titleAndImageStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
         
@@ -158,6 +195,7 @@ extension FactSummaryCell {
         if let image = image {
             DispatchQueue.main.async {
                 self.thumbImageView.image = image
+                self.hideImageLoadingShimmer()
             }
         }
     }

@@ -16,13 +16,15 @@ enum Theme {
     
     static let backgroundColor = UIColor.white
     
-    static let darkerBackgroundColor = UIColor.colorFrom(red: 226, green: 232, blue: 230) // light tealish gray
-    
     static let primaryTextColor = UIColor.colorFrom(red: 72, green: 82, blue: 86)
     
     static let secondaryTextColor = UIColor.darkGray
     
     static let errorColor = UIColor.colorFrom(red: 165, green: 69, blue: 69) // Grayish red
+    
+    static let shimmerBaseColor = UIColor.colorFrom(red: 226, green: 232, blue: 230) // light tealish grey
+    
+    static let shimmerGradientColor = Theme.shimmerBaseColor.withAlphaComponent(0.6)
 }
 
 private extension UIColor {

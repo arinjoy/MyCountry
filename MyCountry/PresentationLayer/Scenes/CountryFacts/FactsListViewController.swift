@@ -25,6 +25,17 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         return refreshControl
     }()
     
+    // MARK: - Helper private properties
+    
+    private lazy var skeletonGradient: SkeletonGradient = {
+        return SkeletonGradient(baseColor: Theme.shimmerBaseColor,
+                                secondaryColor: Theme.shimmerGradientColor)
+    }()
+    
+    private lazy var skeletonAnimation: SkeletonLayerAnimation = {
+        return SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+    }()
+    
     // MARK: - Presenter
     
     /// The presenter conforming to the `FactsListPresenting`
@@ -53,8 +64,18 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         
         buildUIAndApplyConstraints()
         configureTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         presenter.loadFacts(isRereshingNeeded: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.layoutSkeletonIfNeeded()
     }
     
     // MARK: - Private Helpers
@@ -91,8 +112,21 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         presenter.loadFacts(isRereshingNeeded: true)
     }
     
-    // MARK: - FactsListDisplay
+    private func showLoadingShimmers() {
+        tableView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient,
+                                               animation: skeletonAnimation,
+                                               transition: .crossDissolve(0.25))
+    }
+    
+    private func hideLoadingShimmers() {
+        tableView.hideSkeleton()
+    }
+}
 
+// MARK: - FactsListDisplay
+
+extension FactsListViewController {
+    
     func setTitle(_ title: String) {
        navigationItem.title = title
     }
@@ -103,12 +137,15 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     
     func showLoadingIndicator() {
         refreshControl.beginRefreshing()
-        tableView.showAnimatedSkeleton()
+        showLoadingShimmers()
     }
     
     func hideLoadingIndicator() {
-        refreshControl.endRefreshing()
-        tableView.hideSkeleton()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+
+        hideLoadingShimmers()
     }
     
     func showError(title: String, message: String, dismissTitle: String) {
@@ -143,8 +180,7 @@ extension FactsListViewController: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.configure(withPresentationItem: item)
-        cell.update(withImage: .none)
+        cell.configure(withPresentationItem: item)        
         return cell
     }
 }

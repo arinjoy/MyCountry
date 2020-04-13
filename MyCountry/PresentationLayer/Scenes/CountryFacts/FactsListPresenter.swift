@@ -47,6 +47,8 @@ final class FactsListPresenter: FactsListPresenting {
     
     func loadFacts(isRereshingNeeded: Bool) {
         
+        self.display?.hideLoadingIndicator()
+        
         // If refreshing is not needed, early exit with rendering based on preloaded data
         guard isRereshingNeeded else {
             if let factsList = factsListData {

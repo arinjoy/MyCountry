@@ -63,6 +63,13 @@ final class FactSkeletonCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let imageWidth: CGFloat = UIScreen.main.bounds.width / 3
+        static let imageHeight: CGFloat = Constants.imageWidth * 3/4
+    }
+    
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -87,12 +94,12 @@ final class FactSkeletonCell: UITableViewCell {
         label2.text = "The body of the facts to show"
         label3.text = "The body of the facts to show"
         label4.text = "The body of the facts to show"
-        label5.text = "The some"
+        label5.text = "The body"
         
         thumbImageView.snp.makeConstraints { make in
             // Maybe increase for iPad sizes / orientation changes via size class
-            make.width.equalTo(UIScreen.main.bounds.width / 3)
-            make.height.equalTo(UIScreen.main.bounds.width / 3 * 0.75)
+            make.width.equalTo(Constants.imageWidth)
+            make.height.equalTo(Constants.imageHeight)
         }
         
         let leftStackView = UIStackView()
@@ -136,7 +143,7 @@ final class FactSkeletonCell: UITableViewCell {
         }
         
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(24 + 12 + (UIScreen.main.bounds.width / 3 * 0.75) + 8 + 8)
+            make.height.equalTo(24 + 12 + Constants.imageHeight + 8 + 8)
         }
     }
 }

@@ -68,7 +68,7 @@ final class FactSummaryCell: UITableViewCell {
     private enum Constants {
         static let screenWidth: CGFloat = UIScreen.main.bounds.width
         
-        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 3 : Constants.screenWidth / 2
+        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 4 : Constants.screenWidth / 3
         static let imageHeight: CGFloat = Constants.imageWidth * 3/4
         
         static let cellMargin: CGFloat = UIDevice.current.isIPhone ? 16 : 32

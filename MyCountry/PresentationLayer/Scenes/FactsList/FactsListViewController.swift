@@ -80,7 +80,7 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     // MARK: - Private Helpers
     
     private func configureTableView() {
-        tableView.backgroundColor = Theme.backgroundColor
+        tableView.backgroundColor = Theme.darkerBackgroundColor
         tableView.register(FactSummaryCell.self, forCellReuseIdentifier: FactSummaryCell.cellReuseIdentifier)
         tableView.estimatedRowHeight = FactSummaryCell.approximateRowHeight
         tableView.separatorStyle = .none
@@ -99,10 +99,10 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
     private func buildUIAndApplyConstraints() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(10)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.bottom.equalTo(view.snp.bottom).offset(-16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leadingMargin)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailingMargin)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
         }
     }
     

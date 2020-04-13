@@ -49,7 +49,7 @@
 		0E36590424414DF800768256 /* FactsList+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590324414DF800768256 /* FactsList+TestDoubles.swift */; };
 		0E365906244150C800768256 /* FactsListPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365905244150C800768256 /* FactsListPresenterSpec.swift */; };
 		0E36590924415CCD00768256 /* FactSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590824415CCD00768256 /* FactSummaryCell.swift */; };
-		0E36590C244169F200768256 /* Theme+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590B244169F200768256 /* Theme+Color.swift */; };
+		0E36590C244169F200768256 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590B244169F200768256 /* Theme.swift */; };
 		0E36590F2441779100768256 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36590E2441779100768256 /* LocalizationKeys.swift */; };
 		0E365911244177D600768256 /* MyCountryApp+StringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */; };
 		0E3659132441781700768256 /* MyCountryApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E3659122441781700768256 /* MyCountryApp.strings */; };
@@ -60,6 +60,7 @@
 		0E7B0C502443F3BD00119929 /* ImageLoading+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C4F2443F3BD00119929 /* ImageLoading+Request.swift */; };
 		0E7B0C532443F9F200119929 /* ImageLoadingRequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C522443F9F200119929 /* ImageLoadingRequestSpec.swift */; };
 		0E7B0C5624440C1400119929 /* Accessibility+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5524440C1400119929 /* Accessibility+Helpers.swift */; };
+		0E7B0C5924441A8900119929 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5824441A8900119929 /* Shadow.swift */; };
 		0E843CB32442E1DB00FB4F21 /* SkeletonView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */; };
 		0E843CB52442E7FF00FB4F21 /* FactSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */; };
 /* End PBXBuildFile section */
@@ -129,7 +130,7 @@
 		0E36590324414DF800768256 /* FactsList+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FactsList+TestDoubles.swift"; sourceTree = "<group>"; };
 		0E365905244150C800768256 /* FactsListPresenterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsListPresenterSpec.swift; sourceTree = "<group>"; };
 		0E36590824415CCD00768256 /* FactSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSummaryCell.swift; sourceTree = "<group>"; };
-		0E36590B244169F200768256 /* Theme+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Color.swift"; sourceTree = "<group>"; };
+		0E36590B244169F200768256 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0E36590E2441779100768256 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
 		0E365910244177D600768256 /* MyCountryApp+StringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyCountryApp+StringKeys.swift"; sourceTree = "<group>"; };
 		0E3659122441781700768256 /* MyCountryApp.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = MyCountryApp.strings; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		0E7B0C4F2443F3BD00119929 /* ImageLoading+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLoading+Request.swift"; sourceTree = "<group>"; };
 		0E7B0C522443F9F200119929 /* ImageLoadingRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingRequestSpec.swift; sourceTree = "<group>"; };
 		0E7B0C5524440C1400119929 /* Accessibility+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Accessibility+Helpers.swift"; sourceTree = "<group>"; };
+		0E7B0C5824441A8900119929 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
 		0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSkeletonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -400,6 +402,7 @@
 				0E36590A244169DD00768256 /* Theme */,
 				0E3658FD2441495100768256 /* DataTransform */,
 				0E3658EB24411A9C00768256 /* ListDataSource */,
+				0E7B0C5724441A5400119929 /* UI+Decoration */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -496,7 +499,7 @@
 		0E36590A244169DD00768256 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				0E36590B244169F200768256 /* Theme+Color.swift */,
+				0E36590B244169F200768256 /* Theme.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -551,6 +554,14 @@
 				0E7B0C5524440C1400119929 /* Accessibility+Helpers.swift */,
 			);
 			path = Accessibility;
+			sourceTree = "<group>";
+		};
+		0E7B0C5724441A5400119929 /* UI+Decoration */ = {
+			isa = PBXGroup;
+			children = (
+				0E7B0C5824441A8900119929 /* Shadow.swift */,
+			);
+			path = "UI+Decoration";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -758,8 +769,9 @@
 				0E365869244010C000768256 /* AppDelegate.swift in Sources */,
 				0E3658B3244030BB00768256 /* BaseRequest.swift in Sources */,
 				0E3658F424411E9600768256 /* FactsListDisplay.swift in Sources */,
+				0E7B0C5924441A8900119929 /* Shadow.swift in Sources */,
 				0E3658EF24411B8300768256 /* DataSource.swift in Sources */,
-				0E36590C244169F200768256 /* Theme+Color.swift in Sources */,
+				0E36590C244169F200768256 /* Theme.swift in Sources */,
 				0E3658B02440309100768256 /* ObservableDataSource.swift in Sources */,
 				0E36590924415CCD00768256 /* FactSummaryCell.swift in Sources */,
 				0E3658FC244148F700768256 /* FactsTransformer.swift in Sources */,

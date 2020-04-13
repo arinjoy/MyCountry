@@ -18,18 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        window?.backgroundColor = Theme.backgroundColor
-        window?.tintColor = Theme.tintColor
-        
-//        SkeletonAppearance.default.multilineHeight = 5
-//        SkeletonAppearance.default.tintColor = .green
-//        SkeletonAppearance.default.multilineCornerRadius = 10
-//        //SkeletonAppearance.default.multilineSpacing = 10
-//        SkeletonAppearance.default.multilineLastLineFillPercent = 80
-//        //SkeletonAppearance.default.li
+        applyThemeStyles()
         
         window?.rootViewController = UINavigationController(rootViewController: FactsListViewController())
         window?.makeKeyAndVisible()
         return true
+    }
+    
+    private func applyThemeStyles() {
+        window?.backgroundColor = Theme.backgroundColor
+        window?.tintColor = Theme.tintColor
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: Theme.titleFont,
+                                                            NSAttributedString.Key.foregroundColor: Theme.primaryTextColor]
     }
 }

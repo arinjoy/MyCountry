@@ -24,7 +24,7 @@ final class FactSummaryCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = Theme.titleFont
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -32,7 +32,7 @@ final class FactSummaryCell: UITableViewCell {
     
     private lazy var bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = Theme.bodyFont
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -72,6 +72,15 @@ final class FactSummaryCell: UITableViewCell {
     
     // MARK: - Helper private properties
     
+    private func applyContainerStyle() {
+        Shadow(color: Theme.primaryTextColor,
+               opacity: 0.3,
+               blur: 4,
+               offset: CGSize(width: 0, height: 2))
+            .apply(toView: containerView)
+        containerView.layer.cornerRadius = 8.0
+    }
+    
     private lazy var skeletonGradient: SkeletonGradient = {
         return SkeletonGradient(baseColor: Theme.shimmerBaseColor,
                                 secondaryColor: Theme.shimmerGradientColor)
@@ -88,8 +97,8 @@ final class FactSummaryCell: UITableViewCell {
         
         self.selectionStyle = UITableViewCell.SelectionStyle.none
         
-        containerView.backgroundColor = .clear
-        contentView.backgroundColor = Theme.backgroundColor
+        contentView.backgroundColor = Theme.darkerBackgroundColor
+        containerView.backgroundColor = Theme.backgroundColor
         
         buildUIAndApplyConstraints()
     }
@@ -132,8 +141,8 @@ final class FactSummaryCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(8)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-8)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
             make.top.equalTo(contentView.snp.top).offset(8)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
@@ -198,6 +207,8 @@ extension FactSummaryCell {
         item.accessibility?.titleAccessibility?.apply(to: titleLabel)
         item.accessibility?.bodyAccessibility?.apply(to: bodyLabel)
         item.accessibility?.imageAccessibility?.apply(to: thumbImageView)
+        
+        applyContainerStyle()
     }
     
     func update(withImage image: UIImage?) {

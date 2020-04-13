@@ -86,8 +86,10 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         tableView.separatorStyle = .none
         
         tableView.dataSource = self
-        tableView.prefetchDataSource = self
         tableView.delegate = self
+        
+        // Potentially opimise the prefetching logic
+        tableView.prefetchDataSource = self
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshCountryData), for: .valueChanged)
@@ -185,6 +187,11 @@ extension FactsListViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDataSourcePrefetching
 
+/**
+ Note: Currenty this data prefetching logic is not 100% optimum as it interferes with `tableView(_ : willDisplay cell:)` and
+ `tableView(_ : didEndDisplaying cell:)`  methods. With each movement of the cell, the image data is loaded.
+ This can be impoved if image data is cached and `URLCache` is being is used.
+ */
 extension FactsListViewController: UITableViewDataSourcePrefetching {
 
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {

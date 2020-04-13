@@ -10,7 +10,7 @@ import Foundation
 
 enum Endpoint: String {
     
-    /// Some facts about a country.
+    /// Some facts about a country or other subject
     case myCountryFacts = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
 }
 

@@ -13,7 +13,7 @@ import RxSwift
 // MARK: - Spy
 
 final class ObservableDataSourceSpy: ObservableDataSource {
-
+    
     var fetchSingleObjectCalled = false
     var downloadSingleImageDataCalled = false
     var request: BaseRequest?
@@ -24,7 +24,7 @@ final class ObservableDataSourceSpy: ObservableDataSource {
         return Observable.empty().asSingle()
     }
     
-    func downloadSingleImageData(with url: URL) -> Single<Data> {
+    func downloadSingleImageData(with request: BaseRequest) -> Single<Data> {
         downloadSingleImageDataCalled = true
         return Observable.empty().asSingle()
     }
@@ -60,7 +60,7 @@ final class ObservableDataSourceMock<ResponseType>: ObservableDataSource {
         return Single<ResponseType>.just(response) as! PrimitiveSequence<SingleTrait, T>
     }
     
-    func downloadSingleImageData(with url: URL) -> Single<Data> {
+    func downloadSingleImageData(with request: BaseRequest) -> Single<Data> {
         if returningError {
             return Single.error(error)
         }

@@ -25,6 +25,9 @@ final class ImageLoadingServiceClient: ImageLoadingClientType {
     }
     
     func loadImageData(fromUrl webUrl: URL) -> Single<Data> {
-        dataSource.downloadSingleImageData(with: webUrl)
+        
+        let imageLoadingRequest = ImageLoadingRequest(url: webUrl)
+                
+        return dataSource.downloadSingleImageData(with: imageLoadingRequest)
     }
 }

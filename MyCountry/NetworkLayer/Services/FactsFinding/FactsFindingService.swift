@@ -27,10 +27,10 @@ final class FactsFindingServiceClient: FactsFindingClientType {
     
     func findFacts() -> Single<FactsList> {
         
-        let myCountryFactsRequest = FactsFindingRequest(url:
+        let factsRequest = FactsFindingRequest(url:
             EndpointConfiguration.absoluteURL(for: .myCountryFacts)
         )
         
-        return dataSource.fetchSingleObject(with: myCountryFactsRequest)
+        return dataSource.fetchSingleObject(with: factsRequest)
     }
 }

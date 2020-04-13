@@ -56,15 +56,15 @@ final class HTTPClient: ObservableDataSource {
     }
     
     /// Downloads image data from an web URL and results in terms of Rx `Single`
-    /// - Parameter request: The web url to load the image from
+    /// - Parameter request: The configured URL request
     @discardableResult
-    func downloadSingleImageData(with url: URL) -> Single<Data> {
+    func downloadSingleImageData(with request: BaseRequest) -> Single<Data> {
         
         return Single<Data>.create { single in
             
             self.dataTask?.cancel()
                                     
-            self.dataTask = self.defaultSession.dataTask(with: url) { [weak self] data, response, error in
+            self.dataTask = self.defaultSession.dataTask(with: request.urlRequest) { [weak self] data, response, error in
                 
                 defer {
                   self?.dataTask = nil

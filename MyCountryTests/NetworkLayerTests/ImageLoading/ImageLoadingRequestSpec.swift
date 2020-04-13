@@ -1,8 +1,8 @@
 //
-//  FactsFindingRequestSpec.swift
+//  ImageLoadingRequestSpec.swift
 //  MyCountryTests
 //
-//  Created by Arinjoy Biswas on 10/4/20.
+//  Created by Arinjoy Biswas on 13/4/20.
 //  Copyright © 2020 Arinjoy Biswas. All rights reserved.
 //
 
@@ -10,18 +10,18 @@ import Quick
 import Nimble
 @testable import MyCountry
 
-final class FactsFindingRequestSpec: QuickSpec {
+final class ImageLoadingRequestSpec: QuickSpec {
 
     override func spec() {
         
-        describe("Facts Finding Request Spec") {
+        describe("Image Loading Request Spec") {
             
-            var request: FactsFindingRequest!
+            var request: ImageLoadingRequest!
             
-            context("when `FactsFindingRequest` is constructed") {
+            context("when `ImageLoadingRequest` is constructed") {
                 
                 beforeEach {
-                    request = FactsFindingRequest(url: EndpointConfiguration.absoluteURL(for: .myCountryFacts))
+                    request = ImageLoadingRequest(url: URL(string: "http://abc.com.au/image.png")!)
                 }
                 
                 it("should set the correct GET call type") {
@@ -29,7 +29,7 @@ final class FactsFindingRequestSpec: QuickSpec {
                 }
                 
                 it("should set the correct API path") {
-                    expect(request.urlRequest.url?.absoluteString) == "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+                    expect(request.urlRequest.url?.absoluteString) == "http://abc.com.au/image.png"
                 }
                 
                 it("should set the correct time out interval") {

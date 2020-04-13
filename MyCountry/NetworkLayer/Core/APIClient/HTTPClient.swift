@@ -11,10 +11,16 @@ import RxSwift
 
 final class HTTPClient: ObservableDataSource {
     
+    /// The shared singleton instance
+    static let shared = HTTPClient()
+    
     // MARK: - Private properties
     
     private let defaultSession: URLSession
     private var dataTask: URLSessionDataTask?
+    
+    /// A cache for storing image data loaded from urls
+    private let cache = NSCache<NSString, AnyObject>()
     
     init(withSession session: URLSession = URLSession(configuration: .default)) {
         self.defaultSession = session
@@ -62,27 +68,41 @@ final class HTTPClient: ObservableDataSource {
         
         return Single<Data>.create { single in
             
-            self.dataTask?.cancel()
-                                    
-            self.dataTask = self.defaultSession.dataTask(with: request.urlRequest) { [weak self] data, response, error in
+            // Check if the data exists for this image url that is going to be downloaded
+            if let url = request.urlRequest.url,
+                let imageDataInCache = self.cache.object(forKey: url.absoluteString as NSString) as? Data {
                 
-                defer {
-                  self?.dataTask = nil
-                }
-                
-                if let httpURLResponse = response as? HTTPURLResponse,
-                    httpURLResponse.statusCode == 200,
-                    let mimeType = response?.mimeType,
-                    mimeType.hasPrefix("image"),
-                    error == nil,
-                    let responseData = data {
-                    single(.success(responseData))
-                } else {
-                    single(.error(APIError.unknown))
-                }
-            }
+                single(.success(imageDataInCache))
             
-            self.dataTask?.resume()
+            } else {
+                
+                self.dataTask?.cancel()
+                                        
+                self.dataTask = self.defaultSession.dataTask(with: request.urlRequest) { [weak self] data, response, error in
+                    
+                    defer {
+                      self?.dataTask = nil
+                    }
+                    
+                    if let httpURLResponse = response as? HTTPURLResponse,
+                        httpURLResponse.statusCode == 200,
+                        let mimeType = response?.mimeType,
+                        mimeType.hasPrefix("image"),
+                        error == nil,
+                        let responseData = data {
+                        
+                        // Set the data into the cache
+                        self?.cache.setObject(responseData as AnyObject, forKey: (request.urlRequest.url?.absoluteString ?? "") as NSString)
+                        
+                        single(.success(responseData))
+                    
+                    } else {
+                        single(.error(APIError.unknown))
+                    }
+                }
+                
+                self.dataTask?.resume()
+            }
             
             return Disposables.create()
         }

@@ -26,12 +26,10 @@ final class ImageLoadOperation: Operation {
     
     /// The image url to load from
     private let imageWebUrl: URL
-    
-//    /// `weakly` attached interactor that has ability to load an image from network
-//    weak var interactor: FactsInteracting!
-    
+        
+    /// The image loading service is made from the same shared HTTPClient instance
     private lazy var imageLoadingService: ImageLoadingClientType = {
-       return ImageLoadingServiceClient(dataSource: HTTPClient())
+        return ImageLoadingServiceClient(dataSource: HTTPClient.shared)
     }()
     
     let disposeBag: DisposeBag = DisposeBag()

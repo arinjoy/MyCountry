@@ -87,12 +87,11 @@ final class FactSummaryCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier ?? FactSummaryCell.cellReuseIdentifier)
         
         self.selectionStyle = UITableViewCell.SelectionStyle.none
-        buildUIAndApplyConstraints()
-        
-        contentView.isAccessibilityElement = true
         
         containerView.backgroundColor = .clear
         contentView.backgroundColor = Theme.backgroundColor
+        
+        buildUIAndApplyConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -189,6 +188,16 @@ extension FactSummaryCell {
             titleAndImageStackView.axis = .vertical
             titleAndImageStackView.alignment = .leading
         }
+
+        /**
+         Note: Although each elements are individually configured for accessibility, Table view cell would apply automatic combining
+         of these all and make the whole cell accessible as Apple way. However, the entrire VoiceOver text sounds a bit nicer this way.
+         If needed custom container accessbility logic can be applied for more customisation
+         */
+
+        item.accessibility?.titleAccessibility?.apply(to: titleLabel)
+        item.accessibility?.bodyAccessibility?.apply(to: bodyLabel)
+        item.accessibility?.imageAccessibility?.apply(to: thumbImageView)
     }
     
     func update(withImage image: UIImage?) {

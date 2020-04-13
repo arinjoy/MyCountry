@@ -143,7 +143,6 @@ extension FactsListViewController {
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-
         hideLoadingShimmers()
     }
     

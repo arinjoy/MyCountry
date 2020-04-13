@@ -90,11 +90,11 @@ final class FactSkeletonCell: UITableViewCell {
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
-        label1.text = "some title or name"
-        label2.text = "The body of the facts to show"
-        label3.text = "The body of the facts to show"
-        label4.text = "The body of the facts to show"
-        label5.text = "The body"
+        label1.text = "                                   "
+        label2.text = "                                                  "
+        label3.text = "                                                  "
+        label4.text = "                                                  "
+        label5.text = "                "
         
         thumbImageView.snp.makeConstraints { make in
             // Maybe increase for iPad sizes / orientation changes via size class

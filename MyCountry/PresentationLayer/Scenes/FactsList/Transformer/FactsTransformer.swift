@@ -51,6 +51,7 @@ struct FactsTransformer: DataTransforming {
             
             var webImageUrl: URL?
             if let urlString = item.webImageUrl,
+                !urlString.isEmpty,
                 let url = URL(string: urlString) {
                 webImageUrl = url
             }

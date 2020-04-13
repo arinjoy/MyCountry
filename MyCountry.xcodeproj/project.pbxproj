@@ -62,6 +62,7 @@
 		0E7B0C5624440C1400119929 /* Accessibility+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5524440C1400119929 /* Accessibility+Helpers.swift */; };
 		0E7B0C5924441A8900119929 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5824441A8900119929 /* Shadow.swift */; };
 		0E7B0C5B2444542300119929 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5A2444542300119929 /* UIDevice+Extensions.swift */; };
+		0E7B0C5D24445E1800119929 /* FactsTransformerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B0C5C24445E1800119929 /* FactsTransformerSpec.swift */; };
 		0E843CB32442E1DB00FB4F21 /* SkeletonView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */; };
 		0E843CB52442E7FF00FB4F21 /* FactSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */; };
 /* End PBXBuildFile section */
@@ -144,6 +145,7 @@
 		0E7B0C5524440C1400119929 /* Accessibility+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Accessibility+Helpers.swift"; sourceTree = "<group>"; };
 		0E7B0C5824441A8900119929 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		0E7B0C5A2444542300119929 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
+		0E7B0C5C24445E1800119929 /* FactsTransformerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsTransformerSpec.swift; sourceTree = "<group>"; };
 		0E843CB22442E1DB00FB4F21 /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
 		0E843CB42442E7FF00FB4F21 /* FactSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactSkeletonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -486,6 +488,7 @@
 			children = (
 				0E36590324414DF800768256 /* FactsList+TestDoubles.swift */,
 				0E365905244150C800768256 /* FactsListPresenterSpec.swift */,
+				0E7B0C5C24445E1800119929 /* FactsTransformerSpec.swift */,
 			);
 			path = FactsList;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				0E3658E92440A15E00768256 /* FactsInteractorSpec.swift in Sources */,
 				0E36591B2441D00200768256 /* ImageLoadingServiceSpec.swift in Sources */,
 				0E3658DC2440694100768256 /* MockRequest.swift in Sources */,
+				0E7B0C5D24445E1800119929 /* FactsTransformerSpec.swift in Sources */,
 				0E3658E724409E5700768256 /* FactsFindingService+TestDoubles.swift in Sources */,
 				0E3658DE244069B400768256 /* MockSession.swift in Sources */,
 				0E3658CB24403FB500768256 /* FactsFindingRequestSpec.swift in Sources */,

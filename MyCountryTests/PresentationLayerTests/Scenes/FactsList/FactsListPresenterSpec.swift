@@ -106,14 +106,9 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(presenter.factsListDataSource.sections.count).toEventually(equal(1))
                         expect(presenter.factsListDataSource.sections.first?.items.count).toEventually(equal(2))
                         
-                        // Note: The transformer itself can be individually tested for all
-                        // nitty gritty trasnform logic
-                        
-                        let item = presenter.factsListDataSource.sections.first?.items.first
-                        expect(item?.title?.string).toEventually(equal("It's a magical land"))
-                        expect(item?.body?.string).toEventually(equal("We all live with wonders of natures everywhere.."))
-                        expect(item?.webImageUrl?.absoluteString).toEventually(equal("http://www.nz.com/free.png"))
-                        
+                        // Note: The presenter's transformer itself is individually tested
+                        // for all nitty gritty trasnformer logic of data item into presentation items.
+
                         expect(displaySpy.updateListCalled).toEventually(beTrue())
                     }
                     

@@ -151,7 +151,8 @@ final class FactsListPresenter: FactsListPresenting {
         // Update the display title with fact's subject name
         display?.setTitle(input.subjectName)
         
-        let dataSource = tranformer.transform(input: input.facts)
+        // Shuffle the facts so that we do not see them is same order
+        let dataSource = tranformer.transform(input: input.facts.shuffled())
         factsListDataSource = dataSource
         
         // Update the list UI on display as data source has been updated

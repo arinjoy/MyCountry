@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 /// An async operation that is cancellable and is used to download an image from an URL
 final class ImageLoadOperation: Operation {
@@ -26,8 +27,14 @@ final class ImageLoadOperation: Operation {
     /// The image url to load from
     private let imageWebUrl: URL
     
-    /// `weakly` attached interactor that has ability to load an image from network
-    weak var interactor: FactsInteracting!
+//    /// `weakly` attached interactor that has ability to load an image from network
+//    weak var interactor: FactsInteracting!
+    
+    private lazy var imageLoadingService: ImageLoadingClientType = {
+       return ImageLoadingServiceClient(dataSource: HTTPClient())
+    }()
+    
+    let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - Lifecycle
     
@@ -39,23 +46,48 @@ final class ImageLoadOperation: Operation {
 
         guard !isCancelled else { return }
         
-        guard let interactor = interactor else { return }
+        //guard let interactor = interactor else { return }
         
-        interactor.downloadImage(fromUrl: imageWebUrl, completion: { [weak self] imageData in
+        imageLoadingService.loadImageData(fromUrl: imageWebUrl)
+            .observeOn(MainScheduler.instance)
+            
+            // Add some delay to show asynchronous acitivity
+            // [Used for testing only, But never in production app]
+            .delay(2.0, scheduler: MainScheduler.instance)
+            
+            .subscribe(onSuccess: { imageData in
+                
+                // If image data is passed as `nil`, means image would be `nil`
         
-            guard let self = self else { return }
+                self.image = UIImage(data: imageData)
+                self.completionHandler?(self.image)
+                
+            }, onError: { _ in
+                // Any error is indicated as `nil` outcome as there is no
+                // custom error handling to manage here.
 
-            guard !self.isCancelled else { return }
-            
-            // If image data is passed as `nil`, means image would be `nil`
-            
-            var resutingImage: UIImage?
-            if let data = imageData {
-                resutingImage = UIImage(data: data)
-            }
-            
-            self.image = resutingImage
-            self.completionHandler?(self.image)
-        })
+                self.image = nil
+                self.completionHandler?(self.image)
+                
+            })
+            .disposed(by: disposeBag)
+        
+//        imageLoadingService.d
+//            .downloadImage(fromUrl: imageWebUrl, completion: { [weak self] imageData in
+//
+//            guard let self = self else { return }
+//
+//            guard !self.isCancelled else { return }
+//
+//            // If image data is passed as `nil`, means image would be `nil`
+//
+//            var resutingImage: UIImage?
+//            if let data = imageData {
+//                resutingImage = UIImage(data: data)
+//            }
+//
+//            self.image = resutingImage
+//            self.completionHandler?(self.image)
+//        })
     }
 }

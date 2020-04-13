@@ -49,8 +49,7 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         
         let presenter = FactsListPresenter(interactor:
             FactsInteractor(
-                factsFindingService: FactsFindingServiceClient(dataSource: HTTPClient()),
-                imageLoadingService: ImageLoadingServiceClient(dataSource: HTTPClient())
+                factsFindingService: FactsFindingServiceClient(dataSource: HTTPClient())
             )
         )
         presenter.display = self
@@ -228,7 +227,7 @@ extension FactsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? FactSummaryCell else { return }
         
-        let updateCellClosure: (UIImage?) -> Void = { [unowned self] (image) in
+        let updateCellClosure: (UIImage?) -> Void = { [unowned self] image in
             cell.update(withImage: image)
             self.presenter.removeImageLoadOperation(atIndexPath: indexPath)
         }

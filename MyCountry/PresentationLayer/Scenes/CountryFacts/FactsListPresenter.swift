@@ -101,10 +101,8 @@ final class FactsListPresenter: FactsListPresenting {
         if let item = factsListDataSource.item(atIndexPath: indexPath),
             let webUrl = item.webImageUrl {
             
-            // Create an image loader for the URL, attach interactor
-            // to it as dependency for underlying network loading (weakly attached)
+            // Create an image loader for the URL
             let imageLoader = ImageLoadOperation(withUrl: webUrl)
-            imageLoader.interactor = interactor
             
             // Attach completion closure when data arrives to update cell
             imageLoader.completionHandler = updateCellClosure

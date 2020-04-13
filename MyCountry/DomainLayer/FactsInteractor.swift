@@ -16,12 +16,6 @@ protocol FactsInteracting: class {
     /// - Parameters:
     ///   - completion: The completion callback with success/failure
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void))
-    
-    /// Downloads image data from an web url
-    /// - Parameters:
-    ///   - webUrl: webUrl to load the data from
-    ///   - completion: The completion callback with data if loaded. `nil` is passsed to indicate not loaded due to some error
-    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((Data?) -> Void))
 }
 
 final class FactsInteractor: FactsInteracting {
@@ -32,12 +26,9 @@ final class FactsInteractor: FactsInteracting {
     // MARK: - Private Propertires
     
     private let factsFindingService: FactsFindingClientType
-    private let imageLoadingService: ImageLoadingClientType
     
-    init(factsFindingService: FactsFindingClientType,
-         imageLoadingService: ImageLoadingClientType) {
+    init(factsFindingService: FactsFindingClientType) {
         self.factsFindingService = factsFindingService
-        self.imageLoadingService = imageLoadingService
     }
     
     func getFacts(completion: @escaping ((Result<FactsList, APIError>) -> Void)) {
@@ -79,25 +70,6 @@ final class FactsInteractor: FactsInteracting {
                   
                 // For all errors, just pass around the error to be handled by the receiver accordingly
                 completion(.failure(apiError))
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func downloadImage(fromUrl webUrl: URL, completion: @escaping ((Data?) -> Void)) {
-        
-        imageLoadingService.loadImageData(fromUrl: webUrl)
-            .observeOn(MainScheduler.instance)
-            
-            // Add some delay to show asynchronous acitivity
-            // [Used for testing only, But never in production app]
-            .delay(1.0, scheduler: MainScheduler.instance)
-            
-            .subscribe(onSuccess: { data in
-                completion(data)
-            }, onError: { _ in
-                // Any error is indicated as `nil` outcome as there is no
-                // custom error handling to manage here.
-                completion(nil)
             })
             .disposed(by: disposeBag)
     }

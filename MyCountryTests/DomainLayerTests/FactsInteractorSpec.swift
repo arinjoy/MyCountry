@@ -14,9 +14,7 @@ import RxSwift
 final class FactsInteractorSpec: QuickSpec {
     
     var factsResult: FactsList!
-    var imageResult: Data!
     var error: APIError!
-    var disposeBag: DisposeBag!
 
     override func spec() {
         
@@ -25,14 +23,8 @@ final class FactsInteractorSpec: QuickSpec {
         describe("Facts Interactor Spec") {
             
             beforeEach {
-                self.disposeBag = DisposeBag()
-            }
-            
-            afterEach {
                 self.factsResult = nil
-                self.imageResult = nil
                 self.error = nil
-                self.disposeBag = nil
             }
             
             context("Facts finding") {
@@ -40,8 +32,7 @@ final class FactsInteractorSpec: QuickSpec {
                 it("should call Facts Finding service correctly") {
                     
                     let serviceSpy = FactsFindingServiceSpy()
-                    factsInteractor = FactsInteractor(factsFindingService: serviceSpy,
-                                                      imageLoadingService: ImageLoadingServiceDummy())
+                    factsInteractor = FactsInteractor(factsFindingService: serviceSpy)
                     
                     // when
                     factsInteractor.getFacts(completion: { _ in })
@@ -55,8 +46,7 @@ final class FactsInteractorSpec: QuickSpec {
                     it("should return the error correctly for any general error") {
                         
                         let serviceMock = FactsFindingServiceMock(returningError: true, error: APIError.server)
-                        factsInteractor = FactsInteractor(factsFindingService: serviceMock,
-                                                          imageLoadingService: ImageLoadingServiceDummy())
+                        factsInteractor = FactsInteractor(factsFindingService: serviceMock)
                         
                         // when
                         factsInteractor.getFacts(completion: { result in
@@ -81,8 +71,7 @@ final class FactsInteractorSpec: QuickSpec {
                     it("should map the result correctly") {
                         
                         let serviceMock = FactsFindingServiceMock(returningError: false)
-                        factsInteractor = FactsInteractor(factsFindingService: serviceMock,
-                                                          imageLoadingService: ImageLoadingServiceDummy())
+                        factsInteractor = FactsInteractor(factsFindingService: serviceMock)
                         
                         // when
                         factsInteractor.getFacts(completion: { result in
@@ -97,7 +86,7 @@ final class FactsInteractorSpec: QuickSpec {
                         // then
                         expect(self.error).toEventually(beNil())
                         
-                        expect(self.factsResult).toNotEventually(beNil())
+                        expect(self.factsResult).toNotEventually(beNil(), timeout: 1.5)
                         let factsList = self.factsResult
                         expect(factsList?.title).toEventually(equal("About New Zealand"))
                         expect(factsList?.facts.isEmpty).toEventually(beFalse())
@@ -120,8 +109,7 @@ final class FactsInteractorSpec: QuickSpec {
                         
                         let serviceMock = FactsFindingServiceMock(returningError: false,
                                                                   returningResponse: self.factsListWithEmptySubjectName())
-                        factsInteractor = FactsInteractor(factsFindingService: serviceMock,
-                                                          imageLoadingService: ImageLoadingServiceDummy())
+                        factsInteractor = FactsInteractor(factsFindingService: serviceMock)
                         
                         // when
                         factsInteractor.getFacts(completion: { result in
@@ -136,16 +124,14 @@ final class FactsInteractorSpec: QuickSpec {
                         // then
                         expect(self.factsResult).toEventually(beNil())
                         
-                        expect(self.error).toNotEventually(beNil())
-                        expect(self.error).toEventually(equal(.unknown))
+                        expect(self.error).toEventually(equal(.unknown), timeout: 1.5)
                     }
                 
                     it("should return unknown error when facts array is empty") {
                         
                         let serviceMock = FactsFindingServiceMock(returningError: false,
                                                                   returningResponse: self.factsListWithEmptyFacts())
-                        factsInteractor = FactsInteractor(factsFindingService: serviceMock,
-                                                          imageLoadingService: ImageLoadingServiceDummy())
+                        factsInteractor = FactsInteractor(factsFindingService: serviceMock)
                         
                         // when
                         factsInteractor.getFacts(completion: { result in
@@ -158,62 +144,10 @@ final class FactsInteractorSpec: QuickSpec {
                         })
                         
                         // then
-                        expect(self.factsResult).toEventually(beNil())
+                        expect(self.factsResult).toEventually(beNil(), timeout: 1.5)
                     
-                        expect(self.error).toNotEventually(beNil())
-                        expect(self.error).toEventually(equal(.unknown))
-                    }
-                }
-            }
-            
-            context("Image loading") {
-                
-                it("should call Image loading service correctly") {
-                    
-                    let serviceSpy = ImageLoadingServiceSpy()
-                    factsInteractor = FactsInteractor(factsFindingService: FactsFindingServiceDummy(),
-                                                      imageLoadingService: serviceSpy)
-                    
-                    // when
-                    factsInteractor.downloadImage(fromUrl: self.sampleURL(), completion: { _ in })
-                    
-                    // then
-                    expect(serviceSpy.loadImageDataCalled).toEventually(beTrue())
-                }
-                
-                context("Image loading service succeeds") {
-                
-                    it("should return image data correctly") {
-                        
-                        let serviceMock = ImageLoadingServiceMock(returningError: false, returningResponse: self.sampleImageData())
-                        factsInteractor = FactsInteractor(factsFindingService: FactsFindingServiceDummy(),
-                                                          imageLoadingService: serviceMock)
-                        
-                        // when
-                        factsInteractor.downloadImage(fromUrl: self.sampleURL(), completion: { imageResult in
-                            self.imageResult = imageResult
-                        })
-                        
-                        // then
-                        expect(self.imageResult).toNotEventually(beNil())
-                    }
-                }
-                
-                context("Image loading service fails") {
-                
-                    it("should return a `nil` image") {
-                        
-                        let serviceMock = ImageLoadingServiceMock(returningError: true)
-                        factsInteractor = FactsInteractor(factsFindingService: FactsFindingServiceDummy(),
-                                                          imageLoadingService: serviceMock)
-                        
-                        // when
-                        factsInteractor.downloadImage(fromUrl: self.sampleURL(), completion: { imageResult in
-                            self.imageResult = imageResult
-                        })
-                        
-                        // then
-                        expect(self.imageResult).toEventually(beNil())
+                        expect(self.error).toNotEventually(beNil(), timeout: 1.5)
+                        expect(self.error).toEventually(equal(.unknown), timeout: 1.5)
                     }
                 }
             }
@@ -228,16 +162,5 @@ final class FactsInteractorSpec: QuickSpec {
     
     private func factsListWithEmptyFacts() -> FactsList {
         return FactsList(title: "Subject", facts: [])
-    }
-
-    private func sampleURL() -> URL {
-        return URL(string: "http://a.b.c/object.png")!
-    }
-    
-    private func sampleImageData() -> Data {
-        guard let data = UIImage(named: "placeholder")?.pngData() else {
-            fatalError("Data cannot be constucted")
-        }
-        return data
     }
 }

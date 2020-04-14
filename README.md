@@ -9,7 +9,7 @@ App Goal:
 - Apply some custom styling and theming
 - Add support for iOS 13 **Dark mode** (if iOS 13 only, uses default light mode for iOS 11 and 12)
 
-![](/Screenshots/light-mode-potrait.gif "")
+![](/Screenshots/iphone-potrait.gif "")
 
 
 A simple list of facts are saved in a dropbox location that serves as a GET api call for JSON api response. 
@@ -112,8 +112,9 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 ### Giphy
 
 ![](/Screenshots/iphone-8-narrow-screen.gif "")
-![](/Screenshots/light-to-dark-mode.gif "")
+![](/Screenshots/dark-to-light-mode.gif "")
 ![](/Screenshots/ipad-potrait-to-landscape.gif "")
+
 
 
 **Error Handling**
@@ -126,14 +127,16 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 ##### iPhone  screens:
 
-![](/Screenshots/iPhone-8-potrait.png "")
-![](/Screenshots/iPhone-11-pro-max-landscape.png "")
+![](/Screenshots/potrait-one.png "")
+![](/Screenshots/potrait-two.png "")
 ![](/Screenshots/light-mode-loading.png "")
+![](/Screenshots/iphone-landscape.png "")
 
 ##### iPad  screens:
   
-![](/Screenshots/iPad-pro-potrait.png "")
-![](/Screenshots/iPad-pro-landscape.png "")
+![](/Screenshots/ipad-potrait.png "")
+![](/Screenshots/ipad-dark.png "")
+
  
 
  

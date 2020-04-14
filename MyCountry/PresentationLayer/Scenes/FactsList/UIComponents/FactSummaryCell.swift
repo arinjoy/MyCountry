@@ -45,7 +45,16 @@ final class FactSummaryCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var titleAndImageStackView: UIStackView = {
+    private lazy var leftStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    private lazy var rightStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -120,13 +129,15 @@ final class FactSummaryCell: UITableViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
         if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            titleAndImageStackView.axis = .horizontal
+            leftStackView.axis = .horizontal
         } else {
-            titleAndImageStackView.axis = .vertical
+            leftStackView.axis = .vertical
         }
         
         if UIDevice.current.isIPhone {
             fullStackView.axis = traitCollection.verticalSizeClass == .compact ? .horizontal : .vertical
+        } else {
+            fullStackView.axis  = .horizontal
         }
     }
     
@@ -139,11 +150,24 @@ final class FactSummaryCell: UITableViewCell {
             make.height.equalTo(Constants.imageHeight)
         }
                 
-        titleAndImageStackView.addArrangedSubview(titleLabel)
-        titleAndImageStackView.addArrangedSubview(thumbImageView)
-                
-        fullStackView.addArrangedSubview(titleAndImageStackView)
-        fullStackView.addArrangedSubview(bodyLabel)
+        if UIDevice.current.isIPhone {
+            leftStackView.addArrangedSubview(titleLabel)
+            leftStackView.addArrangedSubview(thumbImageView)
+            
+            rightStackView.addArrangedSubview(bodyLabel)
+        } else {
+            leftStackView.addArrangedSubview(thumbImageView)
+            
+            rightStackView.addArrangedSubview(titleLabel)
+            rightStackView.addArrangedSubview(bodyLabel)
+        }
+        
+        // The full stack contains `Left` and `Right` stack
+        // The those stacks may contain different elements based on device sizes
+        fullStackView.addArrangedSubview(leftStackView)
+        fullStackView.addArrangedSubview(rightStackView)
+        
+        fullStackView.axis = UIDevice.current.isIPhone ? .vertical : .horizontal
         
         containerView.addSubview(fullStackView)
         
@@ -162,8 +186,6 @@ final class FactSummaryCell: UITableViewCell {
             make.top.equalTo(contentView.snp.top).offset(Constants.cellMargin / 2)
             make.bottom.equalTo(contentView.snp.bottom).offset(-Constants.cellMargin / 2)
         }
-        
-        fullStackView.axis = UIDevice.current.isNarrowIPhone ? .vertical : .horizontal
     }
     
     private func showImageLoadingShimmer() {
@@ -205,14 +227,16 @@ extension FactSummaryCell {
         // If image URL exists, then only show the image, else hide it.
         thumbImageView.isHidden = item.webImageUrl == nil
         showImageLoadingShimmer()
-        
-        titleAndImageStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
-        
-        if bodyLabel.isHidden {
-            titleAndImageStackView.axis = .horizontal
+             
+        if UIDevice.current.isIPhone {
+            leftStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
+            rightStackView.isHidden = bodyLabel.isHidden
         } else {
-            titleAndImageStackView.axis = .vertical
+            leftStackView.isHidden = thumbImageView.isHidden
+            rightStackView.isHidden = titleLabel.isHidden && bodyLabel.isHidden
         }
+        
+        fullStackView.layoutIfNeeded()
 
         /**
          Note: Although each elements are individually configured for accessibility, Table view cell would apply automatic combining

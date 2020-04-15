@@ -26,6 +26,7 @@ final class FactSummaryCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.titleFont
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -34,6 +35,7 @@ final class FactSummaryCell: UITableViewCell {
     
     private lazy var bodyLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = true
         label.font = Theme.bodyFont
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -42,6 +44,7 @@ final class FactSummaryCell: UITableViewCell {
     
     private lazy var thumbImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = true
         imageView.contentMode = .scaleAspectFit
         imageView.isSkeletonable = true
         return imageView
@@ -79,7 +82,7 @@ final class FactSummaryCell: UITableViewCell {
     private enum Constants {
         static let screenWidth: CGFloat = UIScreen.main.bounds.width
         
-        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 4 : Constants.screenWidth / 3
+        static let imageWidth: CGFloat = UIDevice.current.isIPhone ? Constants.screenWidth / 3 : Constants.screenWidth / 4
         static let imageHeight: CGFloat = Constants.imageWidth * 3/4
         
         static let cellMargin: CGFloat = UIDevice.current.isIPhone ? 16 : 32
@@ -128,21 +131,6 @@ final class FactSummaryCell: UITableViewCell {
         thumbImageView.image = nil
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        
-        if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            leftStackView.axis = .horizontal
-        } else {
-            leftStackView.axis = .vertical
-        }
-        
-        if UIDevice.current.isIPhone {
-            fullStackView.axis = traitCollection.verticalSizeClass == .compact ? .horizontal : .vertical
-        } else {
-            fullStackView.axis  = .horizontal
-        }
-    }
-    
     // MARK: - Private Helpers
     
     private func buildUIAndApplyConstraints() {
@@ -155,13 +143,19 @@ final class FactSummaryCell: UITableViewCell {
         if UIDevice.current.isIPhone {
             leftStackView.addArrangedSubview(titleLabel)
             leftStackView.addArrangedSubview(thumbImageView)
+            leftStackView.axis = .vertical
+            leftStackView.alignment = .center
             
             rightStackView.addArrangedSubview(bodyLabel)
+            rightStackView.alignment = .fill
         } else {
             leftStackView.addArrangedSubview(thumbImageView)
+            leftStackView.alignment = .fill
             
             rightStackView.addArrangedSubview(titleLabel)
             rightStackView.addArrangedSubview(bodyLabel)
+            rightStackView.axis = .vertical
+            rightStackView.alignment = .center
         }
         
         // The full stack contains `Left` and `Right` stack
@@ -170,6 +164,7 @@ final class FactSummaryCell: UITableViewCell {
         fullStackView.addArrangedSubview(rightStackView)
         
         fullStackView.axis = UIDevice.current.isIPhone ? .vertical : .horizontal
+        fullStackView.alignment = .center
         
         containerView.addSubview(fullStackView)
         

@@ -14,6 +14,9 @@ protocol FactsListPresenting: class {
     /// The tranformed list data source with presentation items to bind to a list UI
     var factsListDataSource: FactsListDataSource { get set }
     
+    /// A cache/store of images loaded for facts to bind to the list cells
+    var factsImageStore: [IndexPath: UIImage?] { get set }
+    
     /// Will load facts of something to be diplayed
     ///
     /// - Parameter isRereshingNeeded: Whether data refreshing is needed
@@ -38,15 +41,4 @@ protocol FactsListPresenting: class {
     /// - Parameters:
     ///   - indexPath: indexPath to add the loader
     func removeImageLoadOperation(atIndexPath indexPath: IndexPath)
-    
-    /// Will smarlty handle an image loading opeation for a specified indexPath.
-    /// - If image has been loaded, just return to the image and remove the loader
-    /// - Else, update the closure to it as image loading completion handler
-    /// - If loader does not already exist for the indexPath, just add a new loader
-    /// - By default returns `nil` but returns image only when it has been loaded
-    /// - Parameters:
-    ///   - indexPath: indexPath for handling the loader
-    ///   - updateCellClosure: A closure to execute when image loading is completed
-    @discardableResult
-    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage?
 }

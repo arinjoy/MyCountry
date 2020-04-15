@@ -44,14 +44,13 @@ final class FactsListPresenterSpec: QuickSpec {
                 var displaySpy: FactsListDisplaySpy!
                 
                 beforeEach {
+                    interactorMock = FactsInteractorMock()
+                    presenter = FactsListPresenter(interactor: interactorMock)
                     displaySpy = FactsListDisplaySpy()
+                    presenter.display = displaySpy
                 }
                 
                 it("should show loading indicator when facts are being loaded with refreshing needed") {
-                    
-                    interactorMock = FactsInteractorMock()
-                    presenter = FactsListPresenter(interactor: interactorMock)
-                    presenter.display = displaySpy
                     
                     // when
                     presenter.loadFacts(isRereshingNeeded: true)
@@ -63,10 +62,6 @@ final class FactsListPresenterSpec: QuickSpec {
                 }
                 
                 it("should not show loading indicator when facts are being loaded without refreshing needed") {
-                    
-                    interactorMock = FactsInteractorMock()
-                    presenter = FactsListPresenter(interactor: interactorMock)
-                    presenter.display = displaySpy
                     
                     // when
                     presenter.loadFacts(isRereshingNeeded: false)
@@ -94,6 +89,17 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
                         
                         expect(displaySpy.setTitleCalled).toEventually(beTrue())
+                    }
+                    
+                    it("should update the view title") {
+                        
+                        // when
+                        presenter.loadFacts(isRereshingNeeded: true)
+                        
+                        // then
+                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
+                        
+                        expect(displaySpy.title).toEventually(equal("About New Zealand"))
                     }
                     
                     it("should update the list eventually") {
@@ -140,13 +146,25 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(displaySpy.hideLoadingIndicatorCalled).toEventually(beTrue())
                     }
                     
-                    it("should not update the list eventually") {
+                    it("should update the view title while loading facts") {
                         
                         // when
                         presenter.loadFacts(isRereshingNeeded: true)
                         
                         // then
-                        expect(displaySpy.updateListCalled).toNotEventually(beTrue())
+                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
+                        
+                        expect(displaySpy.title).toEventually(equal("Finding facts..."))
+                    }
+                    
+                    it("should update the list with empty data to clear out any old data set") {
+                        
+                        // when
+                        presenter.loadFacts(isRereshingNeeded: true)
+                        
+                        // then
+                        expect(displaySpy.updateListCalled).toEventually(beTrue())
+                        expect(presenter.factsListDataSource.sections.first?.items.count).toEventually(equal(0))
                     }
                     
                     it("should show a generic error via display") {

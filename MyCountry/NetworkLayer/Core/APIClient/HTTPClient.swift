@@ -11,9 +11,6 @@ import RxSwift
 
 final class HTTPClient: ObservableDataSource {
     
-    /// The shared singleton instance
-    static let shared = HTTPClient()
-    
     // MARK: - Private properties
     
     private let defaultSession: URLSession
@@ -53,9 +50,6 @@ final class HTTPClient: ObservableDataSource {
                 case .failure(let error):
                     single(.error(error))
                 }
-                
-                // After reloading facts list, remove any existing cached resonses (possibly for images)
-                self?.cache.removeAllCachedResponses()
             }
             
             self.dataTask?.resume()
@@ -73,7 +67,7 @@ final class HTTPClient: ObservableDataSource {
             
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 
-                // Check if the data already exists in the cache
+                // Check if the data already exists in the URL cache fot this image URL request
                 if let data = self?.cache.cachedResponse(for: request.urlRequest)?.data {
                     
                     single(.success(data))
@@ -110,43 +104,7 @@ final class HTTPClient: ObservableDataSource {
                     self?.dataTask?.resume()
                 }
             }
-            
-//            // Check if the data exists for this image url that is going to be downloaded
-//            if let url = request.urlRequest.url,
-//                let imageDataInCache = self.cache.object(forKey: url.absoluteString as NSString) as? Data {
-//
-//                single(.success(imageDataInCache))
-//
-//            } else {
-//
-//                self.dataTask?.cancel()
-//
-//                self.dataTask = self.defaultSession.dataTask(with: request.urlRequest) { [weak self] data, response, error in
-//
-//                    defer {
-//                      self?.dataTask = nil
-//                    }
-//
-//                    if let httpURLResponse = response as? HTTPURLResponse,
-//                        httpURLResponse.statusCode == 200,
-//                        let mimeType = response?.mimeType,
-//                        mimeType.hasPrefix("image"),
-//                        error == nil,
-//                        let responseData = data {
-//
-//                        // Set the data into the cache
-//                        self?.cache.setObject(responseData as AnyObject, forKey: (request.urlRequest.url?.absoluteString ?? "") as NSString)
-//
-//                        single(.success(responseData))
-//
-//                    } else {
-//                        single(.error(APIError.unknown))
-//                    }
-//                }
-//
-//                self.dataTask?.resume()
-//            }
-            
+                
             return Disposables.create()
         }
     }

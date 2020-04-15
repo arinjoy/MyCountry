@@ -27,9 +27,8 @@ final class ImageLoadOperation: Operation {
     /// The image url to load from
     private let imageWebUrl: URL
         
-    /// The image loading service is made from the same shared HTTPClient instance
     private lazy var imageLoadingService: ImageLoadingClientType = {
-        return ImageLoadingServiceClient(dataSource: HTTPClient.shared)
+        return ImageLoadingServiceClient(dataSource: HTTPClient())
     }()
     
     let disposeBag: DisposeBag = DisposeBag()
@@ -49,7 +48,7 @@ final class ImageLoadOperation: Operation {
             
             // Add some delay to show asynchronous acitivity
             // [Used for testing only, But never in production app]
-            .delay(2.0, scheduler: MainScheduler.instance)
+            .delay(1.0, scheduler: MainScheduler.instance)
             
             .subscribe(onSuccess: { [weak self] imageData in
                 

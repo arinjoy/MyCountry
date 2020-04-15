@@ -25,9 +25,9 @@ final class FactsListPresenter: FactsListPresenting {
     /// The data tranforming helper
     private let tranformer = FactsTransformer()
     
-    private lazy var imageLoadingQueue = OperationQueue()
-    private lazy var imageLoadingOperations = [IndexPath: ImageLoadOperation]()
-    
+    private var imageLoadingQueue = OperationQueue()
+    private var imageLoadingOperations: [IndexPath: ImageLoadOperation] = [:]
+ 
     /// The RxSwift disposing swift
     private let disposeBag: DisposeBag = DisposeBag()
     
@@ -39,7 +39,8 @@ final class FactsListPresenter: FactsListPresenting {
     
     // MARK: - FactsListPresenting
     
-    lazy var factsListDataSource: FactsListDataSource = FactsListDataSource()
+    var factsListDataSource: FactsListDataSource = FactsListDataSource()
+    var factsImageStore: [IndexPath: UIImage?] = [:]
     
     func loadFacts(isRereshingNeeded: Bool) {
         
@@ -48,14 +49,19 @@ final class FactsListPresenter: FactsListPresenting {
         // If refreshing is not needed, early exit with rendering based on preloaded data
         guard isRereshingNeeded else {
             if let factsList = factsListData {
-                handleUpdatingDataSource(factsList)
+                handleUpdatingListDataSource(factsList.facts)
             }
             return
         }
         
         self.display?.setTitle(StringKeys.MyCountryApp.viewLoadingTitle.localized())
-        
         self.display?.showLoadingIndicator()
+        
+        // Clear any existing image loading operations and image store
+        self.resetAllImageLoaders()
+        
+        // Clear out the list display with empty list for smotth re-rendering
+        self.handleUpdatingListDataSource([])
         
         interactor.getFacts { [weak self] result in
             
@@ -66,7 +72,13 @@ final class FactsListPresenter: FactsListPresenting {
             switch result {
             case .success(let factsList):
                 
-               self.handleUpdatingDataSource(factsList)
+            // Update the display title with fact's subject name
+            self.display?.setTitle(factsList.subjectName)
+                
+            // Keep a copy of the received data to load from it in
+            // future if refreshinng is not needed
+            self.factsListData = factsList
+            self.handleUpdatingListDataSource(factsList.facts)
                 
             case .failure(let error):
                 
@@ -111,6 +123,7 @@ final class FactsListPresenter: FactsListPresenting {
     }
     
     func removeImageLoadOperation(atIndexPath indexPath: IndexPath) {
+
         // If there's a image loader for this index path and we don't
         // need it any more, then Cancel and Dispose
         if let imageLoader = imageLoadingOperations[indexPath] {
@@ -119,43 +132,22 @@ final class FactsListPresenter: FactsListPresenting {
         }
     }
     
-    @discardableResult
-    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage? {
-        
-        // Try to find an existing image loader
-        if let imageLoader = imageLoadingOperations[indexPath] {
-            if let loadedImage = imageLoader.image {
-                // If image is loaded already, just remove the loader and return the image as outcome
-                removeImageLoadOperation(atIndexPath: indexPath)
-                return loadedImage
-            } else {
-                // If the image has not been loaded yet,
-                // so add the completion closure to update the cell once the data arrives
-                imageLoader.completionHandler = updateCellClosure
-            }
-        } else {
-            // Need to create the image loader at this index path
-            addImageLoadOperation(atIndexPath: indexPath, updateCellClosure: updateCellClosure)
-        }
-        return nil
-    }
-    
     // MARK: - Private Helpers
     
-    private func handleUpdatingDataSource(_ input: FactsList) {
-        
-        // Keep a copy of the received data to load from it in
-        // future if refreshinng is not needed
-        factsListData = input
-
-        // Update the display title with fact's subject name
-        display?.setTitle(input.subjectName)
+    private func handleUpdatingListDataSource(_ facts: [Fact]) {
         
         // Shuffle the facts so that we do not see them is same order
-        let dataSource = tranformer.transform(input: input.facts.shuffled())
+        let dataSource = tranformer.transform(input: facts.shuffled())
         factsListDataSource = dataSource
         
         // Update the list UI on display as data source has been updated
         display?.updateList()
+    }
+    
+    private func resetAllImageLoaders() {
+        for (indexPath, _) in imageLoadingOperations {
+            removeImageLoadOperation(atIndexPath: indexPath)
+        }
+        factsImageStore = [:]
     }
 }

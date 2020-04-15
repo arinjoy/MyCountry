@@ -67,12 +67,11 @@ final class FactsListDisplaySpy: FactsListDisplay {
 
 final class FactsListPresenterDummy: FactsListPresenting {
     var factsListDataSource: FactsListDataSource = FactsListDataSource()
+    var factsImageStore: [IndexPath: UIImage?] = [:]
     func viewDidBecomeReady() {}
     func loadFacts(isRereshingNeeded: Bool) {}
     func addImageLoadOperation(atIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) {}
     func removeImageLoadOperation(atIndexPath indexPath: IndexPath) {}
-    @discardableResult
-    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage? { return nil }
 }
 
 // MARK: - Presenter Spy
@@ -84,9 +83,9 @@ final class FactsListPresenterSpy: FactsListPresenting {
     var loadFactsCalled: Bool = false
     var addImageLoadOperationCalled: Bool = false
     var removeImageLoadOperationCalled: Bool = false
-    var handleImageLoadOperationCalled: Bool = false
     
     var factsListDataSource: FactsListDataSource = FactsListDataSource()
+    var factsImageStore: [IndexPath: UIImage?] = [:]
     
     func viewDidBecomeReady() {
         viewDidBecomeReadyCalled = true
@@ -102,12 +101,6 @@ final class FactsListPresenterSpy: FactsListPresenting {
     
     func removeImageLoadOperation(atIndexPath indexPath: IndexPath) {
         removeImageLoadOperationCalled = true
-    }
-    
-    @discardableResult
-    func handleImageLoadOperation(forIndexPath indexPath: IndexPath, updateCellClosure: ((UIImage?) -> Void)?) -> UIImage? {
-        handleImageLoadOperationCalled = true
-        return nil
     }
 }
 

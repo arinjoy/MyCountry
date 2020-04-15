@@ -88,8 +88,6 @@ final class FactsListViewController: UIViewController, FactsListDisplay {
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.prefetchDataSource = self
-        
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshCountryData), for: .valueChanged)
         
@@ -179,25 +177,8 @@ extension FactsListViewController: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.configure(withPresentationItem: item)        
+        cell.configure(withPresentationItem: item)
         return cell
-    }
-}
-
-// MARK: - UITableViewDataSourcePrefetching
-
-extension FactsListViewController: UITableViewDataSourcePrefetching {
-
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            presenter.addImageLoadOperation(atIndexPath: indexPath, updateCellClosure: nil)
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            presenter.removeImageLoadOperation(atIndexPath: indexPath)
-        }
     }
 }
 
@@ -225,19 +206,20 @@ extension FactsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
         guard let cell = cell as? FactSummaryCell else { return }
         
-        let updateCellClosure: (UIImage?) -> Void = { [unowned self] image in
+        // Check if image store has this image loaded already, then update using the same
+        if let image = presenter.factsImageStore[indexPath] {
             cell.update(withImage: image)
-            self.presenter.removeImageLoadOperation(atIndexPath: indexPath)
+        } else {
+            // Else, add image loading operation and attch the image update closure
+            let updateCellClosure: (UIImage?) -> Void = { [weak self] image in
+                cell.update(withImage: image)
+                self?.presenter.factsImageStore[indexPath] = image
+                self?.presenter.removeImageLoadOperation(atIndexPath: indexPath)
+            }
+            presenter.addImageLoadOperation(atIndexPath: indexPath, updateCellClosure: updateCellClosure)
         }
-        
-        if let loadedImage = presenter.handleImageLoadOperation(forIndexPath: indexPath, updateCellClosure: updateCellClosure) {
-            cell.update(withImage: loadedImage)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        presenter.removeImageLoadOperation(atIndexPath: indexPath)
     }
 }

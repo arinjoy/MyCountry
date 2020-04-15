@@ -15,6 +15,8 @@ final class FactSummaryCell: UITableViewCell {
     static let cellReuseIdentifier = "FactSummaryCell"
     static let approximateRowHeight: CGFloat = 120
     
+    var imageLoaded: Bool = false
+    
     // MARK: - UI Element Properties
     
     private lazy var containerView: UIView = {
@@ -122,8 +124,8 @@ final class FactSummaryCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        showImageLoadingShimmer()
+
+        thumbImageView.image = nil
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -191,12 +193,10 @@ final class FactSummaryCell: UITableViewCell {
     private func showImageLoadingShimmer() {
         // Image would be loaded later on, but may be `nil` image due to
         // some loading error due to incorrect URLs, 404 not found etc.
-        // In those cases placeholder image will be shown.
         
         thumbImageView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient,
                                                     animation: skeletonAnimation,
                                                     transition: .crossDissolve(0.25))
-        thumbImageView.image = UIImage(named: "placeholder")
     }
     
     private func hideImageLoadingShimmer() {
@@ -226,7 +226,11 @@ extension FactSummaryCell {
         
         // If image URL exists, then only show the image, else hide it.
         thumbImageView.isHidden = item.webImageUrl == nil
+        
+        // Start the shimmer on it and make image loading flag to be false as this will
+        // be set to true once the loading is finished via update image method asynchronously
         showImageLoadingShimmer()
+        imageLoaded = false
              
         if UIDevice.current.isIPhone {
             leftStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
@@ -252,13 +256,24 @@ extension FactSummaryCell {
     }
     
     func update(withImage image: UIImage?) {
-        if let image = image {
-            DispatchQueue.main.async {
-                self.thumbImageView.image = image
-                self.hideImageLoadingShimmer()
-            }
-        } else {
-            hideImageLoadingShimmer()
+        
+        guard !imageLoaded else { return }
+        
+        self.imageLoaded = true
+        
+        DispatchQueue.main.async {
+            
+            self.hideImageLoadingShimmer()
+            
+            let targetImage = image ?? UIImage(named: "placeholder")
+            
+            UIView.transition(with: self.thumbImageView,
+                              duration: 0.25,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                  self.thumbImageView.image = targetImage
+                              },
+                              completion: nil)
         }
     }
 }

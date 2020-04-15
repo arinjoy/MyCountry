@@ -169,7 +169,7 @@ final class FactsInteractorMock: FactsInteracting {
     private static func sampleFactsList() -> FactsList {
         return FactsList(
             subjectName: "About New Zealand",
-            facts: [Fact(title: "It's a magical land",
+            facts: [Fact(title: "Pure Middle Earth",
                          description: "We all live with wonders of natures everywhere..",
                          webImageUrl: "http://www.nz.com/free.png"),
                     Fact(title: "Kiwi",

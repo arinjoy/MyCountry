@@ -136,8 +136,9 @@ final class FactsListPresenter: FactsListPresenting {
     
     private func handleUpdatingListDataSource(_ facts: [Fact]) {
         
-        // Shuffle the facts so that we do not see them is same order
-        let dataSource = tranformer.transform(input: facts.shuffled())
+        let sortedFacts = facts.sorted { $0.title ?? "" < $1.title ?? "" }
+        
+        let dataSource = tranformer.transform(input: sortedFacts)
         factsListDataSource = dataSource
         
         // Update the list UI on display as data source has been updated

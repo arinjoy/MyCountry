@@ -101,6 +101,16 @@ final class FactsListPresenterSpec: QuickSpec {
                         
                         expect(displaySpy.title).toEventually(equal("About New Zealand"))
                     }
+                                   
+                    it("should update the facts title correctly") {
+                        
+                        // when
+                        presenter.loadFacts(isRereshingNeeded: true)
+                        
+                        // then
+                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
+                        expect(displaySpy.title).toEventually(equal("About New Zealand"))
+                    }
                     
                     it("should update the list eventually") {
                         
@@ -111,21 +121,19 @@ final class FactsListPresenterSpec: QuickSpec {
                         expect(presenter.factsListDataSource.sections.isEmpty).toEventually(beFalse())
                         expect(presenter.factsListDataSource.sections.count).toEventually(equal(1))
                         expect(presenter.factsListDataSource.sections.first?.items.count).toEventually(equal(2))
+                                      
+                        let firstItem = presenter.factsListDataSource.sections.first?.items.first
+                        let secondItem = presenter.factsListDataSource.sections.first?.items.last
+                        
+                        // Facts items are sorted based on their titles (logic lives inside presenter)
+                        expect(firstItem?.title?.string).toEventually(equal("Kiwi"))
+                        expect(secondItem?.title?.string).toEventually(equal("Pure Middle Earth"))
                         
                         // Note: The presenter's transformer itself is individually tested
-                        // for all nitty gritty trasnformer logic of data item into presentation items.
+                        // for all nitty gritty trasnformer logic of data item into presentation items
+                        // inside `FactsTransformerSpec`
 
                         expect(displaySpy.updateListCalled).toEventually(beTrue())
-                    }
-                    
-                    it("should update the facts title correctly") {
-                        
-                        // when
-                        presenter.loadFacts(isRereshingNeeded: true)
-                        
-                        // then
-                        expect(displaySpy.setTitleCalled).toEventually(beTrue())
-                        expect(displaySpy.title).toEventually(equal("About New Zealand"))
                     }
                 }
                 

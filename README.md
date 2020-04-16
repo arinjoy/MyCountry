@@ -9,7 +9,7 @@ App Goal:
 - Apply some custom styling and theming
 - Add support for iOS 13 **Dark mode** (if iOS 13 only, uses default light mode for iOS 11 and 12)
 
-![](/Screenshots/iphone-potrait.gif "")
+![](/Screenshots/ipad-potrait-mode.gif "")
 
 
 A simple list of facts are saved in a dropbox location that serves as a GET api call for JSON api response. 
@@ -108,13 +108,37 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
  
 
 ## App Demo
- 
-### Giphy
 
-![](/Screenshots/iphone-8-narrow-screen.gif "")
-![](/Screenshots/dark-to-light-mode.gif "")
-![](/Screenshots/ipad-potrait-to-landscape.gif "")
+#### *Smaller* iPhone Screens - (non plus size)
+- Same layout in both potrait and landscape mode
 
+![](/Screenshots/iphone-8-potrait-mode.png "")
+![](/Screenshots/iphone-8-landscape.png "")
+
+
+##### *Larger* iPhone Screens - (plus size)
+- Compact (i.e. narrow) layout in *potrait* mode
+- Regular (i.e. wide) layout in *landscape* mode
+  
+![](/Screenshots/iphone-8plus-potrait.png "")
+  
+![](/Screenshots/iphone-8plus-landscape.png "")
+  
+![](/Screenshots/larger-iphone-landscpae-orientation-update.gif "")
+
+*Light / Dark mode toggles*
+
+![](/Screenshots/light-dark-mode-toggles.gif "")
+
+
+#### iPad screens
+- Regular (i.e. wide) layout in *both* potrait and landscape mode
+
+![](/Screenshots/larger-ipad-landscape.png "")
+  
+![](/Screenshots/ipad-potrait-mode.gif "")
+  
+![](/Screenshots/ipad-orientation-update.gif "")
 
 
 **Error Handling**
@@ -124,21 +148,6 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 ![](/Screenshots/network-error.png "")
 ![](/Screenshots/generic-error.png "")
  
-
-##### iPhone  screens:
-
-![](/Screenshots/potrait-one.png "")
-![](/Screenshots/potrait-two.png "")
-![](/Screenshots/light-mode-loading.png "")
-![](/Screenshots/iphone-landscape.png "")
-
-##### iPad  screens:
-  
-![](/Screenshots/ipad-potrait.png "")
-![](/Screenshots/ipad-dark.png "")
-
- 
-
  
 
 

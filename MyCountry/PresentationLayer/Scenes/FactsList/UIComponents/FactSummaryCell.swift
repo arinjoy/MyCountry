@@ -10,6 +10,34 @@ import UIKit
 import SnapKit
 import SkeletonView
 
+private enum ConstraintsMode {
+    
+    /// Used for narrow width layout (eg. All iPhones execept Plus, Xs Max sizes)
+    case compact
+    
+    /// Used for wide width layout (eg. iPhones with Plus, Xs Max sizes and all iPads sizes)
+    case regular
+}
+
+/**
+ A table view cell that supports two types of cell layouts (compact and regular) based on size classes and orientation updates.
+ 
+ ConstraintsMode: -> Compact (narrow)
+ -----------
+ |  title  |
+ -----------
+ |  image  |
+ -----------
+ |  body   |
+ -----------
+ 
+ ConstraintsMode: -> Regular (wide)
+ -------------------
+ |  image  | title |
+ -------------------
+           |  body |
+ -------------------
+ */
 final class FactSummaryCell: UITableViewCell {
     
     static let cellReuseIdentifier = "FactSummaryCell"
@@ -50,7 +78,7 @@ final class FactSummaryCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var leftStackView: UIStackView = {
+    private lazy var firstStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -59,7 +87,7 @@ final class FactSummaryCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var rightStackView: UIStackView = {
+    private lazy var secondStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -68,6 +96,8 @@ final class FactSummaryCell: UITableViewCell {
         return stackView
     }()
     
+    /// The full stack contains `first` and `second` stacks. The those stacks may contain different
+    /// elements based on device size detection and orientation updates handled dynamically
     private lazy var fullStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -87,6 +117,9 @@ final class FactSummaryCell: UITableViewCell {
         
         static let cellMargin: CGFloat = UIDevice.current.isIPhone ? 16 : 32
     }
+    
+    /// A local helper variable that keeps the status of the currently active constraints mode
+    private var currentlyActiveConstraintMode: ConstraintsMode = .compact
     
     // MARK: - Helper private properties
     
@@ -131,40 +164,88 @@ final class FactSummaryCell: UITableViewCell {
         thumbImageView.image = nil
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+                
+        if UIDevice.current.isIPhone {
+            
+            clearElementsFromStacks()
+            
+            if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .compact {
+                activateRegularConstraints()
+            } else {
+                activateCompactConstraints()
+            }
+        }
+        
+        fullStackView.layoutIfNeeded()
+    }
+    
     // MARK: - Private Helpers
+        
+    /// Activates/layout constraints for horizontally compact (i.e. narrow width) environments (such as iPhone in portait mode)
+    private func activateRegularConstraints() {
+        currentlyActiveConstraintMode = .regular
+        
+        firstStackView.addArrangedSubview(thumbImageView)
+        firstStackView.alignment = .fill
+        
+        secondStackView.addArrangedSubview(titleLabel)
+        secondStackView.addArrangedSubview(bodyLabel)
+        secondStackView.axis = .vertical
+        secondStackView.alignment = .center
+        
+        fullStackView.axis = .horizontal
+        
+        shrinkHiddenImageAreaIfNeeded()
+    }
+    
+    /// Activates/layouts constraints for horizontally regular (i.e wider width) environments (such as iPhone landscape or all iPad modes)
+    private func activateCompactConstraints() {
+        currentlyActiveConstraintMode = .compact
+        
+        firstStackView.addArrangedSubview(titleLabel)
+        firstStackView.addArrangedSubview(thumbImageView)
+        firstStackView.axis = .vertical
+        firstStackView.alignment = .center
+        
+        secondStackView.addArrangedSubview(bodyLabel)
+        secondStackView.alignment = .fill
+        
+        fullStackView.axis = .vertical
+        
+        shrinkHiddenImageAreaIfNeeded()
+    }
+    
+    /// Clears each lowest level elements from their relevant enclosing stack views
+    private func clearElementsFromStacks() {
+        for view in [titleLabel, thumbImageView, bodyLabel] {
+            firstStackView.removeArrangedSubview(view)
+            secondStackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+    }
     
     private func buildUIAndApplyConstraints() {
         
         thumbImageView.snp.makeConstraints { make in
-            make.width.equalTo(Constants.imageWidth)
+            make.width.equalTo(Constants.imageWidth).priority(999)
             make.height.equalTo(Constants.imageHeight)
         }
-                
+        
         if UIDevice.current.isIPhone {
-            leftStackView.addArrangedSubview(titleLabel)
-            leftStackView.addArrangedSubview(thumbImageView)
-            leftStackView.axis = .vertical
-            leftStackView.alignment = .center
-            
-            rightStackView.addArrangedSubview(bodyLabel)
-            rightStackView.alignment = .fill
+            if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .compact {
+                activateRegularConstraints()
+            } else {
+                activateCompactConstraints()
+            }
         } else {
-            leftStackView.addArrangedSubview(thumbImageView)
-            leftStackView.alignment = .fill
-            
-            rightStackView.addArrangedSubview(titleLabel)
-            rightStackView.addArrangedSubview(bodyLabel)
-            rightStackView.axis = .vertical
-            rightStackView.alignment = .center
+            activateRegularConstraints()
         }
-        
-        // The full stack contains `Left` and `Right` stack
-        // The those stacks may contain different elements based on device sizes
-        fullStackView.addArrangedSubview(leftStackView)
-        fullStackView.addArrangedSubview(rightStackView)
-        
-        fullStackView.axis = UIDevice.current.isIPhone ? .vertical : .horizontal
-        fullStackView.alignment = .center
+                
+        // First and Second stack views are constructed from the above method call
+        fullStackView.addArrangedSubview(firstStackView)
+        fullStackView.addArrangedSubview(secondStackView)
         
         containerView.addSubview(fullStackView)
         
@@ -172,7 +253,7 @@ final class FactSummaryCell: UITableViewCell {
             make.leading.equalTo(containerView.snp.leading).offset(Constants.cellMargin)
             make.trailing.equalTo(containerView.snp.trailing).offset(-Constants.cellMargin)
             make.top.equalTo(containerView.snp.top).offset(Constants.cellMargin)
-            make.bottom.equalTo(containerView.snp.bottom).offset(-Constants.cellMargin)
+            make.bottom.equalTo(containerView.snp.bottom).offset(-Constants.cellMargin).priority(999)
         }
         
         contentView.addSubview(containerView)
@@ -182,6 +263,14 @@ final class FactSummaryCell: UITableViewCell {
             make.trailing.equalTo(contentView.snp.trailing).offset(-Constants.cellMargin)
             make.top.equalTo(contentView.snp.top).offset(Constants.cellMargin / 2)
             make.bottom.equalTo(contentView.snp.bottom).offset(-Constants.cellMargin / 2)
+        }
+    }
+    
+    private func shrinkHiddenImageAreaIfNeeded() {
+        if currentlyActiveConstraintMode == .regular && thumbImageView.isHidden && !titleLabel.isHidden && !bodyLabel.isHidden {
+            firstStackView.isHidden = true
+        } else {
+            firstStackView.isHidden =  false
         }
     }
     
@@ -222,19 +311,14 @@ extension FactSummaryCell {
         // If image URL exists, then only show the image, else hide it.
         thumbImageView.isHidden = item.webImageUrl == nil
         
+        // Also shrinks the image area to hide it in wider (i.e. regular) mode
+        shrinkHiddenImageAreaIfNeeded()
+
         // Start the shimmer on it and make image loading flag to be false as this will
-        // be set to true once the loading is finished via update image method asynchronously
+        // be set to true once the loading is finished via update image method asynchronously.
         showImageLoadingShimmer()
         imageLoaded = false
              
-        if UIDevice.current.isIPhone {
-            leftStackView.isHidden = titleLabel.isHidden && thumbImageView.isHidden
-            rightStackView.isHidden = bodyLabel.isHidden
-        } else {
-            leftStackView.isHidden = thumbImageView.isHidden
-            rightStackView.isHidden = titleLabel.isHidden && bodyLabel.isHidden
-        }
-        
         fullStackView.layoutIfNeeded()
 
         /**

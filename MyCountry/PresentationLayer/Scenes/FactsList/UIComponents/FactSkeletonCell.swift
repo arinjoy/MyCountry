@@ -142,12 +142,12 @@ final class FactSkeletonCell: UITableViewCell {
         
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp.leading).offset(Constants.cellMargin)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-Constants.cellMargin)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-Constants.cellMargin).priority(999)
             make.centerY.equalTo(contentView.snp.centerY)
         }
         
         contentView.snp.makeConstraints { make in
-            make.height.equalTo(24 + 12 + Constants.imageHeight + Constants.cellMargin)
+            make.height.equalTo(24 + 12 + Constants.imageHeight + Constants.cellMargin).priority(999)
         }
     }
 }

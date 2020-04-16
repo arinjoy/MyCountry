@@ -111,7 +111,6 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 #### *Smaller* iPhone Screens - (non plus size)
 - Same layout in both potrait and landscape mode
-
 ![](/Screenshots/iphone-8-potrait-mode.png "")
 ![](/Screenshots/iphone-8-landscape.png "")
 
@@ -119,11 +118,9 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 ##### *Larger* iPhone Screens - (plus size)
 - Compact (i.e. narrow) layout in *potrait* mode
 - Regular (i.e. wide) layout in *landscape* mode
-  
+
 ![](/Screenshots/iphone-8plus-potrait.png "")
-  
 ![](/Screenshots/iphone-8plus-landscape.png "")
-  
 ![](/Screenshots/larger-iphone-landscpae-orientation-update.gif "")
 
 *Light / Dark mode toggles*

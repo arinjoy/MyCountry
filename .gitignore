@@ -62,5 +62,7 @@ playground.xcworkspace
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
+
+# Ideally build should not be checked inside Repo. But doing it here to save time for others to get it straightway
 Carthage/Checkouts
 Carthage/Build/

@@ -18,17 +18,17 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 ## Installation
 
-- Xcode **11.4**(required) with Swift 5.0
-- Clean `/DerivedData` folder if any
-- Run the Carthage (version 0.33 or later) update command to install the dependent libraries in the `Cartfile`
- > **`carthage update --platform iOS`** 
-- Then clean and build the project in Xcode
+- **Xcode 11.4**(required) with Swift 5.0
+- For **convenience**  `Carthage/Checkouts` and `Carthage/Build` folders are checked in the repo. So if you are downloading/cloning this project, those are `ready` and `Xcode 11.4` should compile as long as `Swift 5.0` is available.
+ - **Optional step**: Run the Carthage (version 0.32 or later) update command to `fresh install` the dependent libraries in the `Cartfile`
+    > **`carthage update --platform iOS`** 
+- Clean and build the project in Xcode or `/DerivedData` folder if needed
 
-## 3rd Party Libraries
- - **`RxSwift`** - to make `Reactive` binding of API call and responses 😇
- - **`SnapKit`** - to snap auto layout constraints with ease 🤓
- - **`SkeletonView`** - to show loading shimmers... 🙈
- - **`Quick`** - to unit test as much as possible 🤫
+## 3rd Party Libraries Used
+ - **`RxSwift`** - to make `Reactive` binding of API calls and responses 😇
+ - **`SnapKit`** - to snap auto layout constraints with ease 🤓 
+ - **`SkeletonView`** - to show loading shimmers... 🙈 
+ - **`Quick`** - to unit test as much as possible 👨🏽‍🔬🧪
  - **`Nimble`** - to pair with Quick for easy syntaxing 👬
 
 ## Clean Architecture

@@ -1,0 +1,9 @@
+{
+  "commitish" : "v8.0.7",
+  "iOS" : [
+    {
+      "name" : "Nimble",
+      "hash" : "edc09ca8051853a661fb8b4e3bca80f5aab9c9110e76eaefefebe0ef26220cbf"
+    }
+  ]
+}

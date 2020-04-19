@@ -109,26 +109,40 @@ A simple list of facts are saved in a dropbox location that serves as a GET api 
 
 ## App Demo
 
-#### *Smaller* iPhone Screens - (non plus size)
+### *Smaller* iPhone Screens - (non plus size)
 - Same layout in both potrait and landscape mode
+
 ![](/Screenshots/iphone-8-potrait-mode.png "")
+
 ![](/Screenshots/iphone-8-landscape.png "")
 
 
-##### *Larger* iPhone Screens - (plus size)
+### *Larger* iPhone Screens - (plus size)
 - Compact (i.e. narrow) layout in *potrait* mode
 - Regular (i.e. wide) layout in *landscape* mode
 
 ![](/Screenshots/iphone-8plus-potrait.png "")
-![](/Screenshots/iphone-8plus-landscape.png "")
-![](/Screenshots/larger-iphone-landscpae-orientation-update.gif "")
 
-*Light / Dark mode toggles*
+![](/Screenshots/iphone-8plus-landscape.png "")
+
+![](/Screenshots/larger-iphone-landscape-orientation-update.gif "")
+
+
+
+#### **Loading Shimmers**
+
+![](/Screenshots/iphone-loading-shimmer.gif "")
+
+![](/Screenshots/iphone-loading-shimmer-landscape.gif "")
+
+
+
+#### **Light / Dark mode toggles**
 
 ![](/Screenshots/light-dark-mode-toggles.gif "")
 
 
-#### iPad screens
+## **iPad screens**
 - Regular (i.e. wide) layout in *both* potrait and landscape mode
 
 ![](/Screenshots/larger-ipad-landscape.png "")

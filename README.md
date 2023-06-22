@@ -1,32 +1,38 @@
 ```mermaid
 sequenceDiagram
+    participant  RaceItemCellUI
     participant RaceListUI
     participant ViewModel
     participant Interactor
+    participant NetworkSevice
     participant URLSession
+
+    RaceListUI->>ViewModel: Reactively bound to interactor's reponse
     
     ViewModel->>Interactor: Get the desired lists of Race domain models (reactively)
-    Interactor->>ViewModel: Great, listen to my open loop publisher
     loop Polling
         Interactor->>Interactor: Every 5 min to get the full list from Network
     end
     loop Polling
         Interactor->>Interactor: Every 50 sec to sort the latest on top and discard older races
     end
-    Interactor->>ViewModel: Latest sorted list of domain models every 50 sec (reactively)
+
     Interactor->>NetworkSevice: Get the full max list of RaceSummary data models
     NetworkSevice->>URLSession: Get the full raw JSON data as HTTP request
     URLSession->>NetworkSevice: HTTP response body
     loop Mapping
         NetworkSevice->>NetworkSevice:  Apply custom JSON decoding into data models and error mapping
     end
+
     NetworkSevice->>Interactor: full List of RaceSummary every 5 min
-    RaceListUI->>ViewModel: Reactively bound to interactor's reponse
+    Interactor->>ViewModel: Latest sorted list of domain models every 50 sec (reactively)
+
     ViewModel->>RaceListUI: Pass back list of RaceItemViewModels
     loop Transformation
         ViewModel->>ViewModel: Transform & cook raw domain level data into UI friendly RaceItemViewModel
     end
-   RaceListUI->>RaceItemCellUI: Pass back RaceItemViewModel to cell UI
+
+   RaceListUI->>RaceItemCellUI: SwiftUI binding of RaceItemViewModel
 ```
 
 

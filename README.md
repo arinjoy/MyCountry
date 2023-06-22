@@ -1,7 +1,10 @@
 ```mermaid
 sequenceDiagram
+    participant RaceListUI
     participant ViewModel
     participant Interactor
+    participant URLSession
+    
     ViewModel->>Interactor: Get the desired lists of Race domain models (reactively)
     Interactor->>ViewModel: Great, listen to my open loop publisher
     loop Polling
